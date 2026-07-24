@@ -8,6 +8,9 @@ export default defineConfig({
     include: ['react-is', 'recharts', 'leaflet', 'react-leaflet']
   },
   build: {
+    target: 'es2022',
+    cssCodeSplit: true,
+    assetsInlineLimit: 4096,
     rollupOptions: {
       output: {
         manualChunks: {
