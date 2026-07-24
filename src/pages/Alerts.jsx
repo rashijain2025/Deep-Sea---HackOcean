@@ -1,49 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, MapPin, Clock, Shield } from 'lucide-react';
+import { AlertTriangle, MapPin, Clock, ShieldAlert, CheckCircle, Radio, Filter, AlertCircle } from 'lucide-react';
 
-const alerts = [
+const alertsData = [
   {
-    title: 'Plastic Waste Detected',
-    location: 'Arabian Sea · 18.7°N 68.2°E',
-    severity: 'high',
-    detected: '2 min ago',
-    action: 'Deploy cleanup drone to sector A-14',
-  },
-  {
-    title: 'Coral Bleaching Warning',
-    location: 'Lakshadweep Reef · 10.5°N 72.6°E',
-    severity: 'medium',
-    detected: '18 min ago',
-    action: 'Continuous thermal monitoring',
-  },
-  {
-    title: 'Oil Spill Alert',
+    id: 'alt-1',
+    title: 'Crude Oil Slick Spill Detected',
     location: 'Gulf of Mexico · 25.1°N 90.2°W',
     severity: 'critical',
     detected: '42 min ago',
-    action: 'Alert coast guard, mobilize containment',
+    action: 'Alert Coast Guard, mobilize containment booms',
+    impactScore: 94,
+    sector: 'Zone C-12 Drilling Lane',
   },
   {
+    id: 'alt-2',
+    title: 'Illegal Commercial Trawling Activity',
+    location: 'Protected Sanctuary B4 · 14.2°N 71.8°E',
+    severity: 'critical',
+    detected: '12 min ago',
+    action: 'Dispatch Coast Guard patrol vessel',
+    impactScore: 90,
+    sector: 'Sanctuary Boundary B4',
+  },
+  {
+    id: 'alt-3',
+    title: 'High Plastic Debris Accumulation',
+    location: 'Arabian Sea · 18.7°N 68.2°E',
+    severity: 'high',
+    detected: '2 min ago',
+    action: 'Deploy cleanup drone fleet to sector A-14',
+    impactScore: 78,
+    sector: 'Sector A-14',
+  },
+  {
+    id: 'alt-4',
     title: 'Illegal Fishing Activity',
     location: 'South Pacific · 12.4°S 165.9°W',
     severity: 'high',
     detected: '1 h ago',
-    action: 'Notify marine patrol',
+    action: 'Notify regional marine enforcement',
+    impactScore: 75,
+    sector: 'Pelagic Zone 8',
   },
   {
-    title: 'Ghost Net Detected',
+    id: 'alt-5',
+    title: 'Coral Thermal Bleaching Anomaly',
+    location: 'Lakshadweep Reef · 10.5°N 72.6°E',
+    severity: 'medium',
+    detected: '18 min ago',
+    action: 'Continuous thermal hydrophone monitoring',
+    impactScore: 58,
+    sector: 'Barrier Reef Slope',
+  },
+  {
+    id: 'alt-6',
+    title: 'Ghost Fishing Net Entanglement',
     location: 'North Sea · 56.2°N 3.1°E',
     severity: 'medium',
     detected: '3 h ago',
-    action: 'Schedule retrieval mission',
-  },
-  {
-    title: 'Algal Bloom Rising',
-    location: 'Baltic Sea · 58.9°N 20.1°E',
-    severity: 'low',
-    detected: '5 h ago',
-    action: 'Increase satellite sampling',
+    action: 'Schedule subsea retrieval mission',
+    impactScore: 52,
+    sector: 'Subsea Ridge Node 3',
   },
 ];
 
@@ -56,48 +74,169 @@ const fadeUp = {
 };
 
 export default function Alerts() {
+  const [severityFilter, setSeverityFilter] = useState('all');
+  const [acknowledgedIds, setAcknowledgedIds] = useState([]);
+
+  const filteredAlerts = alertsData.filter(a => {
+    return severityFilter === 'all' || a.severity === severityFilter;
+  });
+
+  const handleAcknowledge = (id) => {
+    if (!acknowledgedIds.includes(id)) {
+      setAcknowledgedIds([...acknowledgedIds, id]);
+    }
+  };
+
+  const criticalCount = alertsData.filter(a => a.severity === 'critical').length;
+  const highCount = alertsData.filter(a => a.severity === 'high').length;
+  const mediumCount = alertsData.filter(a => a.severity === 'medium').length;
+
   return (
     <div className="page-content" id="alerts-page">
       <div className="page-header">
-        <div className="label">Ocean Watchtower</div>
-        <h1>Live Alerts</h1>
-        <p>AI-triaged incidents streamed from drones, satellites and citizen-science stations.</p>
+        <div className="label">Live Incident Watchtower</div>
+        <h1>Live Incident Alerts</h1>
+        <p>Prioritized threat stream triaged from subsea hydrophones, drone fleets, and satellite telemetry.</p>
       </div>
 
+      {/* Severity Summary Bar */}
+      <div className="grid-3 section mb-6">
+        <div className="saas-card p-4 flex items-center justify-between border-red-500/30">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400">
+              <ShieldAlert size={20} />
+            </div>
+            <div>
+              <div className="text-xs font-mono text-slate-400 uppercase">CRITICAL INCIDENTS</div>
+              <div className="text-xl font-bold font-display text-red-400">{criticalCount} Active</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="saas-card p-4 flex items-center justify-between border-amber-500/30">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400">
+              <AlertTriangle size={20} />
+            </div>
+            <div>
+              <div className="text-xs font-mono text-slate-400 uppercase">HIGH SEVERITY ALERTS</div>
+              <div className="text-xl font-bold font-display text-amber-400">{highCount} Active</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="saas-card p-4 flex items-center justify-between border-yellow-500/30">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400">
+              <AlertCircle size={20} />
+            </div>
+            <div>
+              <div className="text-xs font-mono text-slate-400 uppercase">MEDIUM MONITORING</div>
+              <div className="text-xl font-bold font-display text-yellow-400">{mediumCount} Tracked</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Filter Tabs */}
+      <div className="section mb-6">
+        <div className="saas-card p-4 flex items-center gap-2 flex-wrap">
+          <span className="text-xs font-mono font-semibold text-slate-400 flex items-center gap-1.5 mr-2">
+            <Filter size={14} className="text-cyan-400" />
+            FILTER SEVERITY:
+          </span>
+          {[
+            { id: 'all', label: 'All Incidents' },
+            { id: 'critical', label: 'Critical Only' },
+            { id: 'high', label: 'High Priority' },
+            { id: 'medium', label: 'Medium Risk' },
+          ].map(f => (
+            <button
+              key={f.id}
+              onClick={() => setSeverityFilter(f.id)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold uppercase tracking-wider transition-all ${
+                severityFilter === f.id
+                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 shadow-[0_0_12px_rgba(0,243,255,0.2)]'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Alerts Grid */}
       <motion.div
         className="grid-2 section"
         initial="hidden"
         animate="visible"
         style={{ paddingBottom: 60 }}
       >
-        {alerts.map((a, i) => (
-          <motion.div key={i} className="alert-card" variants={fadeUp} custom={i}>
-            <div className="alert-card-header">
-              <div className="alert-card-title">
-                <div className="alert-icon">
-                  <AlertTriangle size={18} />
+        {filteredAlerts.map((a, i) => {
+          const isAck = acknowledgedIds.includes(a.id);
+          return (
+            <motion.div 
+              key={a.id} 
+              className={`saas-card p-5 border-l-4 ${
+                a.severity === 'critical' ? 'border-l-red-500' : a.severity === 'high' ? 'border-l-amber-500' : 'border-l-yellow-500'
+              }`}
+              variants={fadeUp} 
+              custom={i}
+            >
+              <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-lg ${a.severity === 'critical' ? 'bg-red-500/10 text-red-400' : 'bg-amber-500/10 text-amber-400'}`}>
+                    <AlertTriangle size={18} />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-white font-display">{a.title}</h3>
+                    <div className="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5 font-mono">
+                      <MapPin size={11} className="text-cyan-400" />
+                      <span>{a.location}</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3>{a.title}</h3>
-                  <p><MapPin size={12} /> {a.location}</p>
+
+                <span className={`saas-badge saas-badge-${a.severity === 'critical' ? 'critical' : a.severity === 'high' ? 'warning' : 'info'}`}>
+                  {a.severity.toUpperCase()}
+                </span>
+              </div>
+
+              <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800/80 mb-4 space-y-1 text-xs">
+                <div className="text-slate-400 font-semibold flex items-center justify-between">
+                  <span>RECOMMENDED ACTION DISPATCH:</span>
+                  <span className="font-mono text-cyan-400 font-bold">{a.sector}</span>
                 </div>
+                <div className="text-slate-200">{a.action}</div>
               </div>
-              <span className={`badge ${a.severity}`}>
-                {a.severity.charAt(0).toUpperCase() + a.severity.slice(1)}
-              </span>
-            </div>
-            <div className="alert-card-details">
-              <div className="alert-detail">
-                <div className="detail-label"><Clock size={11} /> Detected</div>
-                <div className="detail-value">{a.detected}</div>
+
+              <div className="flex justify-between items-center text-xs text-slate-400 pt-2 border-t border-slate-800/60">
+                <span className="font-mono flex items-center gap-1">
+                  <Clock size={12} className="text-slate-500" /> Detected: {a.detected}
+                </span>
+
+                <button
+                  onClick={() => handleAcknowledge(a.id)}
+                  disabled={isAck}
+                  className={`saas-button-${isAck ? 'secondary' : 'primary'} text-xs`}
+                >
+                  {isAck ? (
+                    <>
+                      <CheckCircle size={13} className="text-emerald-400" />
+                      Acknowledged
+                    </>
+                  ) : (
+                    <>
+                      <Radio size={13} />
+                      Acknowledge & Mobilize
+                    </>
+                  )}
+                </button>
               </div>
-              <div className="alert-detail">
-                <div className="detail-label"><Shield size={11} /> Recommended</div>
-                <div className="detail-value">{a.action}</div>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </motion.div>
     </div>
   );

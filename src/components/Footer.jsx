@@ -35,6 +35,7 @@ export default function Footer() {
             <li><Link to="/map">Ocean Map</Link></li>
             <li><Link to="/analytics">Analytics</Link></li>
             <li><Link to="/predictions">AI Predictions</Link></li>
+            <li><Link to="/reports">Reports</Link></li>
           </ul>
         </div>
 

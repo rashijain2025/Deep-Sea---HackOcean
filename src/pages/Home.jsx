@@ -1,47 +1,47 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin, Zap, Radar, Shield, Activity } from 'lucide-react';
+import { ArrowRight, MapPin, Zap, Radar, Shield, Activity, Radio, Cpu, BarChart3, Database } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const metrics = [
-  { label: 'Ocean Health', value: '92%' },
-  { label: 'Plastic Hotspots', value: '124' },
-  { label: 'Active Alerts', value: '16' },
-  { label: 'Marine Species', value: '482' },
-  { label: 'Monitoring Regions', value: '58' },
+  { label: 'Ocean Health Score', value: '92/100', status: '+2.1% this week' },
+  { label: 'Plastic Hotspots', value: '124', status: 'Monitored 24/7' },
+  { label: 'Active Alerts', value: '16', status: '4 Critical' },
+  { label: 'Marine Species Tracked', value: '482', status: 'IUCN Verified' },
+  { label: 'Monitoring Stations', value: '58', status: '100% Operational' },
 ];
 
 const features = [
   {
-    icon: <Zap size={22} />,
-    title: 'Real-time Sonar AI',
-    desc: 'Millisecond detection of plastic, oil, and ghost nets across 58 monitoring zones.',
+    icon: <Zap size={22} className="text-cyan-400" />,
+    title: 'Autonomous Sonar & Optics AI',
+    desc: 'Sub-second classification of microplastics, crude oil plumes, and ghost nets across 58 subsea monitoring stations.',
   },
   {
-    icon: <Radar size={22} />,
-    title: 'Biodiversity Tracking',
-    desc: '482 species identified and cataloged with population health scoring.',
+    icon: <Radar size={22} className="text-emerald-400" />,
+    title: 'IUCN Biodiversity Census',
+    desc: '482 endangered and protected species tracked using non-invasive acoustic tags and subsea vision neural nets.',
   },
   {
-    icon: <Shield size={22} />,
-    title: 'Predictive Guardianship',
-    desc: 'Neural forecasts warn regional agencies 30 days before pollution peaks.',
+    icon: <Shield size={22} className="text-amber-400" />,
+    title: 'Predictive Risk Forecasting',
+    desc: 'Neural forecasting models warn environmental agencies 30 days prior to predicted runoff and thermal bleaching peaks.',
   },
 ];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 25 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
   }),
 };
 
 export default function Home() {
   return (
     <div className="page-content" id="home-page">
-      {/* Hero */}
+      {/* Hero Section */}
       <motion.section
         className="hero"
         initial="hidden"
@@ -49,38 +49,30 @@ export default function Home() {
         variants={fadeUp}
       >
         <motion.div className="hero-badge" variants={fadeUp} custom={0}>
-          <Activity size={14} />
-          Powered by AI · Trusted by 58 marine agencies
+          <Activity size={14} className="text-cyan-400 animate-pulse" />
+          <span>ENTERPRISE OCEAN INTELLIGENCE PLATFORM · V4.8</span>
         </motion.div>
 
         <motion.h1 variants={fadeUp} custom={1}>
-          Protecting Our <span className="highlight">Oceans</span><br />
-          with AI
+          Safeguarding Earth's <span className="highlight">Oceans</span><br />
+          with Predictive AI
         </motion.h1>
 
         <motion.p variants={fadeUp} custom={2}>
-          Real-time deep ocean pollution & marine biodiversity monitoring — for the people defending 71% of our planet.
+          Autonomous deep sea telemetry, plastic accumulation mapping, and marine biodiversity protection — engineered for Governments, Researchers, and Environmental Protection Agencies.
         </motion.p>
 
         <motion.div className="hero-buttons" variants={fadeUp} custom={3}>
-          <Link to="/dashboard" className="btn-primary">
-            Explore Dashboard <ArrowRight size={18} />
+          <Link to="/dashboard" className="saas-button-primary text-sm px-6 py-3">
+            Open Command Dashboard <ArrowRight size={16} />
           </Link>
-          <Link to="/map" className="btn-secondary">
-            <MapPin size={18} /> View Ocean Map
+          <Link to="/map" className="saas-button-secondary text-sm px-6 py-3">
+            <MapPin size={16} /> Launch Ocean Map
           </Link>
-        </motion.div>
-
-        <motion.div
-          className="hero-pulse-icon"
-          variants={fadeUp}
-          custom={4}
-        >
-          <Activity size={40} color="#00E5FF" />
         </motion.div>
       </motion.section>
 
-      {/* Metrics Strip */}
+      {/* Real-time Telemetry Metrics Strip */}
       <motion.div
         className="metrics-strip"
         initial="hidden"
@@ -90,40 +82,51 @@ export default function Home() {
         {metrics.map((m, i) => (
           <motion.div
             key={m.label}
-            className="metric-item"
+            className="saas-card p-4 text-center"
             variants={fadeUp}
             custom={i}
           >
-            <div className="metric-label">{m.label}</div>
-            <div className="metric-value">{m.value}</div>
-            <div className="metric-live">
-              <span className="metric-live-dot" /> Live
+            <div className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider mb-1">
+              {m.label}
+            </div>
+            <div className="text-2xl font-bold font-display text-white mb-1">
+              {m.value}
+            </div>
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              {m.status}
             </div>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Features */}
+      {/* Enterprise Platform Capability Features */}
       <motion.section
         className="features-section"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-50px' }}
       >
-        <motion.div className="section-title" variants={fadeUp} custom={0}>
-          Ocean Intelligence System
+        <motion.div className="text-center mb-8" variants={fadeUp} custom={0}>
+          <span className="text-xs font-mono text-cyan-400 font-bold uppercase tracking-widest block mb-1">
+            CORE CAPABILITIES
+          </span>
+          <h2 className="text-2xl font-bold text-white font-display">
+            Autonomous Deep Sea Intelligence Framework
+          </h2>
         </motion.div>
+
         <div className="features-grid">
           {features.map((f, i) => (
             <motion.div
               key={f.title}
-              className="feature-card"
+              className="saas-card p-6"
               variants={fadeUp}
               custom={i + 1}
             >
-              <div className="feature-icon">{f.icon}</div>
-              <h3>{f.title}</h3>
-              <p>{f.desc}</p>
+              <div className="feature-icon mb-4">{f.icon}</div>
+              <h3 className="text-lg font-bold text-white font-display mb-2">{f.title}</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">{f.desc}</p>
             </motion.div>
           ))}
         </div>

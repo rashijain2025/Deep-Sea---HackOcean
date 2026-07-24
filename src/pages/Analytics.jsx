@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Sparkles, TrendingUp, ShieldAlert, Cpu, BarChart3 } from 'lucide-react';
 import {
   AreaChart, Area, LineChart, Line, BarChart, Bar,
   PieChart, Pie, Cell, RadarChart, Radar, PolarGrid,
@@ -9,8 +10,8 @@ import {
 } from 'recharts';
 
 const tooltipStyle = {
-  backgroundColor: 'rgba(4,28,50,0.95)',
-  border: '1px solid rgba(0,229,255,0.15)',
+  backgroundColor: 'rgba(3,8,20,0.95)',
+  border: '1px solid rgba(0,243,255,0.25)',
   borderRadius: '8px',
   color: '#fff',
   fontSize: '12px',
@@ -86,16 +87,36 @@ export default function Analytics() {
   return (
     <div className="page-content" id="analytics-page">
       <div className="page-header">
-        <div className="label">Deep Analytics</div>
+        <div className="label">Deep Telemetry Analytics</div>
         <h1>Ocean Data Analytics</h1>
-        <p>Comprehensive analysis across all monitoring stations and AI models.</p>
+        <p>Comprehensive environmental synthesis across all monitoring stations, satellite feeds, and subsea nodes.</p>
+      </div>
+
+      {/* Actionable Executive Insights Bar */}
+      <div className="section mb-6">
+        <div className="saas-card p-4 flex items-center justify-between flex-wrap gap-4 border-cyan-500/30">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+              <Sparkles size={20} className="animate-spin" style={{ animationDuration: '10s' }} />
+            </div>
+            <div>
+              <div className="text-xs font-mono font-bold text-cyan-400 uppercase">AI ANALYTICS INSIGHT</div>
+              <div className="text-sm text-slate-200">
+                Plastic accumulation in Arabian Sea & Gulf of Mexico peaks in Q3. Subsea drone deployment mitigated 18% of coastal spill spread.
+              </div>
+            </div>
+          </div>
+          <div className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/30">
+            CONFIDENCE: 98.4%
+          </div>
+        </div>
       </div>
 
       {/* Row 1 */}
       <motion.div className="grid-2 section" initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <motion.div className="chart-card" variants={fadeUp} custom={0}>
-          <h3>Pollution Trends</h3>
-          <div className="chart-subtitle">12-month analysis by pollutant type</div>
+        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
+          <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trends</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">12-month rolling window (Tons of Debris Detected)</div>
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={pollutionData}>
               <defs>
@@ -116,9 +137,9 @@ export default function Analytics() {
           </ResponsiveContainer>
         </motion.div>
 
-        <motion.div className="chart-card" variants={fadeUp} custom={1}>
-          <h3>Ocean Health Index</h3>
-          <div className="chart-subtitle">Global composite score over 12 months</div>
+        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
+          <h3 className="text-base font-bold text-white font-display mb-1">Ocean Health Index</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">Global composite score over 12 months</div>
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={oceanHealthData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
@@ -133,9 +154,9 @@ export default function Analytics() {
 
       {/* Row 2 */}
       <motion.div className="grid-2 section" initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <motion.div className="chart-card" variants={fadeUp} custom={0}>
-          <h3>Species Population</h3>
-          <div className="chart-subtitle">Population estimates over time</div>
+        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
+          <h3 className="text-base font-bold text-white font-display mb-1">Species Population Growth</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">Telemetry counts for tracked populations</div>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={speciesData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
@@ -150,9 +171,9 @@ export default function Analytics() {
           </ResponsiveContainer>
         </motion.div>
 
-        <motion.div className="chart-card" variants={fadeUp} custom={1}>
-          <h3>Risk Analysis</h3>
-          <div className="chart-subtitle">Regional threat assessment</div>
+        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
+          <h3 className="text-base font-bold text-white font-display mb-1">Regional Threat Analysis</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">Subsea risk index matrix</div>
           <ResponsiveContainer width="100%" height={280}>
             <RadarChart data={riskData}>
               <PolarGrid stroke="rgba(255,255,255,0.1)" />
@@ -170,9 +191,9 @@ export default function Analytics() {
 
       {/* Row 3 */}
       <motion.div className="grid-2 section" initial="hidden" whileInView="visible" viewport={{ once: true }} style={{ paddingBottom: 60 }}>
-        <motion.div className="chart-card" variants={fadeUp} custom={0}>
-          <h3>Plastic Distribution</h3>
-          <div className="chart-subtitle">By type classification</div>
+        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
+          <h3 className="text-base font-bold text-white font-display mb-1">Plastic Debris Distribution</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">By classification breakdown (%)</div>
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
               <Pie data={plasticDist} cx="50%" cy="50%" outerRadius={100} innerRadius={55} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false} fontSize={11}>
@@ -185,9 +206,9 @@ export default function Analytics() {
           </ResponsiveContainer>
         </motion.div>
 
-        <motion.div className="chart-card" variants={fadeUp} custom={1}>
-          <h3>Coral Health Statistics</h3>
-          <div className="chart-subtitle">Health scores by reef system</div>
+        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
+          <h3 className="text-base font-bold text-white font-display mb-1">Coral Barrier Vitality</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">Health score rating by barrier reef</div>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={coralHealth} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />

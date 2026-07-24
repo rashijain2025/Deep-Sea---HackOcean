@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, Shield, Activity, Cpu, AlertTriangle, CheckCircle, Radio } from 'lucide-react';
 import {
   AreaChart, Area, LineChart, Line,
   XAxis, YAxis, CartesianGrid, Tooltip,
@@ -8,12 +8,12 @@ import {
 } from 'recharts';
 
 const stats = [
-  { label: 'Ocean Health Score', value: '92', unit: '/100', trend: '+2.1%', dir: 'up', desc: 'Global index' },
-  { label: 'Plastic Waste Detected', value: '3,214', unit: ' tons', trend: '+8.4%', dir: 'up', desc: 'Last 30 days' },
-  { label: 'Oil Spill Alerts', value: '7', unit: '', trend: '-12%', dir: 'down', desc: 'Active incidents' },
-  { label: 'Coral Health', value: '78', unit: '%', trend: '-1.2%', dir: 'down', desc: 'Reef vitality index' },
-  { label: 'Species Tracked', value: '482', unit: '', trend: '+16', dir: 'up', desc: 'Across 12 zones' },
-  { label: 'Risk Level', value: 'Moderate', unit: '', trend: 'Stable', dir: 'stable', desc: 'AI risk model' },
+  { label: 'Ocean Health Score', value: '92', unit: '/100', trend: '+2.1%', dir: 'up', desc: 'Composite index' },
+  { label: 'Plastic Debris Tracked', value: '3,214', unit: ' tons', trend: '+8.4%', dir: 'up', desc: 'Last 30 days' },
+  { label: 'Active Oil Incidents', value: '7', unit: ' active', trend: '-12%', dir: 'down', desc: 'Containment active' },
+  { label: 'Coral Reef Vitality', value: '78', unit: '%', trend: '-1.2%', dir: 'down', desc: 'Reef health score' },
+  { label: 'Species Cataloged', value: '482', unit: ' species', trend: '+16', dir: 'up', desc: 'IUCN monitored' },
+  { label: 'Subsea Risk Level', value: 'Moderate', unit: '', trend: 'Stable', dir: 'stable', desc: 'Neural risk model' },
 ];
 
 const pollutionData = [
@@ -41,12 +41,12 @@ const healthData = [
   { day: 'Sun', score: 95 },
 ];
 
-const recentAlerts = [
-  { title: 'Plastic accumulation detected', location: 'Arabian Sea · Sector A-14', time: '2 min ago', severity: 'high' },
-  { title: 'Coral bleaching warning', location: 'Lakshadweep Reef', time: '18 min ago', severity: 'medium' },
-  { title: 'Oil spill signature', location: 'Gulf of Mexico', time: '42 min ago', severity: 'critical' },
-  { title: 'Illegal fishing activity', location: 'South Pacific', time: '1 h ago', severity: 'high' },
-  { title: 'Ghost net detected', location: 'North Sea', time: '3 h ago', severity: 'medium' },
+const recentAlertsData = [
+  { id: '1', title: 'Plastic accumulation cluster', location: 'Arabian Sea · Sector A-14', time: '2 min ago', severity: 'high' },
+  { id: '2', title: 'Thermal coral bleaching warning', location: 'Lakshadweep Reef', time: '18 min ago', severity: 'medium' },
+  { id: '3', title: 'Crude oil spill plume signature', location: 'Gulf of Mexico Hydro-Vent', time: '42 min ago', severity: 'critical' },
+  { id: '4', title: 'Illegal commercial trawling', location: 'South Pacific Sanctuary', time: '1 h ago', severity: 'high' },
+  { id: '5', title: 'Ghost fishing net entanglement', location: 'North Sea Subsea Ridge', time: '3 h ago', severity: 'medium' },
 ];
 
 const fadeUp = {
@@ -57,62 +57,66 @@ const fadeUp = {
   }),
 };
 
-const TrendIcon = ({ dir }) => {
-  if (dir === 'up') return <TrendingUp size={14} />;
-  if (dir === 'down') return <TrendingDown size={14} />;
-  return <Minus size={14} />;
-};
-
 const chartTooltipStyle = {
-  backgroundColor: 'rgba(4,28,50,0.95)',
-  border: '1px solid rgba(0,229,255,0.15)',
+  backgroundColor: 'rgba(3,8,20,0.95)',
+  border: '1px solid rgba(0,243,255,0.25)',
   borderRadius: '8px',
   color: '#fff',
   fontSize: '12px',
 };
 
 export default function Dashboard() {
+  const [dispatchedAlerts, setDispatchedAlerts] = useState([]);
+
+  const handleDispatch = (id) => {
+    if (!dispatchedAlerts.includes(id)) {
+      setDispatchedAlerts([...dispatchedAlerts, id]);
+    }
+  };
+
   return (
     <div className="page-content" id="dashboard-page">
       <div className="page-header">
-        <div className="label">Command Center</div>
-        <h1>Ocean Intelligence Dashboard</h1>
-        <p>Real-time synthesis of 58 monitoring regions, drone fleets and satellite feeds.</p>
+        <div className="label">Command & Control Center</div>
+        <h1>Ocean Intelligence Command Center</h1>
+        <p>Real-time telemetry synthesis from 58 monitoring stations, autonomous ROVs, and satellite oceanography.</p>
       </div>
 
-      {/* Stats Grid */}
+      {/* KPI Stats Grid */}
       <motion.div
         className="grid-6 section"
         initial="hidden"
         animate="visible"
       >
         {stats.map((s, i) => (
-          <motion.div key={s.label} className="stat-card" variants={fadeUp} custom={i}>
-            <div className="stat-label">{s.label}</div>
-            <div className="stat-value">
-              {s.value}<span className="stat-unit">{s.unit}</span>
+          <motion.div key={s.label} className="saas-card p-4" variants={fadeUp} custom={i}>
+            <div className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider mb-1">
+              {s.label}
             </div>
-            <div className="stat-footer">
-              <span className={`stat-trend ${s.dir}`}>
-                <TrendIcon dir={s.dir} /> {s.trend}
+            <div className="text-2xl font-bold font-display text-white my-1">
+              {s.value}<span className="text-xs font-mono font-normal text-slate-400">{s.unit}</span>
+            </div>
+            <div className="flex justify-between items-center text-[10px] font-mono">
+              <span className={s.dir === 'up' ? 'text-emerald-400' : s.dir === 'down' ? 'text-red-400' : 'text-cyan-400'}>
+                {s.trend}
               </span>
-              <span className="stat-desc">{s.desc}</span>
+              <span className="text-slate-500">{s.desc}</span>
             </div>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Charts Row */}
+      {/* Dual Analytics Row */}
       <motion.div
         className="grid-2-1 section"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <motion.div className="chart-card" variants={fadeUp} custom={0}>
-          <h3>Pollution Trend</h3>
-          <div className="chart-subtitle">12-month rolling window · tons detected</div>
-          <ResponsiveContainer width="100%" height={300}>
+        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
+          <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trend Spectrum</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">12-month rolling telemetry window (tons detected)</div>
+          <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={pollutionData}>
               <defs>
                 <linearGradient id="plasticGrad" x1="0" y1="0" x2="0" y2="1">
@@ -129,10 +133,10 @@ export default function Dashboard() {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={12} />
-              <YAxis stroke="rgba(255,255,255,0.3)" fontSize={12} />
+              <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
+              <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} />
               <Tooltip contentStyle={chartTooltipStyle} />
-              <Legend wrapperStyle={{ fontSize: '12px', color: '#fff' }} />
+              <Legend wrapperStyle={{ fontSize: '11px', color: '#fff' }} />
               <Area type="monotone" dataKey="Plastic" stroke="#00E5FF" fill="url(#plasticGrad)" strokeWidth={2} />
               <Area type="monotone" dataKey="Oil" stroke="#FF5252" fill="url(#oilGrad)" strokeWidth={2} />
               <Area type="monotone" dataKey="Chemical" stroke="#00E676" fill="url(#chemGrad)" strokeWidth={2} />
@@ -140,55 +144,84 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </motion.div>
 
-        <motion.div className="chart-card" variants={fadeUp} custom={1}>
-          <h3>Ocean Health</h3>
-          <div className="chart-subtitle">Global health score · past 7 days</div>
-          <ResponsiveContainer width="100%" height={300}>
+        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
+          <h3 className="text-base font-bold text-white font-display mb-1">Ocean Health Score</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">Global health index · past 7 days</div>
+          <ResponsiveContainer width="100%" height={280}>
             <LineChart data={healthData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis dataKey="day" stroke="rgba(255,255,255,0.3)" fontSize={12} />
-              <YAxis domain={[80, 100]} stroke="rgba(255,255,255,0.3)" fontSize={12} />
+              <XAxis dataKey="day" stroke="rgba(255,255,255,0.3)" fontSize={11} />
+              <YAxis domain={[80, 100]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
               <Tooltip contentStyle={chartTooltipStyle} />
-              <Line type="monotone" dataKey="score" stroke="#00E5FF" strokeWidth={2} dot={{ fill: '#00E5FF', r: 5 }} activeDot={{ r: 7 }} />
+              <Line type="monotone" dataKey="score" stroke="#00E5FF" strokeWidth={2.5} dot={{ fill: '#00E5FF', r: 4 }} activeDot={{ r: 6 }} />
             </LineChart>
           </ResponsiveContainer>
         </motion.div>
       </motion.div>
 
-      {/* Recent Alerts */}
+      {/* Incident Ticker & Command Dispatch Panel */}
       <motion.div
         style={{ maxWidth: 1280, margin: '0 auto', padding: '0 32px 60px' }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <motion.div className="chart-card" variants={fadeUp}>
-          <h3>Recent Alerts</h3>
-          <div className="chart-subtitle">Latest AI-detected incidents</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 16 }}>
-            {recentAlerts.map((a, i) => (
-              <div
-                key={i}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '14px 16px',
-                  background: 'rgba(255,255,255,0.02)',
-                  border: '1px solid var(--card-border)',
-                  borderRadius: 'var(--radius-md)',
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>{a.title}</div>
-                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{a.location}</div>
+        <motion.div className="saas-card p-5" variants={fadeUp}>
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <h3 className="text-base font-bold text-white font-display">Recent AI-Triaged Alerts</h3>
+              <div className="text-xs text-slate-400 font-mono">Real-time incident dispatch queue</div>
+            </div>
+            <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded border border-cyan-500/30">
+              5 ACTIVE DISPATCHES
+            </span>
+          </div>
+
+          <div className="space-y-3">
+            {recentAlertsData.map((a) => {
+              const isDone = dispatchedAlerts.includes(a.id);
+              return (
+                <div
+                  key={a.id}
+                  className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800/80 flex flex-wrap items-center justify-between gap-3"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${a.severity === 'critical' ? 'bg-red-500/10 text-red-400' : 'bg-amber-500/10 text-amber-400'}`}>
+                      <AlertTriangle size={16} />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-white">{a.title}</div>
+                      <div className="text-xs text-slate-400 font-mono">{a.location}</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-slate-500 font-mono">{a.time}</span>
+                    <span className={`saas-badge saas-badge-${a.severity === 'critical' ? 'critical' : a.severity === 'high' ? 'warning' : 'info'}`}>
+                      {a.severity.toUpperCase()}
+                    </span>
+
+                    <button
+                      onClick={() => handleDispatch(a.id)}
+                      disabled={isDone}
+                      className={`saas-button-${isDone ? 'secondary' : 'primary'} text-xs py-1 px-3`}
+                    >
+                      {isDone ? (
+                        <>
+                          <CheckCircle size={12} className="text-emerald-400" />
+                          Dispatched
+                        </>
+                      ) : (
+                        <>
+                          <Radio size={12} />
+                          Dispatch Submarine
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>{a.time}</span>
-                  <span className={`badge ${a.severity}`}>{a.severity.charAt(0).toUpperCase() + a.severity.slice(1)}</span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
       </motion.div>
