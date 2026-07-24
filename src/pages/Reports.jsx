@@ -92,7 +92,7 @@ const Reports = React.memo(function Reports() {
         {filteredReports.map((rep, i) => (
           <motion.div key={rep.id} className="saas-card p-5 flex flex-col justify-between" variants={fadeUp} custom={i}>
             <div>
-              <div className="flex justify-between items-start mb-2">
+              <div className="flex flex-wrap justify-between items-start mb-2 gap-2">
                 <span className="saas-badge saas-badge-info">
                   {rep.category.toUpperCase()}
                 </span>

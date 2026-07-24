@@ -45,7 +45,7 @@ const Predictions = React.memo(function Predictions() {
         {predictions.map((p, i) => (
           <motion.div key={i} className="saas-card p-5 flex flex-col justify-between" variants={fadeUp} custom={i}>
             <div>
-              <div className="flex justify-between items-start mb-3">
+              <div className="flex flex-wrap justify-between items-start mb-3 gap-2">
                 <div>
                   <h3 className="text-base font-bold text-white font-display flex items-center gap-2">
                     <Brain size={18} className="text-cyan-400" />
@@ -67,7 +67,7 @@ const Predictions = React.memo(function Predictions() {
               </p>
             </div>
 
-            <div className="flex justify-between items-center pt-3 border-t border-slate-800/80">
+            <div className="flex flex-wrap justify-between items-center pt-3 border-t border-slate-800/80 gap-2">
               <span className={`saas-badge saas-badge-${p.severity === 'critical' ? 'critical' : p.severity === 'high' ? 'warning' : 'info'}`}>
                 {p.severity.toUpperCase()} RISK RATING
               </span>

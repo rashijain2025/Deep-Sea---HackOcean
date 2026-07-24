@@ -73,7 +73,7 @@ const Biodiversity = React.memo(function Biodiversity() {
         {filteredSpecies.map((s, i) => (
           <motion.div key={s.id} className="saas-card p-5 flex flex-col justify-between" variants={fadeUp} custom={i}>
             <div>
-              <div className="flex justify-between items-start mb-3">
+              <div className="flex flex-wrap justify-between items-start mb-3 gap-2">
                 <span className="text-3xl">{s.emoji}</span>
                 <span className={`saas-badge saas-badge-${s.status === 'endangered' ? 'critical' : s.status === 'vulnerable' || s.status === 'threatened' ? 'warning' : 'success'}`}>
                   {s.statusLabel}
@@ -102,22 +102,22 @@ const Biodiversity = React.memo(function Biodiversity() {
 
               {/* Metadata Details */}
               <div className="space-y-2 text-xs text-slate-400">
-                <div className="flex justify-between border-b border-slate-800/60 pb-1.5">
+                <div className="flex flex-wrap justify-between border-b border-slate-800/60 pb-1.5 gap-2">
                   <span>Estimated Population:</span>
                   <span className="font-mono font-bold text-slate-200">{s.population}</span>
                 </div>
-                <div className="flex justify-between border-b border-slate-800/60 pb-1.5">
+                <div className="flex flex-wrap justify-between border-b border-slate-800/60 pb-1.5 gap-2">
                   <span>Habitat Region:</span>
                   <span className="text-slate-200">{s.habitat}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex flex-wrap justify-between gap-2">
                   <span>Sensor Acoustic Tag:</span>
                   <span className="font-mono text-cyan-300">{s.sensorTag}</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+            <div className="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
               <span className="flex items-center gap-1">
                 <Eye size={12} className="text-cyan-400" /> Observation:
               </span>

@@ -57,12 +57,12 @@ export function NeptuneAiModal({ isOpen, onClose }) {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-white font-display">Neptune Ocean AI Intelligence</h3>
+                <h3 className="text-sm sm:text-base font-bold text-white font-display">Neptune Ocean AI Intelligence</h3>
                 <span className="px-2 py-0.5 text-[9px] font-mono font-bold text-cyan-300 bg-cyan-950/80 border border-cyan-500/40 rounded uppercase">
                   GPT-DeepSea
                 </span>
               </div>
-              <p className="text-xs text-slate-400">Autonomous Marine Neural Network • Real-time Telemetry Processing</p>
+              <p className="text-[10px] sm:text-xs text-slate-400">Autonomous Marine Neural Network • Real-time Telemetry Processing</p>
             </div>
           </div>
 

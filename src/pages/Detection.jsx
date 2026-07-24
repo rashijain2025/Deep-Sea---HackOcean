@@ -87,7 +87,7 @@ const Detection = React.memo(function Detection() {
           return (
             <motion.div key={d.id} className="saas-card p-5" variants={fadeUp} custom={i}>
               {/* Report Header */}
-              <div className="flex justify-between items-start border-b border-slate-800 pb-3 mb-4">
+              <div className="flex flex-wrap justify-between items-start border-b border-slate-800 pb-3 mb-4 gap-3">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <Camera size={13} className="text-cyan-400" />

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -78,6 +78,15 @@ const AMBIENT_BUBBLES = Array.from({ length: 6 }, (_, i) => ({
 
 export default function UnderwaterScene({ currentPath = '/' }) {
   const eco = ECOSYSTEMS[currentPath] || ECOSYSTEMS['/'];
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ transform: 'translateZ(0)' }}>
@@ -198,6 +207,29 @@ export default function UnderwaterScene({ currentPath = '/' }) {
           className="hud-sweep-line"
           animate={{ y: ['0%', '100%', '0%'] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
+        />
+      </div>
+
+      {/* ─── Interactive Bioluminescent Flashlight ─── */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-[100] mix-blend-screen"
+        style={{
+          background: 'radial-gradient(400px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), rgba(0, 243, 255, 0.12), transparent 40%)',
+          transition: 'background 0.1s ease',
+        }}
+      />
+
+      {/* ─── Global Deep Sea Sonar Scan ─── */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[90] mix-blend-screen">
+        <motion.div
+          className="w-full h-[15vh]"
+          style={{
+            background: 'linear-gradient(to bottom, transparent, rgba(0, 243, 255, 0.03) 80%, rgba(0, 255, 157, 0.15) 95%, transparent 100%)',
+            borderBottom: '1px solid rgba(0, 255, 157, 0.4)',
+            boxShadow: '0 10px 40px rgba(0, 255, 157, 0.2)'
+          }}
+          animate={{ y: ['-20vh', '120vh'] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'linear', repeatDelay: 5 }}
         />
       </div>
     </div>

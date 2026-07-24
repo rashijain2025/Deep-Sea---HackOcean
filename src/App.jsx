@@ -9,6 +9,7 @@ import UnderwaterScene from './components/UnderwaterScene';
 import PageTransition from './components/PageTransition';
 import { DepthZoneBar } from './components/dashboard/DepthZoneBar';
 import { NeptuneAiModal } from './components/dashboard/NeptuneAiModal';
+import InteractiveCursor from './components/InteractiveCursor';
 import { oceanAudio } from './utils/oceanAudio';
 
 // Pages
@@ -47,6 +48,7 @@ export default function App() {
       {/* ─── Persistent Background: Route-Aware Underwater Ecosystem ─── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <UnderwaterScene currentPath={location.pathname} />
+        <InteractiveCursor />
       </div>
 
       {/* ─── Ambient HUD Grid & Vignette Overlays ─── */}

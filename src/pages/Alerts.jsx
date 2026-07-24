@@ -123,7 +123,7 @@ const Alerts = React.memo(function Alerts() {
               variants={fadeUp} 
               custom={i}
             >
-              <div className="flex justify-between items-start mb-3">
+              <div className="flex flex-wrap justify-between items-start mb-3 gap-2">
                 <div className="flex items-center gap-3">
                   <div className={`p-2 rounded-lg ${a.severity === 'critical' ? 'bg-red-500/10 text-red-400' : 'bg-amber-500/10 text-amber-400'}`}>
                     <AlertTriangle size={18} />

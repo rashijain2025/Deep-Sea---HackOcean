@@ -5,6 +5,7 @@ import {
   ArrowRight, MapPin, Activity, ShieldAlert, Cpu, 
   Fish, BarChart3, Database, Globe2, Eye, Shield, AlertTriangle
 } from 'lucide-react';
+import { useMotionValue } from 'framer-motion';
 import CinematicIntro from '../components/CinematicIntro';
 import JourneyToHealthyOcean from '../components/JourneyToHealthyOcean';
 
@@ -28,16 +29,18 @@ const STAGGER_CONTAINER = {
 };
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(false);
+  const [showIntro, setShowIntro] = useState(() => {
+    return !sessionStorage.getItem('deepsea_intro_seen');
+  });
   const navigate = useNavigate();
-
-  const handleEnterDashboard = useCallback((e) => {
-    e.preventDefault();
-    setShowIntro(true);
-  }, []);
 
   const handleIntroComplete = useCallback(() => {
     setShowIntro(false);
+    sessionStorage.setItem('deepsea_intro_seen', 'true');
+  }, []);
+
+  const handleEnterDashboard = useCallback((e) => {
+    e.preventDefault();
     navigate('/dashboard');
   }, [navigate]);
 
@@ -50,6 +53,27 @@ export default function Home() {
       {/* ─── BUTTERY CSS-ONLY BACKGROUND OVERLAY ─── */}
       <div className="absolute top-[100vh] bottom-0 left-0 right-0 pointer-events-none z-[-1] bg-[#020617]" />
       <div className="absolute top-0 h-[100vh] left-0 right-0 pointer-events-none z-[-1] bg-gradient-to-b from-transparent to-[#020617]" />
+
+      {/* ─── LIVE TELEMETRY TICKER ─── */}
+      <div className="w-full bg-cyan-950/20 border-b border-cyan-500/20 py-2 overflow-hidden flex items-center backdrop-blur-sm relative z-30 mt-[-16px]">
+        <div className="absolute left-0 w-16 md:w-32 h-full bg-gradient-to-r from-[#020617] to-transparent z-10" />
+        <div className="absolute right-0 w-16 md:w-32 h-full bg-gradient-to-l from-[#020617] to-transparent z-10" />
+        <motion.div 
+          className="flex whitespace-nowrap gap-12 font-mono text-[10px] md:text-xs text-cyan-400 uppercase tracking-widest"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+        >
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="flex gap-12 items-center">
+              <span className="flex items-center gap-2 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Pacific: Temp +0.02°C</span>
+              <span className="flex items-center gap-2 text-amber-300"><span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"/> Atlantic: Plastic Detected</span>
+              <span className="flex items-center gap-2 text-cyan-300"><span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"/> Mariana: Drone Active</span>
+              <span className="flex items-center gap-2 text-emerald-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Indian Ocean: Whale Pod</span>
+              <span className="flex items-center gap-2 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Arctic: Ice Shelf Nominal</span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
 
       {/* ─── 1. HERO SECTION ─── */}
       <section className="relative min-h-[calc(100vh-100px)] flex flex-col items-center justify-between pt-16 pb-12 overflow-hidden">
@@ -145,14 +169,80 @@ export default function Home() {
       </div>
 
       {/* ─── 4. PREMIUM FEATURE SECTIONS ─── */}
-      <section className="max-w-7xl mx-auto px-6 mt-40 space-y-40">
+      <section className="max-w-7xl mx-auto px-6 mt-20 md:mt-40 space-y-24 md:space-y-40">
         
         {/* Feature 1: Ocean Monitoring */}
         <FeatureBlock 
           title="Ocean Monitoring"
           badge="Global Telemetry"
           desc="Deploy autonomous sensors across abyssal trenches and coral reefs. Stream petabytes of real-time temperature, salinity, and acoustic data directly into a unified command center."
-          imageContent={<div className="w-full h-full bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-xl overflow-hidden flex flex-col"><div className="h-10 border-b border-slate-800 flex items-center px-4 gap-2"><div className="w-3 h-3 rounded-full bg-slate-700"/><div className="w-3 h-3 rounded-full bg-slate-700"/><div className="w-3 h-3 rounded-full bg-slate-700"/></div><div className="p-6 flex-1 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"><div className="h-full border border-cyan-500/20 bg-cyan-950/20 rounded-lg p-4 flex flex-col justify-end relative overflow-hidden"><motion.div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-cyan-500/20 to-transparent" animate={{ opacity: [0.5, 0.8, 0.5] }} transition={{ duration: 4, repeat: Infinity }}/><div className="font-mono text-xs text-cyan-400">SONAR ARRAY ONLINE</div></div></div></div>}
+          imageContent={
+            <div className="w-full h-full bg-[#020617] border border-slate-800 rounded-xl overflow-hidden flex flex-col relative shadow-2xl">
+              {/* Window Header */}
+              <div className="h-10 border-b border-slate-800/60 bg-slate-900/50 flex items-center justify-between px-4 shrink-0">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/20 border border-amber-500/50" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/50" />
+                </div>
+                <div className="text-[10px] font-mono text-slate-500 tracking-widest">TELEMETRY_STREAM_0X9A</div>
+              </div>
+              
+              {/* Window Body */}
+              <div className="flex-1 p-6 relative overflow-hidden flex flex-col justify-between">
+                <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]" />
+                
+                {/* Animated Sine Wave Chart */}
+                <div className="relative h-32 w-full mt-2">
+                  <svg viewBox="0 0 400 100" className="w-full h-full drop-shadow-[0_0_10px_rgba(0,243,255,0.4)]" preserveAspectRatio="none">
+                    <motion.path 
+                      d="M0,50 C50,20 100,80 150,50 C200,20 250,80 300,50 C350,20 400,80 450,50" 
+                      fill="none" stroke="#00f3ff" strokeWidth="2"
+                      animate={{ x: [-150, 0] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    />
+                    <motion.path 
+                      d="M0,50 C50,30 100,70 150,50 C200,30 250,70 300,50 C350,30 400,70 450,50" 
+                      fill="none" stroke="#00ff9d" strokeWidth="1" opacity="0.6"
+                      animate={{ x: [-150, 0] }}
+                      transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                    />
+                  </svg>
+                  
+                  {/* Scanning Radar Line */}
+                  <motion.div 
+                    className="absolute top-0 bottom-0 w-px bg-cyan-300 shadow-[0_0_15px_#00f3ff]"
+                    animate={{ left: ['0%', '100%', '0%'] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                  />
+                </div>
+
+                {/* Status Footer */}
+                <div className="relative z-10 flex justify-between items-end mt-4">
+                  <div>
+                    <div className="text-[10px] font-mono text-cyan-400/60 mb-1.5">SENSOR NODES</div>
+                    <div className="flex gap-1.5 items-end h-8">
+                      {Array.from({ length: 8 }).map((_, i) => (
+                        <motion.div 
+                          key={i} 
+                          className="w-1.5 bg-cyan-500/80 rounded-t-sm" 
+                          animate={{ height: [8, 15 + Math.random() * 15, 8] }}
+                          transition={{ duration: 1.5 + Math.random(), repeat: Infinity, ease: "easeInOut" }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center justify-end gap-2 text-cyan-300 font-mono text-xs font-bold mb-1">
+                      <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                      SONAR ARRAY ONLINE
+                    </div>
+                    <div className="text-[9px] text-slate-500 font-mono">LAT: 34.0522° N | LNG: 118.2437° W</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
         />
 
         {/* Feature 2: AI Detection */}
@@ -162,7 +252,7 @@ export default function Home() {
           badge="Computer Vision"
           desc="Proprietary neural networks analyze satellite imagery and sub-surface drone feeds to instantly identify plastic accumulation, illegal fishing, and crude oil plumes with 99.7% accuracy."
           imageContent={
-            <div className="grid grid-cols-2 gap-4 h-full p-4 bg-slate-900 border border-slate-800 rounded-xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full p-4 bg-slate-900 border border-slate-800 rounded-xl">
               <DetectionCard type="Plastic Waste" status="DETECTED" conf="98%" color="border-amber-500/50 text-amber-400" />
               <DetectionCard type="Oil Spill" status="CLEAR" conf="100%" color="border-emerald-500/50 text-emerald-400" />
               <DetectionCard type="Ghost Net" status="CRITICAL" conf="96%" color="border-red-500/50 text-red-400" />
@@ -221,8 +311,8 @@ export default function Home() {
       </section>
 
       {/* ─── 6. MONUMENTAL STATISTICS ─── */}
-      <section className="max-w-6xl mx-auto px-6 mt-40 border-t border-slate-800 pt-32">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+      <section className="max-w-6xl mx-auto px-6 mt-20 md:mt-40 border-t border-slate-800 pt-16 md:pt-32">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
           <StatBlock number="92%" label="Ocean Health Index" />
           <StatBlock number="482" label="Species Protected" />
           <StatBlock number="16" label="Threats Prevented" />
@@ -260,6 +350,43 @@ export default function Home() {
 
 // ─── HELPER COMPONENTS ───
 
+function TiltCard({ children }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useTransform(y, [-150, 150], [5, -5]);
+  const rotateY = useTransform(x, [-150, 150], [-5, 5]);
+
+  function handleMouse(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    x.set(event.clientX - rect.left - rect.width / 2);
+    y.set(event.clientY - rect.top - rect.height / 2);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
+  return (
+    <motion.div
+      style={{ perspective: 1200 }}
+      onMouseMove={handleMouse}
+      onMouseLeave={handleMouseLeave}
+      className="w-full h-full"
+    >
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="w-full h-full"
+        animate={{ rotateX: 0, rotateY: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function StatusMetric({ label, value, color }) {
   return (
     <div className="flex flex-col items-center justify-center text-center">
@@ -272,24 +399,26 @@ function StatusMetric({ label, value, color }) {
 function FeatureBlock({ title, badge, desc, imageContent, reversed = false }) {
   return (
     <motion.div 
-      className={`flex flex-col ${reversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-16`}
+      className={`flex flex-col ${reversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-16`}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
       variants={FADE_UP}
     >
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 space-y-4 md:space-y-6">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-700 bg-slate-800/50 text-slate-300 text-xs font-mono tracking-widest">
           {badge}
         </div>
-        <h2 className="text-4xl font-bold tracking-tight">{title}</h2>
-        <p className="text-slate-400 text-lg leading-relaxed">{desc}</p>
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{title}</h2>
+        <p className="text-slate-400 text-base md:text-lg leading-relaxed">{desc}</p>
         <button className="text-sm font-semibold text-white hover:text-cyan-400 flex items-center gap-2 transition-colors pt-2">
           Learn more <ArrowRight size={14} />
         </button>
       </div>
-      <div className="flex-1 w-full aspect-[4/3] rounded-2xl p-1 bg-gradient-to-br from-slate-800 to-slate-950 shadow-2xl">
-        {imageContent}
+      <div className="flex-1 w-full aspect-[4/3] rounded-2xl p-1 bg-gradient-to-br from-slate-800 to-slate-950 shadow-2xl relative z-20">
+        <TiltCard>
+          {imageContent}
+        </TiltCard>
       </div>
     </motion.div>
   );
