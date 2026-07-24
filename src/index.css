@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-color: #030814;
+    --accent-cyan: #00f3ff;
+    --accent-emerald: #00ff9d;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+    color: #e2e8f0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: rgba(6, 19, 41, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 243, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5),
+              inset 0 0 15px rgba(0, 243, 255, 0.05);
+  border-radius: 0.75rem;
+}
+
+.glass-panel-interactive {
+  background: rgba(6, 19, 41, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 243, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-interactive:hover {
+  border-color: rgba(0, 243, 255, 0.5);
+  box-shadow: 0 0 25px rgba(0, 243, 255, 0.25),
+              inset 0 0 20px rgba(0, 243, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.glass-card-alert {
+  background: rgba(45, 10, 25, 0.65);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 0, 85, 0.4);
+  box-shadow: 0 0 20px rgba(255, 0, 85, 0.2);
+}
+
+.glass-pill {
+  background: rgba(0, 243, 255, 0.08);
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+/* Neon Text Glows */
+.text-glow-cyan {
+  text-shadow: 0 0 12px rgba(0, 243, 255, 0.7), 0 0 24px rgba(0, 243, 255, 0.3);
+}
+
+.text-glow-emerald {
+  text-shadow: 0 0 12px rgba(0, 255, 157, 0.7), 0 0 24px rgba(0, 255, 157, 0.3);
+}
+
+.text-glow-alert {
+  text-shadow: 0 0 12px rgba(255, 0, 85, 0.8), 0 0 24px rgba(255, 0, 85, 0.4);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(3, 8, 20, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 243, 255, 0.25);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 243, 255, 0.6);
+}
+
+/* HUD Overlay Line Grids */
+.hud-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Vignette overlay */
+.vignette-overlay {
+  background: radial-gradient(circle at center, transparent 40%, rgba(3, 8, 20, 0.85) 100%);
+  pointer-events: none;
+}
+
+/* Custom pulse animations */
+@keyframes sonarPulse {
+  0% {
+    transform: scale(0.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.animate-sonar {
+  animation: sonarPulse 3s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+}
