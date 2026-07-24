@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Camera, Eye, AlertTriangle, Fish, Droplets, Anchor, CheckCircle2, ShieldAlert, Cpu, Filter } from 'lucide-react';
+import { Camera, CheckCircle2, Cpu, Filter } from 'lucide-react';
 
 import detectionsData from '../mock-data/detections.json';
-
-const getCategoryIcon = (iconName) => {
-  switch (iconName) {
-    case 'Droplets': return <Droplets size={28} className="text-cyan-400" />;
-    case 'AlertTriangle': return <AlertTriangle size={28} className="text-red-400" />;
-    case 'Fish': return <Fish size={28} className="text-emerald-400" />;
-    case 'Anchor': return <Anchor size={28} className="text-amber-400" />;
-    case 'Eye': return <Eye size={28} className="text-amber-400" />;
-    default: return <Camera size={28} className="text-cyan-400" />;
-  }
-};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -27,9 +16,9 @@ const Detection = React.memo(function Detection() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [verifiedIds, setVerifiedIds] = useState([]);
 
-  const filteredDetections = detectionsData.filter(d => {
+  const filteredDetections = React.useMemo(() => detectionsData.filter(d => {
     return activeCategory === 'All' || d.category === activeCategory;
-  });
+  }), [activeCategory]);
 
   const handleVerify = (id) => {
     if (!verifiedIds.includes(id)) {
@@ -103,14 +92,56 @@ const Detection = React.memo(function Detection() {
                 </span>
               </div>
 
-              {/* Subsea Viewport Display */}
-              <div className="detection-body relative mb-4">
-                {getCategoryIcon(d.icon)}
-                <div className="absolute top-2 left-2 text-[9px] font-mono text-cyan-400/80 bg-slate-950/80 px-2 py-0.5 rounded border border-cyan-500/30">
-                  BOUNDING BOX // {d.category.toUpperCase()}
+              {/* AI Detection Viewport with Real Image + Bounding Box */}
+              <div className="relative w-full h-48 sm:h-56 rounded-xl overflow-hidden mb-4 bg-slate-950/60 border border-slate-800/60">
+                <img
+                  src={d.imageUrl}
+                  alt={d.type}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+                {/* Scanline effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 via-transparent to-slate-950/40 pointer-events-none" />
+
+                {/* Bounding Box Overlay */}
+                {d.bbox && (
+                  <div
+                    className="absolute border-2 border-cyan-400/70 rounded-sm pointer-events-none"
+                    style={{
+                      top: d.bbox.top,
+                      left: d.bbox.left,
+                      width: d.bbox.width,
+                      height: d.bbox.height,
+                      boxShadow: '0 0 8px rgba(0,243,255,0.3), inset 0 0 8px rgba(0,243,255,0.1)',
+                    }}
+                  >
+                    {/* Corner Marks */}
+                    <div className="absolute -top-0.5 -left-0.5 w-3 h-3 border-t-2 border-l-2 border-cyan-400" />
+                    <div className="absolute -top-0.5 -right-0.5 w-3 h-3 border-t-2 border-r-2 border-cyan-400" />
+                    <div className="absolute -bottom-0.5 -left-0.5 w-3 h-3 border-b-2 border-l-2 border-cyan-400" />
+                    <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 border-b-2 border-r-2 border-cyan-400" />
+                  </div>
+                )}
+
+                {/* HUD Top-Left: Category Tag */}
+                <div className="absolute top-2 left-2 text-[9px] font-mono text-cyan-400/90 bg-slate-950/80 px-2 py-0.5 rounded border border-cyan-500/30 backdrop-blur-sm">
+                  {d.bbox ? d.bbox.label : `DETECTION // ${d.category.toUpperCase()}`}
                 </div>
-                <div className="absolute bottom-2 right-2 text-[9px] font-mono text-emerald-400 bg-slate-950/80 px-2 py-0.5 rounded border border-emerald-500/30">
+
+                {/* HUD Top-Right: Camera ID */}
+                <div className="absolute top-2 right-2 text-[9px] font-mono text-slate-300 bg-slate-950/80 px-2 py-0.5 rounded border border-slate-600/40 backdrop-blur-sm">
+                  🔴 REC · {d.camera}
+                </div>
+
+                {/* HUD Bottom-Right: Confidence */}
+                <div className="absolute bottom-2 right-2 text-[9px] font-mono text-emerald-400 bg-slate-950/80 px-2 py-0.5 rounded border border-emerald-500/30 backdrop-blur-sm">
                   CONFIDENCE: {d.confidence}%
+                </div>
+
+                {/* HUD Bottom-Left: Timestamp */}
+                <div className="absolute bottom-2 left-2 text-[9px] font-mono text-slate-400 bg-slate-950/80 px-2 py-0.5 rounded border border-slate-700/40 backdrop-blur-sm">
+                  ⏱ {d.timestamp}
                 </div>
               </div>
 
@@ -162,3 +193,4 @@ const Detection = React.memo(function Detection() {
 });
 
 export default Detection;
+

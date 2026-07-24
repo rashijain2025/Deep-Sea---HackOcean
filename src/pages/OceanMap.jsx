@@ -42,6 +42,40 @@ const OceanMap = React.memo(function OceanMap() {
     }, 1500);
   }, [selectedRegion]);
 
+  const mapMarkers = useMemo(() => {
+    return filteredRegions.map((r) => {
+      const tc = threatColors[r.threat];
+      const isSelected = selectedRegion && selectedRegion.id === r.id;
+      return (
+        <CircleMarker
+          key={r.id}
+          center={[r.lat, r.lng]}
+          radius={isSelected ? 16 : r.threat === 'critical' ? 13 : r.threat === 'medium' ? 10 : 8}
+          eventHandlers={{
+            click: () => setSelectedRegion(r)
+          }}
+          pathOptions={{
+            color: isSelected ? '#00f3ff' : tc.border,
+            fillColor: tc.color,
+            fillOpacity: isSelected ? 0.7 : tc.fillOpacity,
+            weight: isSelected ? 3 : 2,
+          }}
+        >
+          <Popup>
+            <div className="p-1 text-slate-900 min-w-[170px]">
+              <strong className="text-sm block font-bold">{r.name}</strong>
+              <div className="text-xs mt-1 space-y-0.5">
+                <div>Threat: <span className="font-bold uppercase" style={{ color: tc.color }}>{r.threat}</span></div>
+                <div>Plastic: {r.plastic}</div>
+                <div>Risk Score: {r.riskScore}/100</div>
+              </div>
+            </div>
+          </Popup>
+        </CircleMarker>
+      );
+    });
+  }, [filteredRegions, selectedRegion]);
+
   return (
     <div className="page-content" id="ocean-map-page">
       <div className="page-header">
@@ -106,42 +140,13 @@ const OceanMap = React.memo(function OceanMap() {
               style={{ width: '100%', height: '100%' }}
               scrollWheelZoom={true}
               attributionControl={true}
+              preferCanvas={true}
             >
               <TileLayer
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                 attribution='© OpenStreetMap · DeepSea Guardian'
               />
-              {filteredRegions.map((r) => {
-                const tc = threatColors[r.threat];
-                const isSelected = selectedRegion && selectedRegion.id === r.id;
-                return (
-                  <CircleMarker
-                    key={r.id}
-                    center={[r.lat, r.lng]}
-                    radius={isSelected ? 16 : r.threat === 'critical' ? 13 : r.threat === 'medium' ? 10 : 8}
-                    eventHandlers={{
-                      click: () => setSelectedRegion(r)
-                    }}
-                    pathOptions={{
-                      color: isSelected ? '#00f3ff' : tc.border,
-                      fillColor: tc.color,
-                      fillOpacity: isSelected ? 0.7 : tc.fillOpacity,
-                      weight: isSelected ? 3 : 2,
-                    }}
-                  >
-                    <Popup>
-                      <div className="p-1 text-slate-900 min-w-[170px]">
-                        <strong className="text-sm block font-bold">{r.name}</strong>
-                        <div className="text-xs mt-1 space-y-0.5">
-                          <div>Threat: <span className="font-bold uppercase" style={{ color: tc.color }}>{r.threat}</span></div>
-                          <div>Plastic: {r.plastic}</div>
-                          <div>Risk Score: {r.riskScore}/100</div>
-                        </div>
-                      </div>
-                    </Popup>
-                  </CircleMarker>
-                );
-              })}
+              {mapMarkers}
             </MapContainer>
           </motion.div>
 

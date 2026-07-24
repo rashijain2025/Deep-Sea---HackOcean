@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
-export default function InteractiveCursor() {
+const InteractiveCursor = React.memo(function InteractiveCursor() {
   const [bubbles, setBubbles] = useState([]);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -156,4 +156,6 @@ export default function InteractiveCursor() {
       ))}
     </div>
   );
-}
+});
+
+export default InteractiveCursor;

@@ -266,7 +266,25 @@ export default function Home() {
           title="Marine Biodiversity"
           badge="Ecological Census"
           desc="Safeguard the ocean's most vulnerable inhabitants. Non-invasive acoustic tagging and visual AI models track migration patterns, population health, and breeding ground integrity."
-          imageContent={<div className="w-full h-full bg-slate-900 border border-slate-800 rounded-xl relative overflow-hidden flex items-center justify-center"><div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-900 to-slate-900" /><Fish size={64} className="text-cyan-400/50 animate-pulse" /></div>}
+          imageContent={
+            <div className="w-full h-full bg-slate-900 border border-slate-800 rounded-xl relative overflow-hidden flex items-center justify-center">
+              <img 
+                src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80" 
+                alt="Sea Turtle" 
+                className="w-full h-full object-cover opacity-80" 
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                <span className="text-[10px] font-mono text-cyan-300">TAG-TURTLE-904 ACTIVE</span>
+              </div>
+            </div>
+          }
         />
 
       </section>

@@ -158,7 +158,7 @@ export default function CinematicIntro({ onComplete }) {
                   <motion.div
                     key={p.id}
                     className="cinematic-particle"
-                    style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
+                    style={{ left: p.x, top: p.y, width: p.size, height: p.size, willChange: 'transform, opacity' }}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 0.6, 0], y: [0, -30, 0], x: [0, 15, -10] }}
                     transition={{ duration: 4, delay: p.delay, repeat: Infinity }}
@@ -171,7 +171,7 @@ export default function CinematicIntro({ onComplete }) {
                     <motion.div
                       key={f.id}
                       className="cinematic-fish"
-                      style={{ top: `${f.y}%`, transform: `scale(${f.scale})` }}
+                      style={{ top: `${f.y}%`, transform: `scale(${f.scale})`, willChange: 'transform, opacity' }}
                       initial={{ x: '-10vw', opacity: 0 }}
                       animate={{ x: '110vw', opacity: [0, 0.8, 0] }}
                       transition={{ duration: 2.2, delay: f.delay, ease: 'easeInOut' }}

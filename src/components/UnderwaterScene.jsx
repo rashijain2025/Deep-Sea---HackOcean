@@ -76,15 +76,22 @@ const AMBIENT_BUBBLES = Array.from({ length: 6 }, (_, i) => ({
   delay: i * 1.5,
 }));
 
-export default function UnderwaterScene({ currentPath = '/' }) {
+const UnderwaterScene = React.memo(function UnderwaterScene({ currentPath = '/' }) {
   const eco = ECOSYSTEMS[currentPath] || ECOSYSTEMS['/'];
 
   useEffect(() => {
+    let ticking = false;
     const handleMouseMove = (e) => {
-      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+          document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
@@ -234,7 +241,9 @@ export default function UnderwaterScene({ currentPath = '/' }) {
       </div>
     </div>
   );
-}
+});
+
+export default UnderwaterScene;
 
 /* ═══════════════════════════════════════════════════════════════
    THEME LAYERS — Lightweight SVG/CSS per-page ecosystems
