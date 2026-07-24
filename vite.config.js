@@ -7,6 +7,19 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react-is', 'recharts', 'leaflet', 'react-leaflet']
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          charts: ['recharts'],
+          leaflet: ['leaflet', 'react-leaflet'],
+          motion: ['framer-motion'],
+          icons: ['lucide-react']
+        }
+      }
+    }
+  },
   server: {
     port: 3000,
     open: false
