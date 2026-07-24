@@ -107,10 +107,10 @@ export default function Home() {
           
           <motion.h1 
             variants={FADE_UP}
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 sm:mb-8 leading-[1.08]"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 sm:mb-8 leading-tight py-2"
           >
             Protecting Our Oceans<br/>
-            with <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300">Artificial Intelligence</span>
+            with <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300 pb-2 inline-block">Artificial Intelligence</span>
           </motion.h1>
 
           <motion.p 
