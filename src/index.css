@@ -27,40 +27,34 @@
   }
 }
 
-/* Glassmorphism utility classes - High Performance Optimized */
+/* Glassmorphism utility classes - Integrated GPU 60 FPS Optimized */
 .glass-panel {
-  background: rgba(8, 16, 36, 0.88);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(9, 18, 38, 0.94);
   border: 1px solid rgba(0, 243, 255, 0.15);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   border-radius: 0.75rem;
 }
 
 .glass-panel-interactive {
-  background: rgba(8, 16, 36, 0.90);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(9, 18, 38, 0.94);
   border: 1px solid rgba(0, 243, 255, 0.2);
-  transition: border-color 0.2s ease, transform 0.2s ease;
-  will-change: transform;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+  transform: translate3d(0, 0, 0);
 }
 
 .glass-panel-interactive:hover {
   border-color: rgba(0, 243, 255, 0.5);
-  transform: translateY(-2px);
+  transform: translate3d(0, -2px, 0);
 }
 
 .glass-card-alert {
-  background: rgba(35, 8, 20, 0.90);
-  backdrop-filter: blur(6px);
+  background: rgba(36, 10, 22, 0.94);
   border: 1px solid rgba(255, 0, 85, 0.4);
 }
 
 .glass-pill {
-  background: rgba(0, 243, 255, 0.08);
+  background: rgba(9, 18, 38, 0.90);
   border: 1px solid rgba(0, 243, 255, 0.3);
-  backdrop-filter: blur(8px);
 }
 
 /* Neon Text Glows */
@@ -1369,11 +1363,9 @@
 }
 
 .saas-card {
-  background: rgba(8, 16, 36, 0.88);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(9, 18, 38, 0.94);
   border: 1px solid rgba(0, 243, 255, 0.12);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   border-radius: 14px;
   transition: border-color 0.15s ease, transform 0.15s ease;
   contain: layout style paint;
