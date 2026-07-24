@@ -20,25 +20,27 @@ const fadeUp = {
   }),
 };
 
-export default function OceanMap() {
+const OceanMap = React.memo(function OceanMap() {
   const [filterThreat, setFilterThreat] = useState('all');
   const [selectedRegion, setSelectedRegion] = useState(regions[0]);
   const [searchTerm, setSearchTerm] = useState('');
   const [dispatchedId, setDispatchedId] = useState(null);
 
-  const filteredRegions = regions.filter(r => {
-    const matchesThreat = filterThreat === 'all' || r.threat === filterThreat;
-    const matchesSearch = r.name.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesThreat && matchesSearch;
-  });
+  const filteredRegions = useMemo(() => {
+    return regions.filter(r => {
+      const matchesThreat = filterThreat === 'all' || r.threat === filterThreat;
+      const matchesSearch = r.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return matchesThreat && matchesSearch;
+    });
+  }, [filterThreat, searchTerm]);
 
-  const handleDispatchDrone = (id) => {
+  const handleDispatchDrone = useCallback((id) => {
     setDispatchedId(id);
     setTimeout(() => {
       setDispatchedId(null);
       alert(`Autonomous Remediation Submarine dispatched to station: ${selectedRegion.name}`);
     }, 1500);
-  };
+  }, [selectedRegion]);
 
   return (
     <div className="page-content" id="ocean-map-page">
@@ -228,4 +230,6 @@ export default function OceanMap() {
       <div style={{ height: 40 }} />
     </div>
   );
-}
+});
+
+export default OceanMap;

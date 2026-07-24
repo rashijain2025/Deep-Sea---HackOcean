@@ -1363,6 +1363,11 @@
    ENTERPRISE SAAS DESIGN SYSTEM TOKENS & UTILITIES
    ═══════════════════════════════════════════════════════════════════════════ */
 
+.section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 300px;
+}
+
 .saas-card {
   background: rgba(8, 16, 36, 0.88);
   backdrop-filter: blur(6px);
@@ -1370,14 +1375,15 @@
   border: 1px solid rgba(0, 243, 255, 0.12);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   border-radius: 14px;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-  contain: content;
-  will-change: transform;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+  contain: layout style paint;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .saas-card:hover {
   border-color: rgba(0, 243, 255, 0.3);
-  transform: translateY(-2px);
+  transform: translate3d(0, -2px, 0);
 }
 
 .saas-badge {

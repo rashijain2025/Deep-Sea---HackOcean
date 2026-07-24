@@ -38,7 +38,7 @@ const fadeUp = {
   }),
 };
 
-export default function Home() {
+const Home = React.memo(function Home() {
   return (
     <div className="page-content" id="home-page">
       {/* Hero Section */}
@@ -133,4 +133,6 @@ export default function Home() {
       </motion.section>
     </div>
   );
-}
+});
+
+export default Home;

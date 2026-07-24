@@ -12,7 +12,7 @@ const fadeUp = {
   }),
 };
 
-export default function Reports() {
+const Reports = React.memo(function Reports() {
   const [filter, setFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   const [downloadingId, setDownloadingId] = useState(null);
@@ -135,4 +135,6 @@ export default function Reports() {
       </motion.div>
     </div>
   );
-}
+});
+
+export default Reports;

@@ -12,7 +12,7 @@ const fadeUp = {
   }),
 };
 
-export default function Alerts() {
+const Alerts = React.memo(function Alerts() {
   const [severityFilter, setSeverityFilter] = useState('all');
   const [acknowledgedIds, setAcknowledgedIds] = useState([]);
 
@@ -179,4 +179,6 @@ export default function Alerts() {
       </motion.div>
     </div>
   );
-}
+});
+
+export default Alerts;

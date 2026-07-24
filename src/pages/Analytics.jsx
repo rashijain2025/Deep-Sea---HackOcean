@@ -83,7 +83,7 @@ const fadeUp = {
   }),
 };
 
-export default function Analytics() {
+const Analytics = React.memo(function Analytics() {
   return (
     <div className="page-content" id="analytics-page">
       <div className="page-header">
@@ -226,4 +226,6 @@ export default function Analytics() {
       </motion.div>
     </div>
   );
-}
+});
+
+export default Analytics;

@@ -27,7 +27,7 @@ const chartTooltipStyle = {
   fontSize: '12px',
 };
 
-export default function Dashboard() {
+const Dashboard = React.memo(function Dashboard() {
   const [dispatchedAlerts, setDispatchedAlerts] = useState([]);
 
   const handleDispatch = (id) => {
@@ -189,4 +189,6 @@ export default function Dashboard() {
       </motion.div>
     </div>
   );
-}
+});
+
+export default Dashboard;

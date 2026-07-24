@@ -23,7 +23,7 @@ const fadeUp = {
   }),
 };
 
-export default function Detection() {
+const Detection = React.memo(function Detection() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [verifiedIds, setVerifiedIds] = useState([]);
 
@@ -159,4 +159,6 @@ export default function Detection() {
       </motion.div>
     </div>
   );
-}
+});
+
+export default Detection;

@@ -12,7 +12,7 @@ const fadeUp = {
   }),
 };
 
-export default function Biodiversity() {
+const Biodiversity = React.memo(function Biodiversity() {
   const [filterStatus, setFilterStatus] = useState('all');
 
   const filteredSpecies = speciesData.filter(s => {
@@ -128,4 +128,6 @@ export default function Biodiversity() {
       </motion.div>
     </div>
   );
-}
+});
+
+export default Biodiversity;

@@ -26,7 +26,7 @@ const fadeUp = {
   }),
 };
 
-export default function Predictions() {
+const Predictions = React.memo(function Predictions() {
   return (
     <div className="page-content" id="predictions-page">
       <div className="page-header">
@@ -109,4 +109,6 @@ export default function Predictions() {
       </motion.div>
     </div>
   );
-}
+});
+
+export default Predictions;
