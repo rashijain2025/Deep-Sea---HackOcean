@@ -11,23 +11,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          charts: ['recharts'],
-          leaflet: ['leaflet', 'react-leaflet'],
-          motion: ['framer-motion'],
-          icons: ['lucide-react']
-        }
-      }
-    }
-  },
-  server: {
-    port: 3000,
-    open: false
-  },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
           'vendor-react-core': ['react', 'react-dom', 'react-router-dom'],
           'vendor-framer': ['framer-motion'],
           'vendor-charts': ['recharts', 'react-is'],
@@ -36,5 +19,9 @@ export default defineConfig({
       }
     },
     chunkSizeWarningLimit: 800
+  },
+  server: {
+    port: 3000,
+    open: false
   }
 })
