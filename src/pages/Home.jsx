@@ -94,30 +94,35 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Ambient Radial Hero Glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-cyan-500/15 via-emerald-500/10 to-transparent rounded-full blur-[100px] pointer-events-none z-0" />
+
         <motion.div 
           className="relative z-10 text-center max-w-5xl px-4 sm:px-6 my-auto pt-8"
           initial="hidden"
           animate="visible"
           variants={STAGGER_CONTAINER}
         >
-          <motion.div variants={FADE_UP} className="mb-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-300 text-xs font-mono tracking-widest backdrop-blur-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+          <motion.div variants={FADE_UP} className="mb-6 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-mono tracking-widest backdrop-blur-md shadow-[0_0_20px_rgba(0,243,255,0.15)]">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00f3ff]" />
             DEEPSEA GUARDIAN INTELLIGENCE
           </motion.div>
           
           <motion.h1 
             variants={FADE_UP}
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 sm:mb-8 leading-tight py-2"
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 sm:mb-8 leading-[1.15] max-w-4xl mx-auto text-white"
           >
-            Protecting Our Oceans<br/>
-            with <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300 pb-2 inline-block">Artificial Intelligence</span>
+            Protecting Our Oceans With <br className="hidden sm:inline" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-emerald-300 drop-shadow-[0_0_35px_rgba(0,243,255,0.35)]">
+              Artificial Intelligence
+            </span>
           </motion.h1>
 
           <motion.p 
             variants={FADE_UP}
-            className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-12 font-light leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-slate-300/90 max-w-2xl mx-auto mb-8 sm:mb-12 font-light leading-relaxed"
           >
-            Monitor pollution, marine biodiversity, and environmental risks in real time through one intelligent, government-grade ocean platform.
+            Real-time telemetry, pollution tracking, and biodiversity preservation across every ocean on Earth—powered by autonomous neural intelligence.
           </motion.p>
 
           <motion.div variants={FADE_UP} className="flex flex-col sm:flex-row items-center justify-center gap-4">
