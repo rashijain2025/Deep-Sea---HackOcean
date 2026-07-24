@@ -67,7 +67,7 @@ const InteractiveCursor = React.memo(function InteractiveCursor() {
         animate={{ x: '-20vw', y: [0, 30, -20, 0] }}
         transition={{ duration: 35, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
       >
-        <div className="flex gap-3 transform scale-x-[-1] opacity-50">
+        <div className="flex gap-3 opacity-50">
           {Array.from({ length: 5 }).map((_, i) => (
             <motion.svg
               key={i} width="24" height="10" viewBox="0 0 30 12" fill="#00e5ff"
