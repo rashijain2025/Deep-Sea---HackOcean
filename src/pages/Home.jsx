@@ -51,26 +51,7 @@ export default function Home() {
       <div className="absolute top-[100vh] bottom-0 left-0 right-0 pointer-events-none z-[-1] bg-[#020617]" />
       <div className="absolute top-0 h-[100vh] left-0 right-0 pointer-events-none z-[-1] bg-gradient-to-b from-transparent to-[#020617]" />
 
-      {/* ─── LIVE TELEMETRY TICKER ─── */}
-      <div className="ticker-wrapper w-full bg-cyan-950/30 border-b border-cyan-500/20 py-2.5 overflow-hidden flex items-center backdrop-blur-md relative z-30 mt-[-16px] pl-44 sm:pl-60">
-        {/* Left fade mask to prevent text overlapping with DepthZoneBar */}
-        <div className="absolute left-0 top-0 bottom-0 z-10 bg-gradient-to-r from-[#020617] via-[#020617] to-transparent w-44 sm:w-60 pointer-events-none" />
-        {/* Right fade mask */}
-        <div className="absolute right-0 top-0 bottom-0 z-10 bg-gradient-to-l from-[#020617] to-transparent w-20 pointer-events-none" />
 
-        <div className="ticker-track flex whitespace-nowrap font-mono text-[10px] md:text-xs text-cyan-400 uppercase tracking-widest">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="flex gap-12 items-center px-8 shrink-0">
-              <span className="flex items-center gap-2 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Pacific: Temp +0.02°C</span>
-              <span className="flex items-center gap-2 text-amber-300"><span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"/> Atlantic: Plastic Detected</span>
-              <span className="flex items-center gap-2 text-cyan-300"><span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"/> Mariana: Drone Active</span>
-              <span className="flex items-center gap-2 text-emerald-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Indian Ocean: Whale Pod</span>
-              <span className="flex items-center gap-2 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Arctic: Ice Shelf Nominal</span>
-              <span className="flex items-center gap-2 text-cyan-300"><span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"/> Pacific: Temp +0.02°C</span>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* ─── 1. HERO SECTION ─── */}
       <section className="relative min-h-[calc(100vh-100px)] flex flex-col items-center justify-between pt-16 pb-12 overflow-hidden">
