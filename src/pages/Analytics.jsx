@@ -106,7 +106,7 @@ const Analytics = React.memo(function Analytics() {
           <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trends</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">12-month rolling window (Tons of Debris Detected)</div>
           <LazyChart height={280}>
-            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={280}>
+            <ResponsiveContainer width="100%" height={280}>
               <AreaChart data={pollutionData}>
                 <defs>
                   <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
@@ -131,7 +131,7 @@ const Analytics = React.memo(function Analytics() {
           <h3 className="text-base font-bold text-white font-display mb-1">Ocean Health Index</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Global composite score over 12 months</div>
           <LazyChart height={280}>
-            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={280}>
+            <ResponsiveContainer width="100%" height={280}>
               <LineChart data={oceanHealthData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                 <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
@@ -150,7 +150,7 @@ const Analytics = React.memo(function Analytics() {
           <h3 className="text-base font-bold text-white font-display mb-1">Species Population Growth</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Telemetry counts for tracked populations</div>
           <LazyChart height={280}>
-            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={280}>
+            <ResponsiveContainer width="100%" height={280}>
               <BarChart data={speciesData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                 <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
@@ -169,7 +169,7 @@ const Analytics = React.memo(function Analytics() {
           <h3 className="text-base font-bold text-white font-display mb-1">Regional Threat Analysis</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Subsea risk index matrix</div>
           <LazyChart height={280}>
-            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={280}>
+            <ResponsiveContainer width="100%" height={280}>
               <RadarChart data={riskData}>
                 <PolarGrid stroke="rgba(255,255,255,0.1)" />
                 <PolarAngleAxis dataKey="region" stroke="rgba(255,255,255,0.4)" fontSize={10} />
@@ -191,7 +191,7 @@ const Analytics = React.memo(function Analytics() {
           <h3 className="text-base font-bold text-white font-display mb-1">Plastic Debris Distribution</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">By classification breakdown (%)</div>
           <LazyChart height={280}>
-            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={280}>
+            <ResponsiveContainer width="100%" height={280}>
               <PieChart>
                 <Pie data={plasticDist} cx="50%" cy="50%" outerRadius={100} innerRadius={55} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false} fontSize={11}>
                   {plasticDist.map((entry, index) => (
@@ -208,7 +208,7 @@ const Analytics = React.memo(function Analytics() {
           <h3 className="text-base font-bold text-white font-display mb-1">Coral Barrier Vitality</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Health score rating by barrier reef</div>
           <LazyChart height={280}>
-            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={280}>
+            <ResponsiveContainer width="100%" height={280}>
               <BarChart data={coralHealth} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                 <XAxis type="number" domain={[0, 100]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
