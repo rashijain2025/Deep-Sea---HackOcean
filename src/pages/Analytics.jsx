@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, TrendingUp, ShieldAlert, Cpu, BarChart3 } from 'lucide-react';
+import { Sparkles, TrendingUp, ShieldAlert, Cpu, BarChart3, Filter, Calendar, Layers, Activity, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import {
   AreaChart, Area, LineChart, Line, BarChart, Bar,
   PieChart, Pie, Cell, RadarChart, Radar, PolarGrid,
@@ -11,7 +11,6 @@ import {
 import { LazyChart } from '../components/LazyChart';
 import { fadeUp } from '../constants/animations';
 import { chartTooltipStyle as tooltipStyle } from '../constants/chartTheme';
-
 
 const pollutionData = [
   { month: 'Jan', Plastic: 220, Oil: 30, Chemical: 60 },
@@ -72,12 +71,84 @@ const coralHealth = [
 ];
 
 const Analytics = React.memo(function Analytics() {
+  const [timeRange, setTimeRange] = useState('12M');
+  const [activeRegion, setActiveRegion] = useState('Global');
+
   return (
     <div className="page-content" id="analytics-page">
       <div className="page-header">
         <div className="label">Deep Telemetry Analytics</div>
-        <h1>Ocean Data Analytics</h1>
+        <h1>Enterprise Ocean Analytics</h1>
         <p>Comprehensive environmental synthesis across all monitoring stations, satellite feeds, and subsea nodes.</p>
+      </div>
+
+      {/* Control Toolbar & Filters */}
+      <div className="section mb-6">
+        <div className="saas-card p-4 flex flex-wrap gap-4 justify-between items-center">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-mono font-semibold text-slate-400 flex items-center gap-1.5 mr-2">
+              <Calendar size={14} className="text-cyan-400" />
+              TIMEFRAME:
+            </span>
+            {['30D', '90D', '12M', 'YTD', 'ALL'].map((range) => (
+              <button
+                key={range}
+                onClick={() => setTimeRange(range)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
+                  timeRange === range
+                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 shadow-[0_0_12px_rgba(0,243,255,0.2)]'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
+              >
+                {range}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-mono font-semibold text-slate-400 flex items-center gap-1.5 mr-2">
+              <Filter size={14} className="text-cyan-400" />
+              REGION:
+            </span>
+            {['Global', 'Pacific', 'Atlantic', 'Indian', 'Arctic'].map((reg) => (
+              <button
+                key={reg}
+                onClick={() => setActiveRegion(reg)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
+                  activeRegion === reg
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/50 shadow-[0_0_12px_rgba(0,255,157,0.2)]'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
+              >
+                {reg}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Executive KPI Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 section mb-6">
+        {[
+          { label: 'Debris Volume Tracked', val: '4,180 Tons', change: '+4.2% YOY', icon: TrendingUp, color: 'text-cyan-400 border-cyan-500/30' },
+          { label: 'Ocean Health Composite', val: '92 / 100', change: '+2.1 pts', icon: Activity, color: 'text-emerald-400 border-emerald-500/30' },
+          { label: 'Species Census Total', val: '19,900 Tags', change: '+890 new', icon: CheckCircle2, color: 'text-indigo-400 border-indigo-500/30' },
+          { label: 'High Threat Hotspots', val: '3 Sectors', change: '-1 from Q2', icon: AlertTriangle, color: 'text-amber-400 border-amber-500/30' },
+        ].map((kpi, i) => {
+          const Icon = kpi.icon;
+          return (
+            <div key={i} className={`saas-card p-4 flex flex-col justify-between border ${kpi.color}`}>
+              <div className="flex justify-between items-start mb-2">
+                <span className="text-xs font-mono text-slate-400 font-semibold">{kpi.label}</span>
+                <Icon size={16} className={kpi.color.split(' ')[0]} />
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-white font-display">{kpi.val}</div>
+                <div className="text-[10px] font-mono text-slate-400 mt-1">{kpi.change}</div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Actionable Executive Insights Bar */}
@@ -100,10 +171,10 @@ const Analytics = React.memo(function Analytics() {
         </div>
       </div>
 
-      {/* Row 1 */}
-      <motion.div className="grid-2 section" initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trends</h3>
+      {/* Row 1: Pollution Trends & Ocean Health */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 section mb-6">
+        <div className="saas-card p-5">
+          <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trends Spectrum</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">12-month rolling window (Tons of Debris Detected)</div>
           <LazyChart height={280}>
             <ResponsiveContainer width="100%" height={280}>
@@ -125,11 +196,11 @@ const Analytics = React.memo(function Analytics() {
               </AreaChart>
             </ResponsiveContainer>
           </LazyChart>
-        </motion.div>
+        </div>
 
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Ocean Health Index</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">Global composite score over 12 months</div>
+        <div className="saas-card p-5">
+          <h3 className="text-base font-bold text-white font-display mb-1">Ocean Health Composite Score</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">Global composite index over 12 months</div>
           <LazyChart height={280}>
             <ResponsiveContainer width="100%" height={280}>
               <LineChart data={oceanHealthData}>
@@ -141,14 +212,14 @@ const Analytics = React.memo(function Analytics() {
               </LineChart>
             </ResponsiveContainer>
           </LazyChart>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* Row 2 */}
-      <motion.div className="grid-2 section" initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Species Population Growth</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">Telemetry counts for tracked populations</div>
+      {/* Row 2: Species Population & Threat Analysis */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 section mb-6">
+        <div className="saas-card p-5">
+          <h3 className="text-base font-bold text-white font-display mb-1">Species Population Dynamics</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">Acoustic & visual tagging count</div>
           <LazyChart height={280}>
             <ResponsiveContainer width="100%" height={280}>
               <BarChart data={speciesData}>
@@ -163,11 +234,11 @@ const Analytics = React.memo(function Analytics() {
               </BarChart>
             </ResponsiveContainer>
           </LazyChart>
-        </motion.div>
+        </div>
 
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Regional Threat Analysis</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">Subsea risk index matrix</div>
+        <div className="saas-card p-5">
+          <h3 className="text-base font-bold text-white font-display mb-1">Regional Risk Matrix</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">Radar subsea vulnerability rating</div>
           <LazyChart height={280}>
             <ResponsiveContainer width="100%" height={280}>
               <RadarChart data={riskData}>
@@ -182,14 +253,14 @@ const Analytics = React.memo(function Analytics() {
               </RadarChart>
             </ResponsiveContainer>
           </LazyChart>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* Row 3 */}
-      <motion.div className="grid-2 section" initial="hidden" whileInView="visible" viewport={{ once: true }} style={{ paddingBottom: 60 }}>
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Plastic Debris Distribution</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">By classification breakdown (%)</div>
+      {/* Row 3: Plastic Breakdown & Coral Vitality */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 section mb-12">
+        <div className="saas-card p-5">
+          <h3 className="text-base font-bold text-white font-display mb-1">Plastic Debris Classification</h3>
+          <div className="text-xs text-slate-400 mb-4 font-mono">Percentage breakdown by debris type</div>
           <LazyChart height={280}>
             <ResponsiveContainer width="100%" height={280}>
               <PieChart>
@@ -202,10 +273,10 @@ const Analytics = React.memo(function Analytics() {
               </PieChart>
             </ResponsiveContainer>
           </LazyChart>
-        </motion.div>
+        </div>
 
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Coral Barrier Vitality</h3>
+        <div className="saas-card p-5">
+          <h3 className="text-base font-bold text-white font-display mb-1">Coral Barrier Vitality Ratings</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Health score rating by barrier reef</div>
           <LazyChart height={280}>
             <ResponsiveContainer width="100%" height={280}>
@@ -222,8 +293,8 @@ const Analytics = React.memo(function Analytics() {
               </BarChart>
             </ResponsiveContainer>
           </LazyChart>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 });
