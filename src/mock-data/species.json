@@ -1,7 +1,8 @@
 [
   {
     "id": "sp-1",
-    "name": "Honu Sea Turtle (Chelonia mydas)",
+    "name": "Honu Green Sea Turtle",
+    "latinName": "Chelonia mydas",
     "category": "Reptile",
     "region": "Indo-Pacific Sanctuary",
     "status": "vulnerable",
@@ -11,11 +12,13 @@
     "habitat": "Coral Reefs & Seagrass Beds",
     "recentObs": "12 mins ago (Station B-04)",
     "sensorTag": "TAG-TURTLE-904",
-    "emoji": "🐢"
+    "imageUrl": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
+    "fact": "Green sea turtles navigate across thousands of kilometers of open ocean returning to the exact beach where they hatched using Earth's magnetic field."
   },
   {
     "id": "sp-2",
-    "name": "Blue Whale (Balaenoptera musculus)",
+    "name": "Blue Whale",
+    "latinName": "Balaenoptera musculus",
     "category": "Mammal",
     "region": "North Atlantic Deep Trench",
     "status": "endangered",
@@ -25,11 +28,13 @@
     "habitat": "Open Ocean Pelagic",
     "recentObs": "34 mins ago (Sonar Hydrophone 12)",
     "sensorTag": "TAG-WHALE-102",
-    "emoji": "🐋"
+    "imageUrl": "https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=800&q=80",
+    "fact": "The largest creature ever known to exist on Earth. A blue whale's vocalizations can travel through ocean basins over 1,000 miles."
   },
   {
     "id": "sp-3",
-    "name": "Great Barrier Coral System",
+    "name": "Great Barrier Coral Barrier",
+    "latinName": "Acropora cervicornis",
     "category": "Reef",
     "region": "Great Barrier Outer Slope",
     "status": "threatened",
@@ -39,11 +44,13 @@
     "habitat": "Shallow Subsea Ridge (0-30m)",
     "recentObs": "2 mins ago (UW-CAM-005)",
     "sensorTag": "NODE-REEF-BARRIER",
-    "emoji": "🪸"
+    "imageUrl": "https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=800&q=80",
+    "fact": "Coral reefs occupy less than 0.1% of the ocean floor, yet nourish and shelter over 25% of all marine biodiversity."
   },
   {
     "id": "sp-4",
-    "name": "Great White Shark (Carcharodon carcharias)",
+    "name": "Apex Great White Shark",
+    "latinName": "Carcharodon carcharias",
     "category": "Fish",
     "region": "Global Pelagic Corridor",
     "status": "stable",
@@ -53,11 +60,13 @@
     "habitat": "Deep Shelf & Pelagic Zone",
     "recentObs": "1 hour ago (Acoustic Array 4)",
     "sensorTag": "TAG-SHARK-408",
-    "emoji": "🦈"
+    "imageUrl": "https://images.unsplash.com/photo-1560275619-4662e36fa65c?auto=format&fit=crop&w=800&q=80",
+    "fact": "Apex oceanic predators equipped with ampullae of Lorenzini capable of detecting electrical currents down to one-billionth of a volt."
   },
   {
     "id": "sp-5",
-    "name": "Bottlenose Dolphin (Tursiops truncatus)",
+    "name": "Bottlenose Dolphin",
+    "latinName": "Tursiops truncatus",
     "category": "Mammal",
     "region": "Coastal Sanctuary Waters",
     "status": "stable",
@@ -67,11 +76,29 @@
     "habitat": "Estuaries & Coastal Basins",
     "recentObs": "5 mins ago (Drone Scan X1)",
     "sensorTag": "TAG-DOLPHIN-812",
-    "emoji": "🐬"
+    "imageUrl": "https://images.unsplash.com/photo-1570481662006-a3a1374699e8?auto=format&fit=crop&w=800&q=80",
+    "fact": "Highly intelligent marine mammals that communicate with unique whistle signatures functioning as individual names within their pod."
   },
   {
     "id": "sp-6",
-    "name": "Sea Otter (Enhydra lutris)",
+    "name": "Giant Oceanic Manta Ray",
+    "latinName": "Mobula birostris",
+    "category": "Fish",
+    "region": "Indo-Pacific Trench Slope",
+    "status": "vulnerable",
+    "statusLabel": "IUCN: Vulnerable",
+    "health": 81,
+    "population": "4,100 tracked",
+    "habitat": "Subsea Seamounts & Clean Reefs",
+    "recentObs": "40 mins ago (Station M-02)",
+    "sensorTag": "TAG-MANTA-512",
+    "imageUrl": "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?auto=format&fit=crop&w=800&q=80",
+    "fact": "Boasts the largest brain-to-body mass ratio of all fish. They visit designated reef 'cleaning stations' where small fish remove skin parasites."
+  },
+  {
+    "id": "sp-7",
+    "name": "Sea Otter",
+    "latinName": "Enhydra lutris",
     "category": "Mammal",
     "region": "North Pacific Kelp Forest",
     "status": "vulnerable",
@@ -81,6 +108,23 @@
     "habitat": "Sub-littoral Kelp Beds",
     "recentObs": "2 hours ago (Station P-09)",
     "sensorTag": "TAG-OTTER-302",
-    "emoji": "🦦"
+    "imageUrl": "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?auto=format&fit=crop&w=800&q=80",
+    "fact": "Keystone species preserving kelp forests by consuming sea urchins. They wrap themselves in kelp strands so they don't drift while sleeping."
+  },
+  {
+    "id": "sp-8",
+    "name": "Pelagic Reef Fish School",
+    "latinName": "Acanthurinae",
+    "category": "Fish",
+    "region": "Maldives Marine Reserve",
+    "status": "stable",
+    "statusLabel": "IUCN: Stable",
+    "health": 95,
+    "population": "184,000 tracked",
+    "habitat": "Barrier Reef Lagoon",
+    "recentObs": "3 mins ago (UW-CAM-010)",
+    "sensorTag": "ARRAY-FISH-88",
+    "imageUrl": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=800&q=80",
+    "fact": "Schooling fish synchronize their movements using sensory lateral lines that detect micro-fluctuations in water pressure around them."
   }
 ]
