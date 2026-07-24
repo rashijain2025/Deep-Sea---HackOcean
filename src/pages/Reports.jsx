@@ -2,58 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Download, Filter, Calendar, MapPin, CheckCircle, Search, FileCode } from 'lucide-react';
 
-const mockReports = [
-  {
-    id: 'rep-01',
-    title: 'Ocean Health Summary Report (Q2)',
-    category: 'Summary',
-    date: 'July 2026',
-    size: '4.8 MB',
-    format: 'PDF',
-    description: 'Comprehensive analysis of global ocean parameters, key telemetry indices, and composite health score dynamics.',
-    downloads: 342,
-  },
-  {
-    id: 'rep-02',
-    title: 'Pollution & Microplastic Debris Analysis',
-    category: 'Pollution',
-    date: 'June 2026',
-    size: '12.4 MB',
-    format: 'PDF',
-    description: 'Autonomous microplastic mapping, satellite oil spill tracking, and plastic accumulation forecasting across 58 monitoring regions.',
-    downloads: 512,
-  },
-  {
-    id: 'rep-03',
-    title: 'Biodiversity Census & Coral Health Atlas',
-    category: 'Biodiversity',
-    date: 'June 2026',
-    size: '8.1 MB',
-    format: 'PDF',
-    description: 'Population dynamic charts for endangered species, migration corridor tracking, and thermal coral bleaching assessments.',
-    downloads: 289,
-  },
-  {
-    id: 'rep-04',
-    title: 'Triaged Alert & Incident Resolution Log',
-    category: 'Alerts',
-    date: 'July 2026',
-    size: '2.5 MB',
-    format: 'CSV',
-    description: 'Complete log of critical pollution alerts, drone submarine intercepts, vessel patrol dispatches, and resolution timestamps.',
-    downloads: 187,
-  },
-  {
-    id: 'rep-05',
-    title: 'Monthly Regional Monitoring Statement (June)',
-    category: 'Monitoring',
-    date: 'June 2026',
-    size: '6.2 MB',
-    format: 'PDF',
-    description: 'Subsea hydrophone node telemetry aggregates, acoustics signatures catalog, and region-by-region environmental health rating.',
-    downloads: 405,
-  },
-];
+import mockReports from '../mock-data/reports.json';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Sparkles, Volume2, VolumeX, Sparkle } from 'lucide-react';
+import { Sparkles, Volume2, VolumeX, Sparkle, Loader2 } from 'lucide-react';
 
 // Components
 import Navbar from './components/Navbar';
@@ -12,14 +12,22 @@ import { oceanAudio } from './utils/oceanAudio';
 
 // Pages
 import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import OceanMap from './pages/OceanMap';
-import Alerts from './pages/Alerts';
-import Analytics from './pages/Analytics';
-import Biodiversity from './pages/Biodiversity';
-import Detection from './pages/Detection';
-import Predictions from './pages/Predictions';
-import Reports from './pages/Reports';
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const OceanMap = lazy(() => import('./pages/OceanMap'));
+const Alerts = lazy(() => import('./pages/Alerts'));
+const Analytics = lazy(() => import('./pages/Analytics'));
+const Biodiversity = lazy(() => import('./pages/Biodiversity'));
+const Detection = lazy(() => import('./pages/Detection'));
+const Predictions = lazy(() => import('./pages/Predictions'));
+const Reports = lazy(() => import('./pages/Reports'));
+
+// Premium Loading Indicator
+const PageLoader = () => (
+  <div className="flex-1 flex flex-col items-center justify-center min-h-[60vh] text-cyan-400">
+    <Loader2 className="w-8 h-8 animate-spin mb-3 text-cyan-300" />
+    <span className="text-xs font-mono tracking-widest text-slate-400">SYNCHRONIZING TELEMETRY NODE...</span>
+  </div>
+);
 
 export default function App() {
   const [currentZone, setCurrentZone] = useState('Sunlit Zone'); // Sunlit Zone, Twilight Zone, Abyssal Zone
@@ -82,17 +90,19 @@ export default function App() {
 
       {/* ─── Page Content Route Router Container ─── */}
       <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/map" element={<OceanMap />} />
-          <Route path="/alerts" element={<Alerts />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/biodiversity" element={<Biodiversity />} />
-          <Route path="/detection" element={<Detection />} />
-          <Route path="/predictions" element={<Predictions />} />
-          <Route path="/reports" element={<Reports />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/map" element={<OceanMap />} />
+            <Route path="/alerts" element={<Alerts />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/biodiversity" element={<Biodiversity />} />
+            <Route path="/detection" element={<Detection />} />
+            <Route path="/predictions" element={<Predictions />} />
+            <Route path="/reports" element={<Reports />} />
+          </Routes>
+        </Suspense>
 
         {/* Global Footer */}
         <Footer />

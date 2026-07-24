@@ -2,80 +2,18 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Eye, AlertTriangle, Fish, Droplets, Anchor, CheckCircle2, ShieldAlert, Cpu, Filter } from 'lucide-react';
 
-const detectionsData = [
-  {
-    id: 'det-1',
-    camera: 'UW-CAM-NORTH-001',
-    category: 'Plastic',
-    type: 'High-Density Microplastic Cluster',
-    confidence: 96,
-    riskLevel: 'high',
-    timestamp: '2 mins ago',
-    location: 'Arabian Sea · Sector A-14 (Depth 45m)',
-    icon: <Droplets size={28} className="text-cyan-400" />,
-    summary: 'Neural Vision model identified 420 kg/km² PET plastic bottle accumulation near deep sea boundary.',
-  },
-  {
-    id: 'det-2',
-    camera: 'UW-CAM-GULF-002',
-    category: 'Oil Spill',
-    type: 'Crude Oil Slick Surface Signature',
-    confidence: 98,
-    riskLevel: 'critical',
-    timestamp: '14 mins ago',
-    location: 'Gulf of Mexico · Hydro-Vent Zone (Surface)',
-    icon: <AlertTriangle size={28} className="text-red-400" />,
-    summary: 'Acoustic array & multispectral optics registered 2.4 km crude plume spreading east-northeast.',
-  },
-  {
-    id: 'det-3',
-    camera: 'UW-CAM-PACIFIC-003',
-    category: 'Species',
-    type: 'Honu Sea Turtle (Chelonia mydas)',
-    confidence: 94,
-    riskLevel: 'safe',
-    timestamp: '28 mins ago',
-    location: 'Indo-Pacific Sanctuary · Subsea Ridge (Depth 18m)',
-    icon: <Fish size={28} className="text-emerald-400" />,
-    summary: 'Optimal swim pattern detected. Heart rate telemetry nominal (42 bpm). No entanglement observed.',
-  },
-  {
-    id: 'det-4',
-    camera: 'UW-CAM-NORTH-004',
-    category: 'Ghost Nets',
-    type: 'Abandoned Ghost Net Entanglement',
-    confidence: 89,
-    riskLevel: 'high',
-    timestamp: '1 hour ago',
-    location: 'North Sea Barrier Reef · Depth 30m',
-    icon: <Anchor size={28} className="text-amber-400" />,
-    summary: 'Synthetic monofilament mesh spanning 15 meters caught on submerged rocky outcrop. Retrieval required.',
-  },
-  {
-    id: 'det-5',
-    camera: 'UW-CAM-BARRIER-005',
-    category: 'Coral',
-    type: 'Thermal Coral Bleaching Anomaly',
-    confidence: 93,
-    riskLevel: 'medium',
-    timestamp: '2 hours ago',
-    location: 'Great Barrier Outer Slope · Depth 12m',
-    icon: <Eye size={28} className="text-amber-400" />,
-    summary: 'Localized pigment loss observed on 18% of staghorn coral clusters (+2.4°C thermal variance).',
-  },
-  {
-    id: 'det-6',
-    camera: 'UW-CAM-COASTAL-006',
-    category: 'Species',
-    type: 'Pacific Bluefin School & Dolphin Pod',
-    confidence: 97,
-    riskLevel: 'safe',
-    timestamp: '3 hours ago',
-    location: 'Coastal Marine Sanctuary · Depth 22m',
-    icon: <Fish size={28} className="text-emerald-400" />,
-    summary: 'Coordinated feeding behavior cataloged. Species count: 48 bluefin tuna + 6 bottlenose dolphins.',
-  },
-];
+import detectionsData from '../mock-data/detections.json';
+
+const getCategoryIcon = (iconName) => {
+  switch (iconName) {
+    case 'Droplets': return <Droplets size={28} className="text-cyan-400" />;
+    case 'AlertTriangle': return <AlertTriangle size={28} className="text-red-400" />;
+    case 'Fish': return <Fish size={28} className="text-emerald-400" />;
+    case 'Anchor': return <Anchor size={28} className="text-amber-400" />;
+    case 'Eye': return <Eye size={28} className="text-amber-400" />;
+    default: return <Camera size={28} className="text-cyan-400" />;
+  }
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -167,7 +105,7 @@ export default function Detection() {
 
               {/* Subsea Viewport Display */}
               <div className="detection-body relative mb-4">
-                {d.icon}
+                {getCategoryIcon(d.icon)}
                 <div className="absolute top-2 left-2 text-[9px] font-mono text-cyan-400/80 bg-slate-950/80 px-2 py-0.5 rounded border border-cyan-500/30">
                   BOUNDING BOX // {d.category.toUpperCase()}
                 </div>

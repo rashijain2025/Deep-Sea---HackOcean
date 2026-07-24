@@ -4,16 +4,7 @@ import { motion } from 'framer-motion';
 import { MapPin, ShieldAlert, Activity, Navigation, Radio, Filter, Search, CheckCircle, Crosshair } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 
-const regions = [
-  { id: 'reg-1', name: 'Arabian Sea (Sector A-14)', lat: 18.7, lng: 68.2, threat: 'critical', plastic: 'High (420 kg/km²)', oil: 'Active Plume Detected', coralScore: '45/100 (Severe Bleaching)', species: 45, depth: '140m', riskScore: 89 },
-  { id: 'reg-2', name: 'Lakshadweep Barrier Reef', lat: 10.5, lng: 72.6, threat: 'medium', plastic: 'Moderate (180 kg/km²)', oil: 'Clear', coralScore: '65/100 (Thermal Stress)', species: 120, depth: '28m', riskScore: 58 },
-  { id: 'reg-3', name: 'Gulf of Mexico Hydro-Vent', lat: 25.1, lng: -90.2, threat: 'critical', plastic: 'Extreme (580 kg/km²)', oil: 'Crude Oil Slick Spill', coralScore: '40/100 (Degraded)', species: 78, depth: '420m', riskScore: 94 },
-  { id: 'reg-4', name: 'North Sea Marine Sanctuary', lat: 56.2, lng: 3.1, threat: 'medium', plastic: 'Moderate (210 kg/km²)', oil: 'Trace Harmonics', coralScore: '70/100 (Stable)', species: 64, depth: '85m', riskScore: 48 },
-  { id: 'reg-5', name: 'South Pacific Marine Sanctuary', lat: -12.4, lng: -165.9, threat: 'safe', plastic: 'Low (12 kg/km²)', oil: 'Clear', coralScore: '92/100 (Thriving)', species: 210, depth: '1,200m', riskScore: 12 },
-  { id: 'reg-6', name: 'Great Barrier Outer Slope', lat: -18.3, lng: 147.7, threat: 'critical', plastic: 'High (340 kg/km²)', oil: 'Clear', coralScore: '52/100 (Active Bleaching)', species: 320, depth: '45m', riskScore: 84 },
-  { id: 'reg-7', name: 'Bay of Bengal Deep Trench', lat: 15.0, lng: 85.0, threat: 'medium', plastic: 'Moderate (290 kg/km²)', oil: 'Trace Hydrocarbons', coralScore: '68/100 (Moderate)', species: 95, depth: '680m', riskScore: 62 },
-  { id: 'reg-8', name: 'Southern Indian Ocean Abyssal', lat: -5.0, lng: 60.0, threat: 'safe', plastic: 'Low (18 kg/km²)', oil: 'Clear', coralScore: '88/100 (Optimal)', species: 180, depth: '2,400m', riskScore: 15 },
-];
+import regions from '../mock-data/regions.json';
 
 const threatColors = {
   critical: { color: '#ef4444', fillOpacity: 0.4, border: '#f87171' },

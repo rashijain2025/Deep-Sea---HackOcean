@@ -6,6 +6,10 @@ import {
   Tooltip, ResponsiveContainer,
 } from 'recharts';
 
+import mockPredictionsData from '../mock-data/predictions.json';
+
+const { predictions, riskProjection } = mockPredictionsData;
+
 const tooltipStyle = {
   backgroundColor: 'rgba(3,8,20,0.95)',
   border: '1px solid rgba(0,243,255,0.25)',
@@ -13,46 +17,6 @@ const tooltipStyle = {
   color: '#fff',
   fontSize: '12px',
 };
-
-const predictions = [
-  {
-    title: 'Pollution Surge Forecast — Arabian Sea',
-    region: 'Arabian Sea · Sector A-14',
-    confidence: 87,
-    forecast: 'Neural runoff model forecasts 15% increase in plastic accumulation over 30 days due to monsoon sea surface current shift.',
-    severity: 'high',
-  },
-  {
-    title: 'Coral Thermal Bleaching Warning — Lakshadweep',
-    region: 'Lakshadweep Islands · Barrier Reef Zone',
-    confidence: 79,
-    forecast: 'Sea surface temperature anomaly (+2.8°C) indicates high bleaching risk within 45 days. Pre-emptive shading micro-sensors advised.',
-    severity: 'medium',
-  },
-  {
-    title: 'Species Migration Corridor Shift — North Atlantic',
-    region: 'North Atlantic · Blue Whale Migration Route',
-    confidence: 92,
-    forecast: 'Blue whale feeding corridors shifting 45 km northward. Automated subsea hydrophone patrol realignment recommended.',
-    severity: 'low',
-  },
-  {
-    title: 'Oil Spill Probability Spike — Gulf of Mexico',
-    region: 'Gulf of Mexico · Shipping Lane Hydro-Vent',
-    confidence: 74,
-    forecast: 'Elevated hydrocarbon signature near offshore rigs indicates 28% risk of active plume over 14 days. Pre-positioning booms advised.',
-    severity: 'critical',
-  },
-];
-
-const riskProjection = [
-  { month: 'Jan', risk: 35 }, { month: 'Feb', risk: 38 },
-  { month: 'Mar', risk: 42 }, { month: 'Apr', risk: 48 },
-  { month: 'May', risk: 55 }, { month: 'Jun', risk: 62 },
-  { month: 'Jul', risk: 68 }, { month: 'Aug', risk: 72 },
-  { month: 'Sep', risk: 65 }, { month: 'Oct', risk: 58 },
-  { month: 'Nov', risk: 50 }, { month: 'Dec', risk: 45 },
-];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },

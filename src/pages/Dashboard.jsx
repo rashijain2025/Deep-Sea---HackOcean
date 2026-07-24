@@ -7,47 +7,9 @@ import {
   ResponsiveContainer, Legend,
 } from 'recharts';
 
-const stats = [
-  { label: 'Ocean Health Score', value: '92', unit: '/100', trend: '+2.1%', dir: 'up', desc: 'Composite index' },
-  { label: 'Plastic Debris Tracked', value: '3,214', unit: ' tons', trend: '+8.4%', dir: 'up', desc: 'Last 30 days' },
-  { label: 'Active Oil Incidents', value: '7', unit: ' active', trend: '-12%', dir: 'down', desc: 'Containment active' },
-  { label: 'Coral Reef Vitality', value: '78', unit: '%', trend: '-1.2%', dir: 'down', desc: 'Reef health score' },
-  { label: 'Species Cataloged', value: '482', unit: ' species', trend: '+16', dir: 'up', desc: 'IUCN monitored' },
-  { label: 'Subsea Risk Level', value: 'Moderate', unit: '', trend: 'Stable', dir: 'stable', desc: 'Neural risk model' },
-];
+import mockDashboardData from '../mock-data/dashboard.json';
 
-const pollutionData = [
-  { month: 'Jan', Plastic: 220, Oil: 30, Chemical: 60 },
-  { month: 'Feb', Plastic: 240, Oil: 35, Chemical: 55 },
-  { month: 'Mar', Plastic: 280, Oil: 25, Chemical: 65 },
-  { month: 'Apr', Plastic: 310, Oil: 40, Chemical: 70 },
-  { month: 'May', Plastic: 340, Oil: 45, Chemical: 75 },
-  { month: 'Jun', Plastic: 360, Oil: 50, Chemical: 80 },
-  { month: 'Jul', Plastic: 380, Oil: 55, Chemical: 85 },
-  { month: 'Aug', Plastic: 400, Oil: 48, Chemical: 90 },
-  { month: 'Sep', Plastic: 420, Oil: 52, Chemical: 88 },
-  { month: 'Oct', Plastic: 430, Oil: 55, Chemical: 92 },
-  { month: 'Nov', Plastic: 450, Oil: 58, Chemical: 95 },
-  { month: 'Dec', Plastic: 460, Oil: 60, Chemical: 98 },
-];
-
-const healthData = [
-  { day: 'Mon', score: 88 },
-  { day: 'Tue', score: 89 },
-  { day: 'Wed', score: 90 },
-  { day: 'Thu', score: 91 },
-  { day: 'Fri', score: 90 },
-  { day: 'Sat', score: 93 },
-  { day: 'Sun', score: 95 },
-];
-
-const recentAlertsData = [
-  { id: '1', title: 'Plastic accumulation cluster', location: 'Arabian Sea · Sector A-14', time: '2 min ago', severity: 'high' },
-  { id: '2', title: 'Thermal coral bleaching warning', location: 'Lakshadweep Reef', time: '18 min ago', severity: 'medium' },
-  { id: '3', title: 'Crude oil spill plume signature', location: 'Gulf of Mexico Hydro-Vent', time: '42 min ago', severity: 'critical' },
-  { id: '4', title: 'Illegal commercial trawling', location: 'South Pacific Sanctuary', time: '1 h ago', severity: 'high' },
-  { id: '5', title: 'Ghost fishing net entanglement', location: 'North Sea Subsea Ridge', time: '3 h ago', severity: 'medium' },
-];
+const { stats, pollutionData, healthData, recentAlertsData } = mockDashboardData;
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },

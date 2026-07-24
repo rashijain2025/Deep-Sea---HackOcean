@@ -1,0 +1,62 @@
+[
+  {
+    "id": "alt-1",
+    "title": "Crude Oil Slick Spill Detected",
+    "location": "Gulf of Mexico · 25.1°N 90.2°W",
+    "severity": "critical",
+    "detected": "42 min ago",
+    "action": "Alert Coast Guard, mobilize containment booms",
+    "impactScore": 94,
+    "sector": "Zone C-12 Drilling Lane"
+  },
+  {
+    "id": "alt-2",
+    "title": "Illegal Commercial Trawling Activity",
+    "location": "Protected Sanctuary B4 · 14.2°N 71.8°E",
+    "severity": "critical",
+    "detected": "12 min ago",
+    "action": "Dispatch Coast Guard patrol vessel",
+    "impactScore": 90,
+    "sector": "Sanctuary Boundary B4"
+  },
+  {
+    "id": "alt-3",
+    "title": "High Plastic Debris Accumulation",
+    "location": "Arabian Sea · 18.7°N 68.2°E",
+    "severity": "high",
+    "detected": "2 min ago",
+    "action": "Deploy cleanup drone fleet to sector A-14",
+    "impactScore": 78,
+    "sector": "Sector A-14"
+  },
+  {
+    "id": "alt-4",
+    "title": "Illegal Fishing Activity",
+    "location": "South Pacific · 12.4°S 165.9°W",
+    "severity": "high",
+    "detected": "1 h ago",
+    "action": "Notify regional marine enforcement",
+    "impactScore": 75,
+    "sector": "Pelagic Zone 8"
+  },
+  {
+    "id": "alt-5",
+    "title": "Coral Thermal Bleaching Anomaly",
+    "location": "Lakshadweep Reef · 10.5°N 72.6°E",
+    "severity": "medium",
+    "detected": "18 min ago",
+    "action": "Continuous thermal hydrophone monitoring",
+    "impactScore": 58,
+    "sector": "Barrier Reef Slope"
+  },
+  {
+    "id": "alt-6",
+    "title": "Ghost Fishing Net Entanglement",
+    "location": "North Sea · 56.2°N 3.1°E",
+    "severity": "medium",
+    "detected": "3 h ago",
+    "action": "Schedule subsea retrieval mission",
+    "impactScore": 52,
+    "sector": "Subsea Ridge Node 3"
+  }
+]
