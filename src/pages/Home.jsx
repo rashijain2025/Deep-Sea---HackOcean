@@ -55,7 +55,7 @@ export default function Home() {
       <div className="absolute top-0 h-[100vh] left-0 right-0 pointer-events-none z-[-1] bg-gradient-to-b from-transparent to-[#020617]" />
 
       {/* ─── LIVE TELEMETRY TICKER ─── */}
-      <div className="w-full bg-cyan-950/20 border-b border-cyan-500/20 py-2 overflow-hidden flex items-center backdrop-blur-sm relative z-30 mt-[-16px]">
+      <div className="w-full bg-cyan-950/20 border-b border-cyan-500/20 py-3 overflow-hidden flex items-center backdrop-blur-sm relative z-30">
         <div className="absolute left-0 w-16 md:w-32 h-full bg-gradient-to-r from-[#020617] to-transparent z-10" />
         <div className="absolute right-0 w-16 md:w-32 h-full bg-gradient-to-l from-[#020617] to-transparent z-10" />
         <motion.div 
