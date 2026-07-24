@@ -43,7 +43,7 @@ export default function App() {
   return (
     <main className="relative w-screen h-screen bg-ocean-abyss overflow-hidden font-sans select-none flex flex-col">
       {/* ─── Persistent Background 3D Environment ─── */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <OceanEnvironment3D currentZone={currentZone} />
       </div>
 
@@ -68,7 +68,7 @@ export default function App() {
       />
 
       {/* ─── Page Content Route Router Container ─── */}
-      <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden scroll-smooth" style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}>
+      <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden scroll-smooth pt-[104px] px-4 pb-24 lg:pb-8" style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
