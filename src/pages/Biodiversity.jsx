@@ -64,8 +64,8 @@ const Biodiversity = React.memo(function Biodiversity() {
         animate="visible"
         style={{ paddingBottom: 60 }}
       >
-        {filteredSpecies.map((s, i) => (
-          <motion.div key={s.id} className="saas-card p-0 flex flex-col justify-between overflow-hidden" variants={fadeUp} custom={i}>
+        {filteredSpecies.map((s) => (
+          <div key={s.id} className="saas-card p-0 flex flex-col justify-between overflow-hidden transition-all duration-200 hover:border-cyan-500/40">
             {/* Species Hero Image */}
             <div className="relative w-full h-44 sm:h-48 overflow-hidden">
               <img
@@ -139,7 +139,7 @@ const Biodiversity = React.memo(function Biodiversity() {
                 <span className="text-slate-300">{s.recentObs}</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </motion.div>
     </div>

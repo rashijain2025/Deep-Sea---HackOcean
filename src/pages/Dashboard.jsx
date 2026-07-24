@@ -35,8 +35,8 @@ const Dashboard = React.memo(function Dashboard() {
         initial="hidden"
         animate="visible"
       >
-        {stats.map((s, i) => (
-          <motion.div key={s.label} className="saas-card p-4" variants={fadeUp} custom={i}>
+        {stats.map((s) => (
+          <div key={s.label} className="saas-card p-4 transition-all duration-200 hover:border-cyan-500/40">
             <div className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider mb-1">
               {s.label}
             </div>
@@ -49,7 +49,7 @@ const Dashboard = React.memo(function Dashboard() {
               </span>
               <span className="text-slate-500">{s.desc}</span>
             </div>
-          </motion.div>
+          </div>
         ))}
       </motion.div>
 

@@ -113,16 +113,14 @@ const Alerts = React.memo(function Alerts() {
         animate="visible"
         style={{ paddingBottom: 60 }}
       >
-        {filteredAlerts.map((a, i) => {
+        {filteredAlerts.map((a) => {
           const isAck = acknowledgedIds.includes(a.id);
           return (
-            <motion.div 
+            <div 
               key={a.id} 
-              className={`saas-card p-5 border-l-4 ${
+              className={`saas-card p-5 border-l-4 transition-all duration-200 hover:border-cyan-500/40 ${
                 a.severity === 'critical' ? 'border-l-red-500' : a.severity === 'high' ? 'border-l-amber-500' : 'border-l-yellow-500'
               }`}
-              variants={fadeUp} 
-              custom={i}
             >
               <div className="flex flex-wrap justify-between items-start mb-3 gap-2">
                 <div className="flex items-center gap-3">
@@ -174,7 +172,7 @@ const Alerts = React.memo(function Alerts() {
                   )}
                 </button>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </motion.div>

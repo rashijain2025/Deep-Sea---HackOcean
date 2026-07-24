@@ -74,10 +74,10 @@ const Detection = React.memo(function Detection() {
         animate="visible"
         style={{ paddingBottom: 60 }}
       >
-        {filteredDetections.map((d, i) => {
+        {filteredDetections.map((d) => {
           const isVerified = verifiedIds.includes(d.id);
           return (
-            <motion.div key={d.id} className="saas-card p-5" variants={fadeUp} custom={i}>
+            <div key={d.id} className="saas-card p-5 transition-all duration-200 hover:border-cyan-500/40">
               {/* Report Header */}
               <div className="flex flex-wrap justify-between items-start border-b border-slate-800 pb-3 mb-4 gap-3">
                 <div>
@@ -187,7 +187,7 @@ const Detection = React.memo(function Detection() {
                   )}
                 </button>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </motion.div>
