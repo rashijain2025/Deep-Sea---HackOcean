@@ -51,36 +51,15 @@ export default function App() {
       <div className="absolute inset-0 hud-grid opacity-35 pointer-events-none z-1" />
       <div className="absolute inset-0 vignette-overlay pointer-events-none z-1" />
 
-      {/* ─── Global Top Navigation Bar ─── */}
-      <Navbar />
-
-      {/* ─── Global Floating Action Controls (Top Right) ─── */}
-      <div className="fixed top-4 right-20 z-50 flex items-center gap-3">
-        {/* Neptune AI Trigger Button */}
-        <button
-          onClick={() => {
-            oceanAudio.playBubblePop();
-            setIsAiModalOpen(true);
-          }}
-          className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600/30 via-purple-600/35 to-cyan-500/20 border border-purple-400/40 text-purple-200 hover:text-white hover:border-cyan-400 transition-all duration-300 shadow-[0_0_15px_rgba(121,40,202,0.35)] text-xs font-semibold"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-spin" style={{ animationDuration: '8s' }} />
-          <span>Neptune AI</span>
-        </button>
-
-        {/* Hydrophone Audio Toggle Button */}
-        <button
-          onClick={handleAudioToggle}
-          title={isAudioOn ? "Mute Underwater Acoustics" : "Enable Underwater Acoustics"}
-          className={`p-2 rounded-xl border transition-all duration-300 ${
-            isAudioOn 
-              ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-[0_0_15px_rgba(0,243,255,0.4)]'
-              : 'bg-slate-900/60 border-slate-700 text-slate-400 hover:border-slate-500'
-          }`}
-        >
-          {isAudioOn ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
-        </button>
-      </div>
+      {/* ─── Global Top Navigation Bar with Integrated Action Controls ─── */}
+      <Navbar
+        onOpenAiModal={() => {
+          oceanAudio.playBubblePop();
+          setIsAiModalOpen(true);
+        }}
+        isAudioOn={isAudioOn}
+        onToggleAudio={handleAudioToggle}
+      />
 
       {/* ─── Vertical Depth Zone Navigator (Left Side) ─── */}
       <DepthZoneBar

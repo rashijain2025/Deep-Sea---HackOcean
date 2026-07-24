@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Waves, Menu, X, ShieldCheck } from 'lucide-react';
+import { Waves, Menu, X, Sparkles, Volume2, VolumeX } from 'lucide-react';
 
 const navItems = [
   { path: '/', label: 'Home' },
@@ -14,7 +14,7 @@ const navItems = [
   { path: '/reports', label: 'Reports' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onOpenAiModal, isAudioOn, onToggleAudio }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
@@ -49,9 +49,35 @@ export default function Navbar() {
         ))}
       </ul>
 
-      {/* Right Telemetry Badge & Mobile Toggle */}
-      <div className="flex items-center gap-3">
-        <div className="live-badge hidden sm:flex">
+      {/* Right Telemetry Badge, Neptune AI, Audio & Mobile Toggle */}
+      <div className="flex items-center gap-2.5">
+        {/* Neptune AI Button */}
+        {onOpenAiModal && (
+          <button
+            onClick={onOpenAiModal}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600/40 via-purple-600/40 to-cyan-500/30 border border-purple-400/40 text-purple-200 hover:text-white hover:border-cyan-400 transition-all duration-200 text-xs font-semibold"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-spin" style={{ animationDuration: '8s' }} />
+            <span className="hidden md:inline">Neptune AI</span>
+          </button>
+        )}
+
+        {/* Audio Toggle Button */}
+        {onToggleAudio && (
+          <button
+            onClick={onToggleAudio}
+            title={isAudioOn ? "Mute Underwater Acoustics" : "Enable Underwater Acoustics"}
+            className={`p-1.5 rounded-xl border transition-all duration-200 ${
+              isAudioOn 
+                ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-[0_0_12px_rgba(0,243,255,0.4)]'
+                : 'bg-slate-900/60 border-slate-700 text-slate-400 hover:border-slate-500'
+            }`}
+          >
+            {isAudioOn ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+          </button>
+        )}
+
+        <div className="live-badge hidden md:flex">
           <span className="live-dot" />
           <span>SYSTEM ONLINE</span>
         </div>
