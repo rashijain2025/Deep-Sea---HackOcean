@@ -8,6 +8,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Legend,
 } from 'recharts';
+import { LazyChart } from '../components/LazyChart';
 
 const tooltipStyle = {
   backgroundColor: 'rgba(3,8,20,0.95)',
@@ -117,38 +118,42 @@ const Analytics = React.memo(function Analytics() {
         <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
           <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trends</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">12-month rolling window (Tons of Debris Detected)</div>
-          <ResponsiveContainer width="100%" height={280}>
-            <AreaChart data={pollutionData}>
-              <defs>
-                <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#00E5FF" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#00E5FF" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
-              <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Legend wrapperStyle={{ fontSize: '11px' }} />
-              <Area type="monotone" dataKey="Plastic" stroke="#00E5FF" fill="url(#pg)" strokeWidth={2} />
-              <Area type="monotone" dataKey="Oil" stroke="#FF5252" fill="transparent" strokeWidth={2} />
-              <Area type="monotone" dataKey="Chemical" stroke="#00E676" fill="transparent" strokeWidth={2} />
-            </AreaChart>
-          </ResponsiveContainer>
+          <LazyChart height={280}>
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={pollutionData}>
+                <defs>
+                  <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#00E5FF" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#00E5FF" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Legend wrapperStyle={{ fontSize: '11px' }} />
+                <Area type="monotone" dataKey="Plastic" stroke="#00E5FF" fill="url(#pg)" strokeWidth={2} />
+                <Area type="monotone" dataKey="Oil" stroke="#FF5252" fill="transparent" strokeWidth={2} />
+                <Area type="monotone" dataKey="Chemical" stroke="#00E676" fill="transparent" strokeWidth={2} />
+              </AreaChart>
+            </ResponsiveContainer>
+          </LazyChart>
         </motion.div>
 
         <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
           <h3 className="text-base font-bold text-white font-display mb-1">Ocean Health Index</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Global composite score over 12 months</div>
-          <ResponsiveContainer width="100%" height={280}>
-            <LineChart data={oceanHealthData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
-              <YAxis domain={[80, 95]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Line type="monotone" dataKey="score" stroke="#00E5FF" strokeWidth={2.5} dot={{ fill: '#00E5FF', r: 4 }} />
-            </LineChart>
-          </ResponsiveContainer>
+          <LazyChart height={280}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={oceanHealthData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <YAxis domain={[80, 95]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Line type="monotone" dataKey="score" stroke="#00E5FF" strokeWidth={2.5} dot={{ fill: '#00E5FF', r: 4 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </LazyChart>
         </motion.div>
       </motion.div>
 
@@ -157,35 +162,39 @@ const Analytics = React.memo(function Analytics() {
         <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
           <h3 className="text-base font-bold text-white font-display mb-1">Species Population Growth</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Telemetry counts for tracked populations</div>
-          <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={speciesData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
-              <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Legend wrapperStyle={{ fontSize: '11px' }} />
-              <Bar dataKey="turtles" fill="#00E676" radius={[4,4,0,0]} name="Sea Turtles" />
-              <Bar dataKey="sharks" fill="#00E5FF" radius={[4,4,0,0]} name="Sharks" />
-              <Bar dataKey="whales" fill="#FF9800" radius={[4,4,0,0]} name="Blue Whales" />
-            </BarChart>
-          </ResponsiveContainer>
+          <LazyChart height={280}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={speciesData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Legend wrapperStyle={{ fontSize: '11px' }} />
+                <Bar dataKey="turtles" fill="#00E676" radius={[4,4,0,0]} name="Sea Turtles" />
+                <Bar dataKey="sharks" fill="#00E5FF" radius={[4,4,0,0]} name="Sharks" />
+                <Bar dataKey="whales" fill="#FF9800" radius={[4,4,0,0]} name="Blue Whales" />
+              </BarChart>
+            </ResponsiveContainer>
+          </LazyChart>
         </motion.div>
 
         <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
           <h3 className="text-base font-bold text-white font-display mb-1">Regional Threat Analysis</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Subsea risk index matrix</div>
-          <ResponsiveContainer width="100%" height={280}>
-            <RadarChart data={riskData}>
-              <PolarGrid stroke="rgba(255,255,255,0.1)" />
-              <PolarAngleAxis dataKey="region" stroke="rgba(255,255,255,0.4)" fontSize={10} />
-              <PolarRadiusAxis angle={90} domain={[0, 100]} stroke="rgba(255,255,255,0.15)" fontSize={10} />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Radar name="Pollution" dataKey="pollution" stroke="#FF5252" fill="#FF5252" fillOpacity={0.15} strokeWidth={2} />
-              <Radar name="Biodiversity" dataKey="biodiversity" stroke="#00E676" fill="#00E676" fillOpacity={0.1} strokeWidth={2} />
-              <Radar name="Coral" dataKey="coral" stroke="#00E5FF" fill="#00E5FF" fillOpacity={0.1} strokeWidth={2} />
-              <Legend wrapperStyle={{ fontSize: '11px' }} />
-            </RadarChart>
-          </ResponsiveContainer>
+          <LazyChart height={280}>
+            <ResponsiveContainer width="100%" height="100%">
+              <RadarChart data={riskData}>
+                <PolarGrid stroke="rgba(255,255,255,0.1)" />
+                <PolarAngleAxis dataKey="region" stroke="rgba(255,255,255,0.4)" fontSize={10} />
+                <PolarRadiusAxis angle={90} domain={[0, 100]} stroke="rgba(255,255,255,0.15)" fontSize={10} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Radar name="Pollution" dataKey="pollution" stroke="#FF5252" fill="#FF5252" fillOpacity={0.15} strokeWidth={2} />
+                <Radar name="Biodiversity" dataKey="biodiversity" stroke="#00E676" fill="#00E676" fillOpacity={0.1} strokeWidth={2} />
+                <Radar name="Coral" dataKey="coral" stroke="#00E5FF" fill="#00E5FF" fillOpacity={0.1} strokeWidth={2} />
+                <Legend wrapperStyle={{ fontSize: '11px' }} />
+              </RadarChart>
+            </ResponsiveContainer>
+          </LazyChart>
         </motion.div>
       </motion.div>
 
@@ -194,34 +203,38 @@ const Analytics = React.memo(function Analytics() {
         <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
           <h3 className="text-base font-bold text-white font-display mb-1">Plastic Debris Distribution</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">By classification breakdown (%)</div>
-          <ResponsiveContainer width="100%" height={280}>
-            <PieChart>
-              <Pie data={plasticDist} cx="50%" cy="50%" outerRadius={100} innerRadius={55} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false} fontSize={11}>
-                {plasticDist.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} stroke="transparent" />
-                ))}
-              </Pie>
-              <Tooltip contentStyle={tooltipStyle} />
-            </PieChart>
-          </ResponsiveContainer>
+          <LazyChart height={280}>
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie data={plasticDist} cx="50%" cy="50%" outerRadius={100} innerRadius={55} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false} fontSize={11}>
+                  {plasticDist.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} stroke="transparent" />
+                  ))}
+                </Pie>
+                <Tooltip contentStyle={tooltipStyle} />
+              </PieChart>
+            </ResponsiveContainer>
+          </LazyChart>
         </motion.div>
 
         <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
           <h3 className="text-base font-bold text-white font-display mb-1">Coral Barrier Vitality</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Health score rating by barrier reef</div>
-          <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={coralHealth} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis type="number" domain={[0, 100]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
-              <YAxis type="category" dataKey="reef" stroke="rgba(255,255,255,0.3)" fontSize={11} width={100} />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Bar dataKey="health" radius={[0,4,4,0]} fill="#00E5FF">
-                {coralHealth.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.health >= 75 ? '#00E676' : entry.health >= 65 ? '#FFD600' : '#FF5252'} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+          <LazyChart height={280}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={coralHealth} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <XAxis type="number" domain={[0, 100]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <YAxis type="category" dataKey="reef" stroke="rgba(255,255,255,0.3)" fontSize={11} width={100} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Bar dataKey="health" radius={[0,4,4,0]} fill="#00E5FF">
+                  {coralHealth.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.health >= 75 ? '#00E676' : entry.health >= 65 ? '#FFD600' : '#FF5252'} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </LazyChart>
         </motion.div>
       </motion.div>
     </div>

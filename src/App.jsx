@@ -1,11 +1,12 @@
 import React, { useState, lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Sparkles, Volume2, VolumeX, Sparkle, Loader2 } from 'lucide-react';
 
 // Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import { OceanEnvironment3D } from './components/ocean/OceanEnvironment3D';
+import UnderwaterScene from './components/UnderwaterScene';
+import PageTransition from './components/PageTransition';
 import { DepthZoneBar } from './components/dashboard/DepthZoneBar';
 import { NeptuneAiModal } from './components/dashboard/NeptuneAiModal';
 import { oceanAudio } from './utils/oceanAudio';
@@ -33,6 +34,7 @@ export default function App() {
   const [currentZone, setCurrentZone] = useState('Sunlit Zone'); // Sunlit Zone, Twilight Zone, Abyssal Zone
   const [isAudioOn, setIsAudioOn] = useState(false);
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+  const location = useLocation();
 
   const handleAudioToggle = () => {
     const isNowOn = oceanAudio.toggleSound();
@@ -42,9 +44,9 @@ export default function App() {
 
   return (
     <main className="relative w-screen h-screen bg-ocean-abyss overflow-hidden font-sans select-none flex flex-col">
-      {/* ─── Persistent Background 3D Environment ─── */}
+      {/* ─── Persistent Background: Route-Aware Underwater Ecosystem ─── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <OceanEnvironment3D currentZone={currentZone} />
+        <UnderwaterScene currentPath={location.pathname} />
       </div>
 
       {/* ─── Ambient HUD Grid & Vignette Overlays ─── */}
@@ -67,24 +69,26 @@ export default function App() {
         setCurrentZone={setCurrentZone}
       />
 
-      {/* ─── Page Content Route Router Container ─── */}
+      {/* ─── Page Content Route Router Container with Transitions ─── */}
       <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden scroll-smooth pt-[104px] px-4 pb-24 lg:pb-8" style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}>
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/map" element={<OceanMap />} />
-            <Route path="/alerts" element={<Alerts />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/biodiversity" element={<Biodiversity />} />
-            <Route path="/detection" element={<Detection />} />
-            <Route path="/predictions" element={<Predictions />} />
-            <Route path="/reports" element={<Reports />} />
-          </Routes>
-        </Suspense>
+        <PageTransition>
+          <Suspense fallback={<PageLoader />}>
+            <Routes location={location}>
+              <Route path="/" element={<Home />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/map" element={<OceanMap />} />
+              <Route path="/alerts" element={<Alerts />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/biodiversity" element={<Biodiversity />} />
+              <Route path="/detection" element={<Detection />} />
+              <Route path="/predictions" element={<Predictions />} />
+              <Route path="/reports" element={<Reports />} />
+            </Routes>
+          </Suspense>
 
-        {/* Global Footer */}
-        <Footer />
+          {/* Global Footer */}
+          <Footer />
+        </PageTransition>
       </div>
 
       {/* ─── Global Neptune AI Assistant Modal ─── */}
