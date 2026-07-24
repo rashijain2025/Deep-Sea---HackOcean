@@ -1,6 +1,6 @@
 # 🌊 DeepSea Guardian
 
-![DeepSea Guardian Homepage](screenshots/homepage.png)
+![DeepSea Guardian Homepage](screenshots/homepahe.png.png)
 
 **DeepSea Guardian** is an enterprise-grade, AI-powered ocean monitoring platform designed to safeguard marine biodiversity and track subsea telemetry in real-time. Built with modern web technologies, it serves as a global command center for researchers, governments, and environmental organizations to combat ocean pollution and protect vulnerable species.
 
@@ -8,27 +8,31 @@
 
 - **Live Ocean Telemetry:** Real-time data streaming of temperature, salinity, and acoustic metrics across 58 global monitoring stations.
   <br>
-  ![Ocean Intelligence Map](screenshots/map.png)
+  ![Ocean Intelligence Map](public/screenshot-map.png)
 
 - **AI-Powered Detection:** Advanced simulated neural networks that analyze sub-surface drone feeds to instantly identify plastic waste, illegal fishing, and crude oil plumes.
   <br>
-  ![Live Incident Alerts](screenshots/alerts.png)
+  ![Live Incident Alerts](screenshots/alerts.png.png)
 
 - **AI Detection Reports:** Real-time autonomous camera telemetry analysis, incident classifications, and confidence diagnostics.
   <br>
-  ![AI Detection Reports](screenshots/ai-detection.png)
+  ![AI Detection Reports](screenshots/ai-detection.png.png)
 
 - **Environmental Reports Vault:** Exportable intelligence catalogs, subsea telemetry logs, and monthly environmental health statements.
   <br>
-  ![Environmental Reports Vault](screenshots/reports.png)
+  ![Environmental Reports Vault](screenshots/reports.png.png)
 
 - **Marine Biodiversity Tracking:** Non-invasive monitoring of coral reefs, whale pods, and deep-sea aquatic life using acoustic tagging.
   <br>
-  ![Biodiversity Atlas & Species Tracker](screenshots/biodiversity.png)
+  ![Biodiversity Atlas & Species Tracker](screenshots/biodiversity.png.png)
 
 - **Interactive Explorer Module:** Explore the three core pillars powering the DeepSea Guardian marine intelligence initiative, such as the Rainforests of the Sea.
   <br>
-  ![Interactive Explorer Module](screenshots/explorer.png)
+  ![Interactive Explorer Module](screenshots/explorer.png.png)
+
+- **Predictive Analytics:** Real-time 12-Month Risk Trajectory Matrix and forecast modeling.
+  <br>
+  ![Predictions Dashboard](screenshots/predictions.png.png)
 
 - **Cinematic UI/UX:** A highly immersive, 60-FPS futuristic dashboard built with Framer Motion, featuring interactive bioluminescent cursors, global sonar scans, and 3D hover effects.
 - **Neptune AI Commander:** An integrated AI assistant capable of processing complex oceanographic queries and generating localized threat reports.
