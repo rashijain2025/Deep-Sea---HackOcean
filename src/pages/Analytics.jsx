@@ -1,96 +1,87 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, TrendingUp, ShieldAlert, Cpu, BarChart3 } from 'lucide-react';
-import {
-  AreaChart, Area, LineChart, Line, BarChart, Bar,
-  PieChart, Pie, Cell, RadarChart, Radar, PolarGrid,
-  PolarAngleAxis, PolarRadiusAxis,
-  XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, Legend,
-} from 'recharts';
-import { LazyChart } from '../components/LazyChart';
+import { Sparkles, TrendingUp, ShieldAlert, Cpu, BarChart3, Filter, Calendar, Layers, Activity, AlertTriangle, CheckCircle2, Waves, Compass, Radio } from 'lucide-react';
+import { fadeUp } from '../constants/animations';
 
-const tooltipStyle = {
-  backgroundColor: 'rgba(3,8,20,0.95)',
-  border: '1px solid rgba(0,243,255,0.25)',
-  borderRadius: '8px',
-  color: '#fff',
-  fontSize: '12px',
-};
+export const Analytics = React.memo(function Analytics() {
+  const [timeRange, setTimeRange] = useState('12M');
+  const [activeRegion, setActiveRegion] = useState('Global');
 
-const pollutionData = [
-  { month: 'Jan', Plastic: 220, Oil: 30, Chemical: 60 },
-  { month: 'Feb', Plastic: 240, Oil: 35, Chemical: 55 },
-  { month: 'Mar', Plastic: 280, Oil: 25, Chemical: 65 },
-  { month: 'Apr', Plastic: 310, Oil: 40, Chemical: 70 },
-  { month: 'May', Plastic: 340, Oil: 45, Chemical: 75 },
-  { month: 'Jun', Plastic: 360, Oil: 50, Chemical: 80 },
-  { month: 'Jul', Plastic: 380, Oil: 55, Chemical: 85 },
-  { month: 'Aug', Plastic: 400, Oil: 48, Chemical: 90 },
-  { month: 'Sep', Plastic: 420, Oil: 52, Chemical: 88 },
-  { month: 'Oct', Plastic: 430, Oil: 55, Chemical: 92 },
-  { month: 'Nov', Plastic: 450, Oil: 58, Chemical: 95 },
-  { month: 'Dec', Plastic: 460, Oil: 60, Chemical: 98 },
-];
-
-const oceanHealthData = [
-  { month: 'Jan', score: 85 }, { month: 'Feb', score: 86 },
-  { month: 'Mar', score: 87 }, { month: 'Apr', score: 88 },
-  { month: 'May', score: 87 }, { month: 'Jun', score: 89 },
-  { month: 'Jul', score: 90 }, { month: 'Aug', score: 89 },
-  { month: 'Sep', score: 91 }, { month: 'Oct', score: 90 },
-  { month: 'Nov', score: 92 }, { month: 'Dec', score: 92 },
-];
-
-const speciesData = [
-  { month: 'Jan', turtles: 11200, whales: 1900, sharks: 4800 },
-  { month: 'Mar', turtles: 11500, whales: 1950, sharks: 4900 },
-  { month: 'May', turtles: 11800, whales: 2000, sharks: 5000 },
-  { month: 'Jul', turtles: 12000, whales: 2050, sharks: 5100 },
-  { month: 'Sep', turtles: 12200, whales: 2080, sharks: 5200 },
-  { month: 'Nov', turtles: 12400, whales: 2100, sharks: 5400 },
-];
-
-const riskData = [
-  { region: 'Arabian Sea', pollution: 85, biodiversity: 60, coral: 45 },
-  { region: 'North Sea', pollution: 55, biodiversity: 75, coral: 70 },
-  { region: 'Pacific', pollution: 30, biodiversity: 90, coral: 85 },
-  { region: 'Gulf of Mexico', pollution: 90, biodiversity: 50, coral: 40 },
-  { region: 'Indian Ocean', pollution: 40, biodiversity: 85, coral: 80 },
-];
-
-const plasticDist = [
-  { name: 'Microplastic', value: 45, color: '#00E5FF' },
-  { name: 'Macroplastic', value: 25, color: '#40C4FF' },
-  { name: 'Ghost Nets', value: 15, color: '#FF9800' },
-  { name: 'Industrial', value: 10, color: '#FF5252' },
-  { name: 'Other', value: 5, color: '#CE93D8' },
-];
-
-const coralHealth = [
-  { reef: 'Great Barrier', health: 71 },
-  { reef: 'Lakshadweep', health: 65 },
-  { reef: 'Caribbean', health: 78 },
-  { reef: 'Red Sea', health: 82 },
-  { reef: 'Maldives', health: 68 },
-  { reef: 'Hawaii', health: 74 },
-];
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.1, duration: 0.5 },
-  }),
-};
-
-const Analytics = React.memo(function Analytics() {
   return (
     <div className="page-content" id="analytics-page">
       <div className="page-header">
         <div className="label">Deep Telemetry Analytics</div>
-        <h1>Ocean Data Analytics</h1>
+        <h1>Enterprise Ocean Analytics</h1>
         <p>Comprehensive environmental synthesis across all monitoring stations, satellite feeds, and subsea nodes.</p>
+      </div>
+
+      {/* Control Toolbar & Filters */}
+      <div className="section mb-6">
+        <div className="saas-card p-4 flex flex-wrap gap-4 justify-between items-center">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-mono font-semibold text-slate-400 flex items-center gap-1.5 mr-2">
+              <Calendar size={14} className="text-cyan-400" />
+              TIMEFRAME:
+            </span>
+            {['30D', '90D', '12M', 'YTD', 'ALL'].map((range) => (
+              <button
+                key={range}
+                onClick={() => setTimeRange(range)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
+                  timeRange === range
+                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 shadow-[0_0_12px_rgba(0,243,255,0.2)]'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
+              >
+                {range}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-mono font-semibold text-slate-400 flex items-center gap-1.5 mr-2">
+              <Filter size={14} className="text-cyan-400" />
+              REGION:
+            </span>
+            {['Global', 'Pacific', 'Atlantic', 'Indian', 'Arctic'].map((reg) => (
+              <button
+                key={reg}
+                onClick={() => setActiveRegion(reg)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
+                  activeRegion === reg
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/50 shadow-[0_0_12px_rgba(0,255,157,0.2)]'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
+              >
+                {reg}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Executive KPI Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 section mb-6">
+        {[
+          { label: 'Debris Volume Tracked', val: '4,180 Tons', change: '+4.2% YOY', icon: TrendingUp, color: 'text-cyan-400 border-cyan-500/30' },
+          { label: 'Ocean Health Composite', val: '92 / 100', change: '+2.1 pts', icon: Activity, color: 'text-emerald-400 border-emerald-500/30' },
+          { label: 'Species Census Total', val: '19,900 Tags', change: '+890 new', icon: CheckCircle2, color: 'text-indigo-400 border-indigo-500/30' },
+          { label: 'High Threat Hotspots', val: '3 Sectors', change: '-1 from Q2', icon: AlertTriangle, color: 'text-amber-400 border-amber-500/30' },
+        ].map((kpi, i) => {
+          const Icon = kpi.icon;
+          return (
+            <div key={i} className={`saas-card p-4 flex flex-col justify-between border ${kpi.color}`}>
+              <div className="flex justify-between items-start mb-2">
+                <span className="text-xs font-mono text-slate-400 font-semibold">{kpi.label}</span>
+                <Icon size={16} className={kpi.color.split(' ')[0]} />
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-white font-display">{kpi.val}</div>
+                <div className="text-[10px] font-mono text-slate-400 mt-1">{kpi.change}</div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Actionable Executive Insights Bar */}
@@ -113,130 +104,244 @@ const Analytics = React.memo(function Analytics() {
         </div>
       </div>
 
-      {/* Row 1 */}
-      <motion.div className="grid-2 section" initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trends</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">12-month rolling window (Tons of Debris Detected)</div>
-          <LazyChart height={280}>
-            <div style={{ width: '100%', height: 280, overflow: 'hidden' }}>
-              <AreaChart width={600} height={280} data={pollutionData}>
-                <defs>
-                  <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#00E5FF" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#00E5FF" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
-                <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} />
-                <Tooltip contentStyle={tooltipStyle} />
-                <Legend wrapperStyle={{ fontSize: '11px' }} />
-                <Area type="monotone" dataKey="Plastic" stroke="#00E5FF" fill="url(#pg)" strokeWidth={2} />
-                <Area type="monotone" dataKey="Oil" stroke="#FF5252" fill="transparent" strokeWidth={2} />
-                <Area type="monotone" dataKey="Chemical" stroke="#00E676" fill="transparent" strokeWidth={2} />
-              </AreaChart>
+      {/* Row 1: Pollution Trends & Ocean Health */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 section mb-6">
+        {/* Pollution Trends Spectrum */}
+        <div className="saas-card p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-center mb-3">
+              <div>
+                <h3 className="text-base font-bold text-white font-display">Pollution Trends Spectrum</h3>
+                <div className="text-xs text-slate-400 font-mono">12-month rolling telemetry window (tons detected)</div>
+              </div>
+              <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded border border-cyan-500/30">
+                460 TONS DETECTED
+              </span>
             </div>
-          </LazyChart>
-        </motion.div>
 
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Ocean Health Index</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">Global composite score over 12 months</div>
-          <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
-              <LineChart data={oceanHealthData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
-                <YAxis domain={[80, 95]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
-                <Tooltip contentStyle={tooltipStyle} />
-                <Line type="monotone" dataKey="score" stroke="#00E5FF" strokeWidth={2.5} dot={{ fill: '#00E5FF', r: 4 }} />
-              </LineChart>
-            </ResponsiveContainer>
-          </LazyChart>
-        </motion.div>
-      </motion.div>
+            <div className="space-y-3.5 my-4">
+              {[
+                { name: 'Plastic Accumulation', val: '460 Tons', pct: 75, color: 'bg-cyan-400' },
+                { name: 'Crude Oil Signature', val: '60 Tons', pct: 25, color: 'bg-red-400' },
+                { name: 'Chemical Runoff Plumes', val: '98 Tons', pct: 40, color: 'bg-emerald-400' },
+                { name: 'Microplastic Particles', val: '310 Tons', pct: 60, color: 'bg-indigo-400' },
+              ].map((item, idx) => (
+                <div key={idx} className="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80">
+                  <div className="flex justify-between items-center text-xs font-mono mb-1.5">
+                    <span className="text-slate-300 font-medium">{item.name}</span>
+                    <span className="text-white font-bold">{item.val}</span>
+                  </div>
+                  <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                    <div className={`h-full ${item.color} rounded-full transition-all duration-500`} style={{ width: `${item.pct}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="text-[10px] font-mono text-slate-500 flex justify-between pt-2 border-t border-slate-800/60">
+            <span>SATELLITE & SONAR SYNCHRONIZED</span>
+            <span className="text-cyan-400">UPDATED TODAY ✓</span>
+          </div>
+        </div>
 
-      {/* Row 2 */}
-      <motion.div className="grid-2 section" initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Species Population Growth</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">Telemetry counts for tracked populations</div>
-          <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
-              <BarChart data={speciesData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
-                <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} />
-                <Tooltip contentStyle={tooltipStyle} />
-                <Legend wrapperStyle={{ fontSize: '11px' }} />
-                <Bar dataKey="turtles" fill="#00E676" radius={[4,4,0,0]} name="Sea Turtles" />
-                <Bar dataKey="sharks" fill="#00E5FF" radius={[4,4,0,0]} name="Sharks" />
-                <Bar dataKey="whales" fill="#FF9800" radius={[4,4,0,0]} name="Blue Whales" />
-              </BarChart>
-            </ResponsiveContainer>
-          </LazyChart>
-        </motion.div>
+        {/* Ocean Health Index Meter */}
+        <div className="saas-card p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-center mb-3">
+              <div>
+                <h3 className="text-base font-bold text-white font-display">Ocean Health Index Dynamics</h3>
+                <div className="text-xs text-slate-400 font-mono">Monthly composite health score trajectory</div>
+              </div>
+              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/30">
+                SCORE: 92/100
+              </span>
+            </div>
 
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Regional Threat Analysis</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">Subsea risk index matrix</div>
-          <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
-              <RadarChart data={riskData}>
-                <PolarGrid stroke="rgba(255,255,255,0.1)" />
-                <PolarAngleAxis dataKey="region" stroke="rgba(255,255,255,0.4)" fontSize={10} />
-                <PolarRadiusAxis angle={90} domain={[0, 100]} stroke="rgba(255,255,255,0.15)" fontSize={10} />
-                <Tooltip contentStyle={tooltipStyle} />
-                <Radar name="Pollution" dataKey="pollution" stroke="#FF5252" fill="#FF5252" fillOpacity={0.15} strokeWidth={2} />
-                <Radar name="Biodiversity" dataKey="biodiversity" stroke="#00E676" fill="#00E676" fillOpacity={0.1} strokeWidth={2} />
-                <Radar name="Coral" dataKey="coral" stroke="#00E5FF" fill="#00E5FF" fillOpacity={0.1} strokeWidth={2} />
-                <Legend wrapperStyle={{ fontSize: '11px' }} />
-              </RadarChart>
-            </ResponsiveContainer>
-          </LazyChart>
-        </motion.div>
-      </motion.div>
+            <div className="grid grid-cols-6 gap-2 my-4">
+              {[
+                { month: 'Jan', score: 85 }, { month: 'Mar', score: 87 },
+                { month: 'May', score: 87 }, { month: 'Jul', score: 90 },
+                { month: 'Sep', score: 91 }, { month: 'Dec', score: 92 },
+              ].map((m, idx) => (
+                <div key={idx} className="flex flex-col items-center bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
+                  <div className="text-sm font-bold text-cyan-300 font-display mb-1">{m.score}</div>
+                  <div className="w-full h-16 bg-slate-950 rounded flex items-end p-1">
+                    <div className="w-full bg-gradient-to-t from-cyan-500 to-emerald-400 rounded-sm" style={{ height: `${m.score}%` }} />
+                  </div>
+                  <div className="text-[10px] font-mono text-slate-400 mt-2">{m.month}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="text-[10px] font-mono text-slate-500 flex justify-between pt-2 border-t border-slate-800/60">
+            <span>GLOBAL WATER COMPOSITE</span>
+            <span className="text-emerald-400">INDEX: EXCELLENT</span>
+          </div>
+        </div>
+      </div>
 
-      {/* Row 3 */}
-      <motion.div className="grid-2 section" initial="hidden" whileInView="visible" viewport={{ once: true }} style={{ paddingBottom: 60 }}>
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Plastic Debris Distribution</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">By classification breakdown (%)</div>
-          <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
-              <PieChart>
-                <Pie data={plasticDist} cx="50%" cy="50%" outerRadius={100} innerRadius={55} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false} fontSize={11}>
-                  {plasticDist.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} stroke="transparent" />
-                  ))}
-                </Pie>
-                <Tooltip contentStyle={tooltipStyle} />
-              </PieChart>
-            </ResponsiveContainer>
-          </LazyChart>
-        </motion.div>
+      {/* Row 2: Species Population & Regional Threat Matrix */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 section mb-6">
+        {/* Species Tagging Dynamics */}
+        <div className="saas-card p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-center mb-3">
+              <div>
+                <h3 className="text-base font-bold text-white font-display">Species Population Dynamics</h3>
+                <div className="text-xs text-slate-400 font-mono">Acoustic & visual telemetry census</div>
+              </div>
+              <span className="text-[10px] font-mono text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded border border-indigo-500/30">
+                19,900 TAGS ACTIVE
+              </span>
+            </div>
 
-        <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
-          <h3 className="text-base font-bold text-white font-display mb-1">Coral Barrier Vitality</h3>
-          <div className="text-xs text-slate-400 mb-4 font-mono">Health score rating by barrier reef</div>
-          <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
-              <BarChart data={coralHealth} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis type="number" domain={[0, 100]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
-                <YAxis type="category" dataKey="reef" stroke="rgba(255,255,255,0.3)" fontSize={11} width={100} />
-                <Tooltip contentStyle={tooltipStyle} />
-                <Bar dataKey="health" radius={[0,4,4,0]} fill="#00E5FF">
-                  {coralHealth.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.health >= 75 ? '#00E676' : entry.health >= 65 ? '#FFD600' : '#FF5252'} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </LazyChart>
-        </motion.div>
-      </motion.div>
+            <div className="space-y-3.5 my-4">
+              {[
+                { species: 'Sea Turtles (Tag #TUR-900)', count: '12,400 tracked', pct: 85, color: 'bg-emerald-400' },
+                { species: 'Blue Whales (Tag #WHL-400)', count: '2,100 tracked', pct: 65, color: 'bg-amber-400' },
+                { species: 'Great White Sharks (Tag #SHK-120)', count: '5,400 tracked', pct: 78, color: 'bg-cyan-400' },
+              ].map((item, idx) => (
+                <div key={idx} className="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80">
+                  <div className="flex justify-between items-center text-xs font-mono mb-1.5">
+                    <span className="text-slate-300 font-medium">{item.species}</span>
+                    <span className="text-white font-bold">{item.count}</span>
+                  </div>
+                  <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                    <div className={`h-full ${item.color} rounded-full transition-all duration-500`} style={{ width: `${item.pct}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="text-[10px] font-mono text-slate-500 flex justify-between pt-2 border-t border-slate-800/60">
+            <span>ACOUSTIC BEACON ARRAY</span>
+            <span className="text-indigo-400">IUCN VERIFIED ✓</span>
+          </div>
+        </div>
+
+        {/* Regional Threat Risk Matrix */}
+        <div className="saas-card p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-center mb-3">
+              <div>
+                <h3 className="text-base font-bold text-white font-display">Regional Risk Matrix</h3>
+                <div className="text-xs text-slate-400 font-mono">Subsea regional vulnerability breakdown</div>
+              </div>
+              <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded border border-amber-500/30">
+                5 SECTORS AUDITED
+              </span>
+            </div>
+
+            <div className="space-y-3 my-3">
+              {[
+                { region: 'Gulf of Mexico', pollution: 90, status: 'CRITICAL', color: 'border-red-500/40 bg-red-950/20 text-red-400' },
+                { region: 'Arabian Sea', pollution: 85, status: 'HIGH RISK', color: 'border-amber-500/40 bg-amber-950/20 text-amber-400' },
+                { region: 'North Sea', pollution: 55, status: 'MODERATE', color: 'border-cyan-500/40 bg-cyan-950/20 text-cyan-400' },
+                { region: 'Indian Ocean Deep', pollution: 40, status: 'STABLE', color: 'border-emerald-500/40 bg-emerald-950/20 text-emerald-400' },
+                { region: 'Pacific Trench', pollution: 30, status: 'OPTIMAL', color: 'border-emerald-500/40 bg-emerald-950/20 text-emerald-400' },
+              ].map((r, idx) => (
+                <div key={idx} className={`p-2.5 rounded-lg border ${r.color} flex justify-between items-center text-xs font-mono`}>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-current animate-pulse" />
+                    <span className="font-bold text-white font-sans">{r.region}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-slate-400">Risk Index: {r.pollution}%</span>
+                    <span className="font-bold px-2 py-0.5 rounded bg-slate-900/90 text-[10px]">{r.status}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="text-[10px] font-mono text-slate-500 flex justify-between pt-2 border-t border-slate-800/60">
+            <span>SUBSEA VULNERABILITY MODEL</span>
+            <span className="text-cyan-400">NEURAL EVALUATION ON</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 3: Plastic Breakdown & Coral Vitality */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 section mb-12">
+        {/* Plastic Debris Composition */}
+        <div className="saas-card p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-center mb-3">
+              <div>
+                <h3 className="text-base font-bold text-white font-display">Plastic Debris Classification</h3>
+                <div className="text-xs text-slate-400 font-mono">Percentage composition by waste category</div>
+              </div>
+              <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded border border-cyan-500/30">
+                100% CATEGORIZED
+              </span>
+            </div>
+
+            <div className="space-y-3.5 my-4">
+              {[
+                { name: 'Microplastics (<5mm)', pct: 45, color: 'bg-cyan-400' },
+                { name: 'Macroplastics (Bottles/Containers)', pct: 25, color: 'bg-sky-400' },
+                { name: 'Abandoned Ghost Nets', pct: 15, color: 'bg-amber-400' },
+                { name: 'Industrial Chemical Packaging', pct: 10, color: 'bg-red-400' },
+                { name: 'Other Subsea Waste', pct: 5, color: 'bg-purple-400' },
+              ].map((item, idx) => (
+                <div key={idx} className="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80">
+                  <div className="flex justify-between items-center text-xs font-mono mb-1.5">
+                    <span className="text-slate-300 font-medium">{item.name}</span>
+                    <span className="text-white font-bold">{item.pct}%</span>
+                  </div>
+                  <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+                    <div className={`h-full ${item.color} rounded-full transition-all duration-500`} style={{ width: `${item.pct}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="text-[10px] font-mono text-slate-500 flex justify-between pt-2 border-t border-slate-800/60">
+            <span>SPECTRAL AI ANALYSIS</span>
+            <span className="text-cyan-400 font-bold">CLASSIFIED ✓</span>
+          </div>
+        </div>
+
+        {/* Coral Reef Barrier Vitality Scorecard */}
+        <div className="saas-card p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-center mb-3">
+              <div>
+                <h3 className="text-base font-bold text-white font-display">Coral Reef Barrier Vitality</h3>
+                <div className="text-xs text-slate-400 font-mono">Health score index rating by reef system</div>
+              </div>
+              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/30">
+                6 REEFS MONITORED
+              </span>
+            </div>
+
+            <div className="space-y-3 my-3">
+              {[
+                { reef: 'Red Sea Barrier Reef', score: 82, status: 'THRIVING', color: 'border-emerald-500/40 bg-emerald-950/20 text-emerald-400' },
+                { reef: 'Caribbean Coral Reef', score: 78, status: 'STABLE', color: 'border-emerald-500/40 bg-emerald-950/20 text-emerald-400' },
+                { reef: 'Hawaii Reef System', score: 74, status: 'MODERATE', color: 'border-cyan-500/40 bg-cyan-950/20 text-cyan-400' },
+                { reef: 'Great Barrier Reef', score: 71, status: 'MODERATE', color: 'border-cyan-500/40 bg-cyan-950/20 text-cyan-400' },
+                { reef: 'Maldives Barrier Reef', score: 68, status: 'BLEACHING RISK', color: 'border-amber-500/40 bg-amber-950/20 text-amber-400' },
+                { reef: 'Lakshadweep Reef', score: 65, status: 'BLEACHING RISK', color: 'border-amber-500/40 bg-amber-950/20 text-amber-400' },
+              ].map((c, idx) => (
+                <div key={idx} className={`p-2.5 rounded-lg border ${c.color} flex justify-between items-center text-xs font-mono`}>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-current animate-pulse" />
+                    <span className="font-bold text-white font-sans">{c.reef}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-slate-400">Score: {c.score}/100</span>
+                    <span className="font-bold px-2 py-0.5 rounded bg-slate-900/90 text-[10px]">{c.status}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="text-[10px] font-mono text-slate-500 flex justify-between pt-2 border-t border-slate-800/60">
+            <span>THERMAL SENSING RIG</span>
+            <span className="text-emerald-400 font-bold">REEF-GUARD ACTIVE</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 });

@@ -1,23 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Eye, Filter, Heart, Info } from 'lucide-react';
+import { MapPin, Eye, Filter, Heart, Info, Activity, Shield, Waves } from 'lucide-react';
+import { fadeUp } from '../constants/animations';
 
 import speciesData from '../mock-data/species.json';
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.08, duration: 0.5 },
-  }),
-};
 
 const Biodiversity = React.memo(function Biodiversity() {
   const [filterStatus, setFilterStatus] = useState('all');
 
-  const filteredSpecies = React.useMemo(() => speciesData.filter(s => {
-    return filterStatus === 'all' || s.status === filterStatus;
-  }), [filterStatus]);
+  const filteredSpecies = useMemo(
+    () => filterStatus === 'all' ? speciesData : speciesData.filter(s => s.status === filterStatus),
+    [filterStatus]
+  );
 
   return (
     <div className="page-content" id="biodiversity-page">
@@ -70,8 +64,8 @@ const Biodiversity = React.memo(function Biodiversity() {
         animate="visible"
         style={{ paddingBottom: 60 }}
       >
-        {filteredSpecies.map((s, i) => (
-          <motion.div key={s.id} className="saas-card p-0 flex flex-col justify-between overflow-hidden" variants={fadeUp} custom={i}>
+        {filteredSpecies.map((s) => (
+          <div key={s.id} className="saas-card p-0 flex flex-col justify-between overflow-hidden transition-all duration-200 hover:border-cyan-500/40">
             {/* Species Hero Image */}
             <div className="relative w-full h-44 sm:h-48 overflow-hidden">
               <img
@@ -145,7 +139,7 @@ const Biodiversity = React.memo(function Biodiversity() {
                 <span className="text-slate-300">{s.recentObs}</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </motion.div>
     </div>

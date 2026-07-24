@@ -57,11 +57,10 @@ export default function PageTransition({ children }) {
       <motion.div
         key={displayKey}
         className="flex-1"
-        initial={{ opacity: 0, filter: 'blur(4px)' }}
+        initial={{ opacity: 0 }}
         animate={{
           opacity: isTransitioning ? 0 : 1,
-          filter: isTransitioning ? 'blur(4px)' : 'blur(0px)',
-          scale: isTransitioning ? 0.98 : 1,
+          scale: isTransitioning ? 0.99 : 1,
         }}
         transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
       >

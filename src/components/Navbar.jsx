@@ -14,7 +14,7 @@ const navItems = [
   { path: '/reports', label: 'Reports' },
 ];
 
-export default function Navbar({ onOpenAiModal, isAudioOn, onToggleAudio }) {
+const Navbar = React.memo(function Navbar({ onOpenAiModal, isAudioOn, onToggleAudio }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
@@ -114,4 +114,6 @@ export default function Navbar({ onOpenAiModal, isAudioOn, onToggleAudio }) {
       )}
     </nav>
   );
-}
+});
+
+export default Navbar;

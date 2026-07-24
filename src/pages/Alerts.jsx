@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, MapPin, Clock, ShieldAlert, CheckCircle, Radio, Filter, AlertCircle } from 'lucide-react';
+import { fadeUp } from '../constants/animations';
 
 import alertsData from '../mock-data/alerts.json';
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.08, duration: 0.5 },
-  }),
-};
 
 const Alerts = React.memo(function Alerts() {
   const [severityFilter, setSeverityFilter] = useState('all');
   const [acknowledgedIds, setAcknowledgedIds] = useState([]);
 
-  const filteredAlerts = alertsData.filter(a => {
-    return severityFilter === 'all' || a.severity === severityFilter;
-  });
+  const filteredAlerts = useMemo(
+    () => severityFilter === 'all' ? alertsData : alertsData.filter(a => a.severity === severityFilter),
+    [severityFilter]
+  );
 
-  const handleAcknowledge = (id) => {
-    if (!acknowledgedIds.includes(id)) {
-      setAcknowledgedIds([...acknowledgedIds, id]);
-    }
-  };
+  // Compute all severity counts in one pass instead of three separate filters.
+  const { criticalCount, highCount, mediumCount } = useMemo(() => {
+    return alertsData.reduce(
+      (acc, a) => {
+        if (a.severity === 'critical') acc.criticalCount++;
+        else if (a.severity === 'high') acc.highCount++;
+        else if (a.severity === 'medium') acc.mediumCount++;
+        return acc;
+      },
+      { criticalCount: 0, highCount: 0, mediumCount: 0 }
+    );
+  }, []); // alertsData is static — no deps needed.
 
-  const criticalCount = alertsData.filter(a => a.severity === 'critical').length;
-  const highCount = alertsData.filter(a => a.severity === 'high').length;
-  const mediumCount = alertsData.filter(a => a.severity === 'medium').length;
+  const handleAcknowledge = useCallback((id) => {
+    setAcknowledgedIds(prev => prev.includes(id) ? prev : [...prev, id]);
+  }, []);
 
   return (
     <div className="page-content" id="alerts-page">
@@ -112,16 +113,14 @@ const Alerts = React.memo(function Alerts() {
         animate="visible"
         style={{ paddingBottom: 60 }}
       >
-        {filteredAlerts.map((a, i) => {
+        {filteredAlerts.map((a) => {
           const isAck = acknowledgedIds.includes(a.id);
           return (
-            <motion.div 
+            <div 
               key={a.id} 
-              className={`saas-card p-5 border-l-4 ${
+              className={`saas-card p-5 border-l-4 transition-all duration-200 hover:border-cyan-500/40 ${
                 a.severity === 'critical' ? 'border-l-red-500' : a.severity === 'high' ? 'border-l-amber-500' : 'border-l-yellow-500'
               }`}
-              variants={fadeUp} 
-              custom={i}
             >
               <div className="flex flex-wrap justify-between items-start mb-3 gap-2">
                 <div className="flex items-center gap-3">
@@ -173,7 +172,7 @@ const Alerts = React.memo(function Alerts() {
                   )}
                 </button>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </motion.div>

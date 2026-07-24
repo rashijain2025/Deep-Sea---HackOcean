@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Waves, Send, Globe, Share2, Mail } from 'lucide-react';
 
-export default function Footer() {
+const Footer = React.memo(function Footer() {
   return (
     <footer className="footer" id="site-footer">
       <div className="footer-content">
@@ -59,4 +59,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+});
+
+export default Footer;

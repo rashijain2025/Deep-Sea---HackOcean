@@ -1,32 +1,29 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useTransform, useMotionValue } from 'framer-motion';
 import { 
   ArrowRight, MapPin, Activity, ShieldAlert, Cpu, 
   Fish, BarChart3, Database, Globe2, Eye, Shield, AlertTriangle
 } from 'lucide-react';
-import { useMotionValue } from 'framer-motion';
 import CinematicIntro from '../components/CinematicIntro';
 import JourneyToHealthyOcean from '../components/JourneyToHealthyOcean';
+import { FADE_UP, STAGGER_CONTAINER } from '../constants/animations';
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   PREMIUM ENTERPRISE HOMEPAGE
-   Inspired by Apple, Stripe, Palantir. 
-   Focus: Clean typography, elegant spacing, subtle glassmorphism, purposeful motion.
-   ═══════════════════════════════════════════════════════════════════════════ */
+// Pre-generated static particles with deterministic placement to avoid Math.random() on every render
+const HERO_PARTICLES = Array.from({ length: 15 }, (_, i) => {
+  const seed1 = Math.sin(i + 1) * 10000;
+  const seed2 = Math.sin(i + 2) * 10000;
+  const seed3 = Math.sin(i + 3) * 10000;
+  const seed4 = Math.sin(i + 4) * 10000;
+  return {
+    id: i,
+    left: `${(seed1 - Math.floor(seed1)) * 100}%`,
+    top: `${(seed2 - Math.floor(seed2)) * 100}%`,
+    duration: `${4 + (seed3 - Math.floor(seed3)) * 4}s`,
+    delay: `${(seed4 - Math.floor(seed4)) * 2}s`,
+  };
+});
 
-const FADE_UP = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } // Premium custom cubic-bezier
-};
-
-const STAGGER_CONTAINER = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(() => {
@@ -54,26 +51,7 @@ export default function Home() {
       <div className="absolute top-[100vh] bottom-0 left-0 right-0 pointer-events-none z-[-1] bg-[#020617]" />
       <div className="absolute top-0 h-[100vh] left-0 right-0 pointer-events-none z-[-1] bg-gradient-to-b from-transparent to-[#020617]" />
 
-      {/* ─── LIVE TELEMETRY TICKER ─── */}
-      <div className="w-full bg-cyan-950/20 border-b border-cyan-500/20 py-3 overflow-hidden flex items-center backdrop-blur-sm relative z-30">
-        <div className="absolute left-0 w-16 md:w-32 h-full bg-gradient-to-r from-[#020617] to-transparent z-10" />
-        <div className="absolute right-0 w-16 md:w-32 h-full bg-gradient-to-l from-[#020617] to-transparent z-10" />
-        <motion.div 
-          className="flex whitespace-nowrap gap-12 font-mono text-[10px] md:text-xs text-cyan-400 uppercase tracking-widest"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-        >
-          {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex gap-12 items-center">
-              <span className="flex items-center gap-2 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Pacific: Temp +0.02°C</span>
-              <span className="flex items-center gap-2 text-amber-300"><span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"/> Atlantic: Plastic Detected</span>
-              <span className="flex items-center gap-2 text-cyan-300"><span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"/> Mariana: Drone Active</span>
-              <span className="flex items-center gap-2 text-emerald-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Indian Ocean: Whale Pod</span>
-              <span className="flex items-center gap-2 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Arctic: Ice Shelf Nominal</span>
-            </div>
-          ))}
-        </motion.div>
-      </div>
+
 
       {/* ─── 1. HERO SECTION ─── */}
       <section className="relative min-h-[calc(100vh-100px)] flex flex-col items-center justify-between pt-16 pb-12 overflow-hidden">
@@ -87,20 +65,23 @@ export default function Home() {
           </div>
           {/* Subtle Particles - GPU Accelerated */}
           <div className="absolute inset-0 opacity-30">
-             {Array.from({ length: 15 }).map((_, i) => (
+             {HERO_PARTICLES.map((p) => (
                 <div
-                  key={i}
+                  key={p.id}
                   className="absolute w-1 h-1 rounded-full bg-cyan-200 anim-bio-particle"
                   style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    '--dur': `${4 + Math.random() * 4}s`,
-                    '--del': `${Math.random() * 2}s`
+                    left: p.left,
+                    top: p.top,
+                    '--dur': p.duration,
+                    '--del': p.delay
                   }}
                 />
              ))}
           </div>
         </div>
+
+        {/* Ambient Radial Hero Glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-cyan-500/15 via-emerald-500/10 to-transparent rounded-full blur-[100px] pointer-events-none z-0" />
 
         <motion.div 
           className="relative z-10 text-center max-w-5xl px-4 sm:px-6 my-auto pt-8"
@@ -108,24 +89,26 @@ export default function Home() {
           animate="visible"
           variants={STAGGER_CONTAINER}
         >
-          <motion.div variants={FADE_UP} className="mb-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-300 text-xs font-mono tracking-widest backdrop-blur-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+          <motion.div variants={FADE_UP} className="mb-6 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-mono tracking-widest backdrop-blur-md shadow-[0_0_20px_rgba(0,243,255,0.15)]">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00f3ff]" />
             DEEPSEA GUARDIAN INTELLIGENCE
           </motion.div>
           
           <motion.h1 
             variants={FADE_UP}
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 sm:mb-8 leading-[1.08]"
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 sm:mb-8 leading-[1.15] max-w-4xl mx-auto text-white"
           >
-            Protecting Our Oceans<br/>
-            with <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300">Artificial Intelligence</span>
+            Protecting Our Oceans With <br className="hidden sm:inline" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-emerald-300 drop-shadow-[0_0_35px_rgba(0,243,255,0.35)]">
+              Artificial Intelligence
+            </span>
           </motion.h1>
 
           <motion.p 
             variants={FADE_UP}
-            className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-12 font-light leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-slate-300/90 max-w-2xl mx-auto mb-8 sm:mb-12 font-light leading-relaxed"
           >
-            Monitor pollution, marine biodiversity, and environmental risks in real time through one intelligent, government-grade ocean platform.
+            Real-time telemetry, pollution tracking, and biodiversity preservation across every ocean on Earth—powered by autonomous neural intelligence.
           </motion.p>
 
           <motion.div variants={FADE_UP} className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -287,31 +270,126 @@ export default function Home() {
           }
         />
 
+        {/* Feature 4: Live Incident Alerts Preview */}
+        <FeatureBlock 
+          reversed
+          title="Live Incident Watchtower"
+          badge="Real-Time Triage"
+          desc="Automated neural threat ranking prioritizes critical marine emergencies—from illegal trawling to chemical plumes—and mobilizes autonomous subsea drones in seconds."
+          imageContent={
+            <div className="w-full h-full bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-400 animate-ping" />
+                  <span className="text-xs font-mono text-red-400 font-bold">LIVE THREAT STREAM</span>
+                </div>
+                <span className="text-[10px] font-mono text-slate-500">REFRESH: 1.2s</span>
+              </div>
+              <div className="space-y-2 my-2">
+                <div className="p-3 rounded-lg bg-red-950/30 border border-red-500/30 flex justify-between items-center text-xs">
+                  <div>
+                    <div className="font-bold text-white">Crude Oil Spill Signature</div>
+                    <div className="text-[10px] font-mono text-slate-400">Gulf of Mexico · Sector 7</div>
+                  </div>
+                  <span className="saas-badge saas-badge-critical">CRITICAL</span>
+                </div>
+                <div className="p-3 rounded-lg bg-amber-950/30 border border-amber-500/30 flex justify-between items-center text-xs">
+                  <div>
+                    <div className="font-bold text-white">Plastic Cluster Accumulation</div>
+                    <div className="text-[10px] font-mono text-slate-400">Arabian Sea · Station A-14</div>
+                  </div>
+                  <span className="saas-badge saas-badge-warning">HIGH</span>
+                </div>
+              </div>
+              <Link to="/alerts" className="text-xs font-mono text-cyan-400 hover:text-cyan-300 flex items-center justify-end gap-1">
+                View Watchtower Stream →
+              </Link>
+            </div>
+          }
+        />
+
+        {/* Feature 5: Deep Analytics Preview */}
+        <FeatureBlock 
+          title="Deep Telemetry Analytics"
+          badge="Predictive Models"
+          desc="Synthesize 12-month rolling data streams across chemical concentration, coral reef vitality, and species migration trends with AI-calculated confidence indexes."
+          imageContent={
+            <div className="w-full h-full bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between relative overflow-hidden">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-xs font-mono text-cyan-400 font-bold">OCEAN VITALITY SPECTRUM</span>
+                <span className="text-[10px] font-mono text-emerald-400">INDEX: 92/100</span>
+              </div>
+              {/* Mini SVG Chart Bar Visualization */}
+              <div className="flex items-end gap-2 h-28 my-auto">
+                {[65, 78, 82, 70, 88, 92, 85, 96, 90, 94].map((v, i) => (
+                  <div key={i} className="flex-1 bg-slate-950 rounded-t overflow-hidden h-full flex items-end">
+                    <div 
+                      className="w-full bg-gradient-to-t from-cyan-500 to-emerald-400 rounded-t transition-all"
+                      style={{ height: `${v}%` }}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-between items-center text-[10px] font-mono text-slate-500 pt-2 border-t border-slate-800">
+                <span>12-MONTH TELEMETRY WINDOW</span>
+                <Link to="/analytics" className="text-cyan-400 hover:text-cyan-300">Explore Analytics →</Link>
+              </div>
+            </div>
+          }
+        />
       </section>
 
       {/* ─── 5. OCEAN MAP PREVIEW ─── */}
       <section className="max-w-7xl mx-auto px-6 mt-40">
         <motion.div 
-          className="premium-glass rounded-3xl p-1 lg:p-1 overflow-hidden relative min-h-[500px]"
+          className="premium-glass rounded-3xl p-6 md:p-10 overflow-hidden relative min-h-[520px] border border-cyan-500/20"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={FADE_UP}
         >
           <div className="absolute inset-0 bg-[#020617] rounded-3xl" />
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50" />
-          
-          <div className="relative z-10 p-10 flex flex-col md:flex-row justify-between items-start">
+          {/* World map background SVG grid pattern */}
+          <div className="absolute inset-0 bg-[radial-gradient(#00f3ff_1px,transparent_1px)] [background-size:24px_24px] opacity-15" />
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
+
+          <div className="relative z-10 flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
             <div>
-              <h3 className="text-2xl font-bold mb-2">Global Coverage</h3>
-              <p className="text-sm text-slate-400 max-w-sm">Live telemetry streaming from 58 monitoring stations across 5 major oceans.</p>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-mono mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                GLOBAL TELEMETRY GRID · 58 ACTIVE STATIONS
+              </div>
+              <h3 className="text-3xl font-bold font-display text-white">Global Ocean Monitoring Map</h3>
+              <p className="text-sm text-slate-400 max-w-lg mt-1">Real-time subsea telemetry, plastic accumulation clusters, and satellite coverage across 5 major oceans.</p>
             </div>
-            <Link to="/map" className="mt-4 md:mt-0 text-sm font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition-colors">
-              Open Full Map <ArrowRight size={14} />
+            <Link to="/map" className="saas-button-primary text-xs flex items-center gap-2">
+              <MapPin size={14} /> Open Live Ocean Map <ArrowRight size={14} />
             </Link>
           </div>
 
-          {/* Abstract Map Nodes */}
+          {/* Interactive World Map Station Node Grid */}
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            {[
+              { name: 'Pacific Garbage Patch', status: 'CRITICAL', threat: 'Plastic 420t/km²', lat: '34.2° N, 140.5° W', color: 'border-red-500/40 bg-red-950/20 text-red-400' },
+              { name: 'Mariana Trench Hydro-Vent', status: 'OPTIMAL', threat: 'Depth 10,994m · Sensor Active', lat: '11.3° N, 142.2° E', color: 'border-cyan-500/40 bg-cyan-950/20 text-cyan-400' },
+              { name: 'Lakshadweep Coral Barrier', status: 'WARNING', threat: 'Temp +1.8°C · Bleaching Risk', lat: '10.5° N, 72.6° E', color: 'border-amber-500/40 bg-amber-950/20 text-amber-400' },
+              { name: 'North Atlantic Ridge', status: 'STABLE', threat: 'Whale Pod Tag #409 Online', lat: '45.1° N, 28.4° W', color: 'border-emerald-500/40 bg-emerald-950/20 text-emerald-400' },
+            ].map((st, i) => (
+              <div key={i} className={`p-4 rounded-xl border backdrop-blur-md ${st.color} flex flex-col justify-between`}>
+                <div className="flex justify-between items-start mb-3">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider">{st.status}</span>
+                  <span className="w-2 h-2 rounded-full bg-current animate-pulse" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-white font-display mb-1">{st.name}</h4>
+                  <div className="text-[11px] text-slate-300 font-mono mb-2">{st.threat}</div>
+                  <div className="text-[9px] text-slate-500 font-mono">COORD: {st.lat}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Visual SVG Signal Arc */}
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
             {/* Just a stylized representation of nodes for the preview */}
             <MapNode top="40%" left="30%" color="bg-emerald-400" glow="shadow-[0_0_20px_#34d399]" />
@@ -319,10 +397,9 @@ export default function Home() {
             <MapNode top="65%" left="45%" color="bg-amber-400" glow="shadow-[0_0_20px_#fbbf24]" pulse />
             <MapNode top="50%" left="75%" color="bg-emerald-400" glow="shadow-[0_0_20px_#34d399]" />
             
-            {/* Connecting SVG lines */}
-            <svg className="absolute inset-0 w-full h-full opacity-20" preserveAspectRatio="none" viewBox="0 0 100 100">
-               <path d="M 30 40 Q 45 30 60 35 T 75 50" stroke="#00f3ff" fill="none" strokeWidth="1" strokeDasharray="4 4" />
-               <path d="M 30 40 Q 35 55 45 65" stroke="#00f3ff" fill="none" strokeWidth="1" strokeDasharray="4 4" />
+            <svg className="w-full h-full opacity-25" viewBox="0 0 1000 400" preserveAspectRatio="none">
+              <path d="M 100 200 Q 300 80 500 200 T 900 200" stroke="#00f3ff" fill="none" strokeWidth="1.5" strokeDasharray="6 6" />
+              <path d="M 200 300 Q 500 150 800 300" stroke="#00ff9d" fill="none" strokeWidth="1" strokeDasharray="4 4" />
             </svg>
           </div>
         </motion.div>

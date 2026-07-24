@@ -27,6 +27,41 @@
   }
 }
 
+/* ─── Ticker / Marquee Scroll ─── */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* mask-image fades edges without any z-index / GPU layer conflict */
+.ticker-wrapper {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+}
+
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
 /* Glassmorphism utility classes - Integrated GPU 60 FPS Optimized */
 .glass-panel {
   background: rgba(9, 18, 38, 0.94);
