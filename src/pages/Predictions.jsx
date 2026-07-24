@@ -95,6 +95,63 @@ const Predictions = React.memo(function Predictions() {
             </ResponsiveContainer>
           </LazyChart>
         </motion.div>
+
+        {/* AI Predictive Risk Matrix & Interventions Table */}
+        <div className="saas-card p-5 mt-6 mb-16">
+          <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
+            <div>
+              <h3 className="text-base font-bold text-white font-display">AI Predictive Risk Matrix & Recommended Actions</h3>
+              <div className="text-xs text-slate-400 font-mono">Simulated 12-month threat trajectories and automated mitigation protocols</div>
+            </div>
+            <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded border border-cyan-500/30">
+              NEURAL ACCURACY: 99.4%
+            </span>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs text-slate-300 font-mono">
+              <thead className="bg-slate-900/80 text-cyan-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+                <tr>
+                  <th className="p-3">Threat Vector</th>
+                  <th className="p-3">Target Ocean Sector</th>
+                  <th className="p-3">Predicted Month</th>
+                  <th className="p-3">Forecasted Risk</th>
+                  <th className="p-3">Recommended Mitigation Protocol</th>
+                  <th className="p-3 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800/60">
+                {[
+                  { threat: 'Microplastic Concentration Spike', sector: 'Pacific Garbage Patch', month: 'Aug 2026', risk: 'CRITICAL (94%)', action: 'Deploy Subsurface Skimmer Drone Fleet #04', status: 'SCHEDULED' },
+                  { threat: 'Thermal Coral Bleaching Event', sector: 'Lakshadweep Reef System', month: 'Sep 2026', risk: 'HIGH (82%)', action: 'Activate Shading Canopy & Bio-Cooling Array', status: 'STANDBY' },
+                  { threat: 'Industrial Runoff Plume Surge', sector: 'Gulf of Mexico Hydrosea', month: 'Oct 2026', risk: 'MEDIUM (68%)', action: 'Dispatch Chemical Neutralization Submarine', status: 'SIMULATED' },
+                  { threat: 'Migratory Route Encroachment', sector: 'North Atlantic Slope', month: 'Nov 2026', risk: 'LOW (35%)', action: 'Broadcast Acoustic Beacon Waypoints', status: 'MONITORING' },
+                ].map((row, idx) => (
+                  <tr key={idx} className="hover:bg-slate-900/40 transition-colors">
+                    <td className="p-3 font-bold text-white font-sans">{row.threat}</td>
+                    <td className="p-3 text-cyan-300">{row.sector}</td>
+                    <td className="p-3 text-slate-400">{row.month}</td>
+                    <td className="p-3">
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        row.risk.includes('CRITICAL') ? 'bg-red-500/10 text-red-400 border border-red-500/30' :
+                        row.risk.includes('HIGH') ? 'bg-amber-500/10 text-amber-400 border border-amber-500/30' :
+                        'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30'
+                      }`}>
+                        {row.risk}
+                      </span>
+                    </td>
+                    <td className="p-3 text-slate-300">{row.action}</td>
+                    <td className="p-3 text-right">
+                      <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                        {row.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </motion.div>
     </div>
   );
