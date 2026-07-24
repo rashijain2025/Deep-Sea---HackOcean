@@ -2,8 +2,6 @@
 
 **DeepSea Guardian** is an enterprise-grade, AI-powered ocean monitoring platform designed to safeguard marine biodiversity and track subsea telemetry in real-time. Built with modern web technologies, it serves as a global command center for researchers, governments, and environmental organizations to combat ocean pollution and protect vulnerable species.
 
-![DeepSea Guardian](public/screenshot.png) *(Add a screenshot here later)*
-
 ## ✨ Features
 
 - **Live Ocean Telemetry:** Real-time data streaming of temperature, salinity, and acoustic metrics across 58 global monitoring stations.
