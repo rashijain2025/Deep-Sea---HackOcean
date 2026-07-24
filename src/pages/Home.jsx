@@ -30,10 +30,6 @@ const STAGGER_CONTAINER = {
 export default function Home() {
   const [showIntro, setShowIntro] = useState(false);
   const navigate = useNavigate();
-  const { scrollYProgress } = useScroll();
-
-  // Darken background as user scrolls down to simulate descending into the ocean
-  const bgOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.85]);
 
   const handleEnterDashboard = useCallback((e) => {
     e.preventDefault();
@@ -50,12 +46,10 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen w-full overflow-y-auto overflow-x-hidden relative text-slate-50 selection:bg-cyan-500/30 font-sans pb-24">
-      {/* ─── SCROLL-LINKED BACKGROUND OVERLAY ─── */}
-      <motion.div 
-        className="fixed inset-0 pointer-events-none z-[-1] bg-[#020617]" 
-        style={{ opacity: bgOpacity }} 
-      />
+    <div className="h-screen w-full overflow-y-auto overflow-x-hidden relative text-slate-50 selection:bg-cyan-500/30 font-sans pb-24" style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}>
+      {/* ─── BUTTERY CSS-ONLY BACKGROUND OVERLAY ─── */}
+      <div className="absolute top-[100vh] bottom-0 left-0 right-0 pointer-events-none z-[-1] bg-[#020617]" />
+      <div className="absolute top-0 h-[100vh] left-0 right-0 pointer-events-none z-[-1] bg-gradient-to-b from-transparent to-[#020617]" />
 
       {/* ─── 1. HERO SECTION ─── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
