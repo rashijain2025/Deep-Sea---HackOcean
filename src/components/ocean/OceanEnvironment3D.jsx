@@ -20,26 +20,26 @@ import { motion } from 'framer-motion';
    12. Subtle AI scanning grid overlay
    ═══════════════════════════════════════════════════════════════════════════ */
 
-export function OceanEnvironment3D({ currentZone = 'Sunlit Zone', isRovMode = false, rovFilter = 'optical' }) {
-  // Generate random bioluminescent particles
+export const OceanEnvironment3D = React.memo(function OceanEnvironment3D({ currentZone = 'Sunlit Zone', isRovMode = false, rovFilter = 'optical' }) {
+  // Lightweight bioluminescent particles
   const particles = useMemo(() => {
-    return Array.from({ length: 35 }).map((_, i) => ({
+    return Array.from({ length: 8 }).map((_, i) => ({
       id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 6 + 2,
-      duration: Math.random() * 8 + 6,
-      delay: Math.random() * 5,
-      color: i % 3 === 0 ? '#00ff9d' : i % 2 === 0 ? '#00f3ff' : '#7000ff'
+      x: (i * 12) + 5,
+      y: (i * 10) + 10,
+      size: (i % 3) * 2 + 3,
+      duration: 10 + i * 2,
+      delay: i * 0.5,
+      color: i % 2 === 0 ? '#00ff9d' : '#00f3ff'
     }));
   }, []);
 
   // Generate fish school elements
-  const schoolFishUpper = useMemo(() => Array.from({ length: 14 }), []);
-  const schoolFishLower = useMemo(() => Array.from({ length: 10 }), []);
+  const schoolFishUpper = useMemo(() => Array.from({ length: 6 }), []);
+  const schoolFishLower = useMemo(() => Array.from({ length: 5 }), []);
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-ocean-depth select-none perspective-container">
+    <div className="relative w-full h-full overflow-hidden bg-ocean-depth select-none perspective-container pointer-events-none" style={{ transform: 'translateZ(0)' }}>
 
       {/* ─── LAYER 1: Deep Ocean Background & Depth Gradient ─── */}
       <div 
@@ -495,4 +495,4 @@ export function OceanEnvironment3D({ currentZone = 'Sunlit Zone', isRovMode = fa
       )}
     </div>
   );
-}
+});

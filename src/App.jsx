@@ -89,7 +89,7 @@ export default function App() {
       />
 
       {/* ─── Page Content Route Router Container ─── */}
-      <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden">
+      <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden scroll-smooth" style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
