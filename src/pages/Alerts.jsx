@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, MapPin, Clock, ShieldAlert, CheckCircle, Radio, Filter, AlertCircle } from 'lucide-react';
+import { fadeUp } from '../constants/animations';
 
 import alertsData from '../mock-data/alerts.json';
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.08, duration: 0.5 },
-  }),
-};
 
 const Alerts = React.memo(function Alerts() {
   const [severityFilter, setSeverityFilter] = useState('all');
   const [acknowledgedIds, setAcknowledgedIds] = useState([]);
 
-  const filteredAlerts = alertsData.filter(a => {
-    return severityFilter === 'all' || a.severity === severityFilter;
-  });
+  const filteredAlerts = useMemo(
+    () => severityFilter === 'all' ? alertsData : alertsData.filter(a => a.severity === severityFilter),
+    [severityFilter]
+  );
 
-  const handleAcknowledge = (id) => {
-    if (!acknowledgedIds.includes(id)) {
-      setAcknowledgedIds([...acknowledgedIds, id]);
-    }
-  };
+  // Compute all severity counts in one pass instead of three separate filters.
+  const { criticalCount, highCount, mediumCount } = useMemo(() => {
+    return alertsData.reduce(
+      (acc, a) => {
+        if (a.severity === 'critical') acc.criticalCount++;
+        else if (a.severity === 'high') acc.highCount++;
+        else if (a.severity === 'medium') acc.mediumCount++;
+        return acc;
+      },
+      { criticalCount: 0, highCount: 0, mediumCount: 0 }
+    );
+  }, []); // alertsData is static — no deps needed.
 
-  const criticalCount = alertsData.filter(a => a.severity === 'critical').length;
-  const highCount = alertsData.filter(a => a.severity === 'high').length;
-  const mediumCount = alertsData.filter(a => a.severity === 'medium').length;
+  const handleAcknowledge = useCallback((id) => {
+    setAcknowledgedIds(prev => prev.includes(id) ? prev : [...prev, id]);
+  }, []);
 
   return (
     <div className="page-content" id="alerts-page">

@@ -9,14 +9,9 @@ import {
   ResponsiveContainer, Legend,
 } from 'recharts';
 import { LazyChart } from '../components/LazyChart';
+import { fadeUp } from '../constants/animations';
+import { chartTooltipStyle as tooltipStyle } from '../constants/chartTheme';
 
-const tooltipStyle = {
-  backgroundColor: 'rgba(3,8,20,0.95)',
-  border: '1px solid rgba(0,243,255,0.25)',
-  borderRadius: '8px',
-  color: '#fff',
-  fontSize: '12px',
-};
 
 const pollutionData = [
   { month: 'Jan', Plastic: 220, Oil: 30, Chemical: 60 },
@@ -75,14 +70,6 @@ const coralHealth = [
   { reef: 'Maldives', health: 68 },
   { reef: 'Hawaii', health: 74 },
 ];
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.1, duration: 0.5 },
-  }),
-};
 
 const Analytics = React.memo(function Analytics() {
   return (

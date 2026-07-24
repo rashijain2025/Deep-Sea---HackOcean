@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Minus, Shield, Activity, Cpu, AlertTriangle, CheckCircle, Radio } from 'lucide-react';
 import {
@@ -7,35 +7,19 @@ import {
   ResponsiveContainer, Legend,
 } from 'recharts';
 import { LazyChart } from '../components/LazyChart';
+import { fadeUp } from '../constants/animations';
+import { chartTooltipStyle } from '../constants/chartTheme';
 
 import mockDashboardData from '../mock-data/dashboard.json';
 
 const { stats, pollutionData, healthData, recentAlertsData } = mockDashboardData;
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
-  }),
-};
-
-const chartTooltipStyle = {
-  backgroundColor: 'rgba(3,8,20,0.95)',
-  border: '1px solid rgba(0,243,255,0.25)',
-  borderRadius: '8px',
-  color: '#fff',
-  fontSize: '12px',
-};
-
 const Dashboard = React.memo(function Dashboard() {
   const [dispatchedAlerts, setDispatchedAlerts] = useState([]);
 
-  const handleDispatch = (id) => {
-    if (!dispatchedAlerts.includes(id)) {
-      setDispatchedAlerts([...dispatchedAlerts, id]);
-    }
-  };
+  const handleDispatch = useCallback((id) => {
+    setDispatchedAlerts(prev => prev.includes(id) ? prev : [...prev, id]);
+  }, []);
 
   return (
     <div className="page-content" id="dashboard-page">

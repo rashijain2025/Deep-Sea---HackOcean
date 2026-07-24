@@ -1,30 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Camera, CheckCircle2, Cpu, Filter } from 'lucide-react';
+import { Camera, Eye, AlertTriangle, Fish, Droplets, Anchor, CheckCircle2, ShieldAlert, Cpu, Filter } from 'lucide-react';
+import { fadeUp } from '../constants/animations';
 
 import detectionsData from '../mock-data/detections.json';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.08, duration: 0.5 },
-  }),
+// Icon map lives outside the component — no re-creation on every render.
+const ICON_MAP = {
+  Droplets: <Droplets size={28} className="text-cyan-400" />,
+  AlertTriangle: <AlertTriangle size={28} className="text-red-400" />,
+  Fish: <Fish size={28} className="text-emerald-400" />,
+  Anchor: <Anchor size={28} className="text-amber-400" />,
+  Eye: <Eye size={28} className="text-amber-400" />,
 };
+
+const getCategoryIcon = (iconName) => ICON_MAP[iconName] ?? <Camera size={28} className="text-cyan-400" />;
 
 const Detection = React.memo(function Detection() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [verifiedIds, setVerifiedIds] = useState([]);
 
-  const filteredDetections = React.useMemo(() => detectionsData.filter(d => {
-    return activeCategory === 'All' || d.category === activeCategory;
-  }), [activeCategory]);
+  const filteredDetections = useMemo(
+    () => activeCategory === 'All' ? detectionsData : detectionsData.filter(d => d.category === activeCategory),
+    [activeCategory]
+  );
 
-  const handleVerify = (id) => {
-    if (!verifiedIds.includes(id)) {
-      setVerifiedIds([...verifiedIds, id]);
-    }
-  };
+  const handleVerify = useCallback((id) => {
+    setVerifiedIds(prev => prev.includes(id) ? prev : [...prev, id]);
+  }, []);
 
   return (
     <div className="page-content" id="detection-page">

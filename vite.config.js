@@ -23,5 +23,18 @@ export default defineConfig({
   server: {
     port: 3000,
     open: false
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react-core': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-framer': ['framer-motion'],
+          'vendor-charts': ['recharts', 'react-is'],
+          'vendor-map': ['leaflet', 'react-leaflet'],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 800
   }
 })

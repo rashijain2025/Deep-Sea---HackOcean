@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { motion } from 'framer-motion';
 import { MapPin, ShieldAlert, Activity, Navigation, Radio, Filter, Search, CheckCircle, Crosshair } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
+import { fadeUp } from '../constants/animations';
 
 import regions from '../mock-data/regions.json';
 
@@ -12,19 +13,48 @@ const threatColors = {
   safe: { color: '#10b981', fillOpacity: 0.35, border: '#34d399' },
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.08, duration: 0.5 },
-  }),
-};
+const RegionMarker = React.memo(function RegionMarker({ region, isSelected, onClick, tc }) {
+  const eventHandlers = useMemo(() => ({
+    click: () => onClick(region)
+  }), [onClick, region]);
+
+  const pathOptions = useMemo(() => ({
+    color: isSelected ? '#00f3ff' : tc.border,
+    fillColor: tc.color,
+    fillOpacity: isSelected ? 0.7 : tc.fillOpacity,
+    weight: isSelected ? 3 : 2,
+  }), [isSelected, tc]);
+
+  return (
+    <CircleMarker
+      center={[region.lat, region.lng]}
+      radius={isSelected ? 16 : region.threat === 'critical' ? 13 : region.threat === 'medium' ? 10 : 8}
+      eventHandlers={eventHandlers}
+      pathOptions={pathOptions}
+    >
+      <Popup>
+        <div className="p-1 text-slate-900 min-w-[170px]">
+          <strong className="text-sm block font-bold">{region.name}</strong>
+          <div className="text-xs mt-1 space-y-0.5">
+            <div>Threat: <span className="font-bold uppercase" style={{ color: tc.color }}>{region.threat}</span></div>
+            <div>Plastic: {region.plastic}</div>
+            <div>Risk Score: {region.riskScore}/100</div>
+          </div>
+        </div>
+      </Popup>
+    </CircleMarker>
+  );
+});
 
 const OceanMap = React.memo(function OceanMap() {
   const [filterThreat, setFilterThreat] = useState('all');
   const [selectedRegion, setSelectedRegion] = useState(regions[0]);
   const [searchTerm, setSearchTerm] = useState('');
   const [dispatchedId, setDispatchedId] = useState(null);
+
+  const handleSelectRegion = useCallback((r) => {
+    setSelectedRegion(r);
+  }, []);
 
   const filteredRegions = useMemo(() => {
     return regions.filter(r => {
@@ -142,7 +172,7 @@ const OceanMap = React.memo(function OceanMap() {
               attributionControl={true}
               preferCanvas={true}
             >
-              <TileLayer
+               <TileLayer
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                 attribution='© OpenStreetMap · DeepSea Guardian'
               />

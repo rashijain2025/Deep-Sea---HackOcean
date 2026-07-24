@@ -10,6 +10,7 @@ import PageTransition from './components/PageTransition';
 import { DepthZoneBar } from './components/dashboard/DepthZoneBar';
 import { NeptuneAiModal } from './components/dashboard/NeptuneAiModal';
 import InteractiveCursor from './components/InteractiveCursor';
+import ErrorBoundary from './components/ErrorBoundary';
 import { oceanAudio } from './utils/oceanAudio';
 
 // Pages
@@ -74,19 +75,21 @@ export default function App() {
       {/* ─── Page Content Route Router Container with Transitions ─── */}
       <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden scroll-smooth pt-[76px] sm:pt-[84px] md:pt-[92px] lg:pt-[104px] px-2 sm:px-3 md:px-4 pb-24 lg:pb-8" style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}>
         <PageTransition>
-          <Suspense fallback={<PageLoader />}>
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/map" element={<OceanMap />} />
-              <Route path="/alerts" element={<Alerts />} />
-              <Route path="/analytics" element={<Analytics />} />
-              <Route path="/biodiversity" element={<Biodiversity />} />
-              <Route path="/detection" element={<Detection />} />
-              <Route path="/predictions" element={<Predictions />} />
-              <Route path="/reports" element={<Reports />} />
-            </Routes>
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/map" element={<OceanMap />} />
+                <Route path="/alerts" element={<Alerts />} />
+                <Route path="/analytics" element={<Analytics />} />
+                <Route path="/biodiversity" element={<Biodiversity />} />
+                <Route path="/detection" element={<Detection />} />
+                <Route path="/predictions" element={<Predictions />} />
+                <Route path="/reports" element={<Reports />} />
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
 
           {/* Global Footer */}
           <Footer />

@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Download, Filter, Calendar, MapPin, CheckCircle, Search, FileCode } from 'lucide-react';
+import { fadeUp } from '../constants/animations';
 
 import mockReports from '../mock-data/reports.json';
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.08, duration: 0.5 },
-  }),
-};
 
 const Reports = React.memo(function Reports() {
   const [filter, setFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   const [downloadingId, setDownloadingId] = useState(null);
 
-  const handleDownload = (id, filename) => {
+  const handleDownload = useCallback((id, filename) => {
     setDownloadingId(id);
     setTimeout(() => {
       const element = document.createElement('a');
-      const file = new Blob([`DeepSea Guardian Enterprise System Report - ${filename}\nExported on ${new Date().toLocaleDateString()}`], {type: 'text/plain'});
+      const file = new Blob(
+        [`DeepSea Guardian Enterprise System Report - ${filename}\nExported on ${new Date().toLocaleDateString()}`],
+        { type: 'text/plain' }
+      );
       element.href = URL.createObjectURL(file);
       element.download = `${filename.replace(/\s+/g, '_')}_Report.txt`;
       document.body.appendChild(element);
@@ -29,14 +25,16 @@ const Reports = React.memo(function Reports() {
       document.body.removeChild(element);
       setDownloadingId(null);
     }, 1200);
-  };
+  }, []);
 
-  const filteredReports = mockReports.filter(rep => {
-    const matchesFilter = filter === 'All' || rep.category === filter;
-    const matchesSearch = rep.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          rep.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
+  const filteredReports = useMemo(() => {
+    const q = searchTerm.toLowerCase();
+    return mockReports.filter(rep => {
+      const matchesFilter = filter === 'All' || rep.category === filter;
+      const matchesSearch = !q || rep.title.toLowerCase().includes(q) || rep.description.toLowerCase().includes(q);
+      return matchesFilter && matchesSearch;
+    });
+  }, [filter, searchTerm]);
 
   return (
     <div className="page-content" id="reports-page">

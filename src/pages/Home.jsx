@@ -1,32 +1,29 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useTransform, useMotionValue } from 'framer-motion';
 import { 
   ArrowRight, MapPin, Activity, ShieldAlert, Cpu, 
   Fish, BarChart3, Database, Globe2, Eye, Shield, AlertTriangle
 } from 'lucide-react';
-import { useMotionValue } from 'framer-motion';
 import CinematicIntro from '../components/CinematicIntro';
 import JourneyToHealthyOcean from '../components/JourneyToHealthyOcean';
+import { FADE_UP, STAGGER_CONTAINER } from '../constants/animations';
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   PREMIUM ENTERPRISE HOMEPAGE
-   Inspired by Apple, Stripe, Palantir. 
-   Focus: Clean typography, elegant spacing, subtle glassmorphism, purposeful motion.
-   ═══════════════════════════════════════════════════════════════════════════ */
+// Pre-generated static particles with deterministic placement to avoid Math.random() on every render
+const HERO_PARTICLES = Array.from({ length: 15 }, (_, i) => {
+  const seed1 = Math.sin(i + 1) * 10000;
+  const seed2 = Math.sin(i + 2) * 10000;
+  const seed3 = Math.sin(i + 3) * 10000;
+  const seed4 = Math.sin(i + 4) * 10000;
+  return {
+    id: i,
+    left: `${(seed1 - Math.floor(seed1)) * 100}%`,
+    top: `${(seed2 - Math.floor(seed2)) * 100}%`,
+    duration: `${4 + (seed3 - Math.floor(seed3)) * 4}s`,
+    delay: `${(seed4 - Math.floor(seed4)) * 2}s`,
+  };
+});
 
-const FADE_UP = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } // Premium custom cubic-bezier
-};
-
-const STAGGER_CONTAINER = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(() => {
@@ -55,24 +52,19 @@ export default function Home() {
       <div className="absolute top-0 h-[100vh] left-0 right-0 pointer-events-none z-[-1] bg-gradient-to-b from-transparent to-[#020617]" />
 
       {/* ─── LIVE TELEMETRY TICKER ─── */}
-      <div className="w-full bg-cyan-950/20 border-b border-cyan-500/20 py-3 overflow-hidden flex items-center backdrop-blur-sm relative z-30">
-        <div className="absolute left-0 w-16 md:w-32 h-full bg-gradient-to-r from-[#020617] to-transparent z-10" />
-        <div className="absolute right-0 w-16 md:w-32 h-full bg-gradient-to-l from-[#020617] to-transparent z-10" />
-        <motion.div 
-          className="flex whitespace-nowrap gap-12 font-mono text-[10px] md:text-xs text-cyan-400 uppercase tracking-widest"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-        >
-          {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex gap-12 items-center">
+      <div className="ticker-wrapper w-full bg-cyan-950/20 border-b border-cyan-500/20 py-2 overflow-hidden flex items-center backdrop-blur-sm relative z-30 mt-[-16px]">
+        <div className="ticker-track flex whitespace-nowrap font-mono text-[10px] md:text-xs text-cyan-400 uppercase tracking-widest">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="flex gap-12 items-center px-8 shrink-0">
               <span className="flex items-center gap-2 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Pacific: Temp +0.02°C</span>
               <span className="flex items-center gap-2 text-amber-300"><span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"/> Atlantic: Plastic Detected</span>
               <span className="flex items-center gap-2 text-cyan-300"><span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"/> Mariana: Drone Active</span>
               <span className="flex items-center gap-2 text-emerald-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Indian Ocean: Whale Pod</span>
               <span className="flex items-center gap-2 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"/> Arctic: Ice Shelf Nominal</span>
+              <span className="flex items-center gap-2 text-cyan-300"><span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"/> Pacific: Temp +0.02°C</span>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* ─── 1. HERO SECTION ─── */}
@@ -87,15 +79,15 @@ export default function Home() {
           </div>
           {/* Subtle Particles - GPU Accelerated */}
           <div className="absolute inset-0 opacity-30">
-             {Array.from({ length: 15 }).map((_, i) => (
+             {HERO_PARTICLES.map((p) => (
                 <div
-                  key={i}
+                  key={p.id}
                   className="absolute w-1 h-1 rounded-full bg-cyan-200 anim-bio-particle"
                   style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    '--dur': `${4 + Math.random() * 4}s`,
-                    '--del': `${Math.random() * 2}s`
+                    left: p.left,
+                    top: p.top,
+                    '--dur': p.duration,
+                    '--del': p.delay
                   }}
                 />
              ))}
