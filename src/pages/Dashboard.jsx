@@ -64,7 +64,7 @@ const Dashboard = React.memo(function Dashboard() {
           <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trend Spectrum</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">12-month rolling telemetry window (tons detected)</div>
           <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
+            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={280}>
               <AreaChart data={pollutionData}>
                 <defs>
                   <linearGradient id="plasticGrad" x1="0" y1="0" x2="0" y2="1">
@@ -97,7 +97,7 @@ const Dashboard = React.memo(function Dashboard() {
           <h3 className="text-base font-bold text-white font-display mb-1">Ocean Health Score</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Global health index · past 7 days</div>
           <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
+            <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={280}>
               <LineChart data={healthData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                 <XAxis dataKey="day" stroke="rgba(255,255,255,0.3)" fontSize={11} />
