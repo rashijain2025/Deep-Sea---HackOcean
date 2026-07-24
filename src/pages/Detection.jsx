@@ -104,12 +104,30 @@ const Detection = React.memo(function Detection() {
               </div>
 
               {/* Subsea Viewport Display */}
-              <div className="detection-body relative mb-4">
-                {getCategoryIcon(d.icon)}
-                <div className="absolute top-2 left-2 text-[9px] font-mono text-cyan-400/80 bg-slate-950/80 px-2 py-0.5 rounded border border-cyan-500/30">
-                  BOUNDING BOX // {d.category.toUpperCase()}
+              <div className="w-full h-40 bg-slate-900 border border-slate-800 rounded-lg relative mb-4 overflow-hidden flex items-center justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]">
+                
+                {/* Simulated Bounding Box Overlay */}
+                <div className="absolute inset-4 border border-cyan-500/30 bg-cyan-900/10 flex items-center justify-center">
+                  {/* Crosshairs */}
+                  <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-cyan-400" />
+                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-cyan-400" />
+                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-cyan-400" />
+                  <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-cyan-400" />
+                  
+                  {/* Central Icon */}
+                  <motion.div 
+                    animate={{ scale: [1, 1.1, 1], opacity: [0.8, 1, 0.8] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="p-4 bg-slate-950/50 rounded-full border border-slate-800"
+                  >
+                    {getCategoryIcon(d.icon)}
+                  </motion.div>
                 </div>
-                <div className="absolute bottom-2 right-2 text-[9px] font-mono text-emerald-400 bg-slate-950/80 px-2 py-0.5 rounded border border-emerald-500/30">
+
+                <div className="absolute top-2 left-2 text-[9px] font-mono text-cyan-400 bg-slate-950/90 px-2 py-0.5 rounded border border-cyan-500/30">
+                  OBJECT_ID // {d.category.toUpperCase()}
+                </div>
+                <div className="absolute bottom-2 right-2 text-[9px] font-mono text-emerald-400 bg-slate-950/90 px-2 py-0.5 rounded border border-emerald-500/30 shadow-[0_0_10px_rgba(52,211,153,0.2)]">
                   CONFIDENCE: {d.confidence}%
                 </div>
               </div>
