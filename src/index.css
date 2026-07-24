@@ -455,6 +455,9 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 110px 32px 60px;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .page-header {
@@ -490,19 +493,19 @@
 /* Grids */
 .grid-2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   gap: 24px;
 }
 
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 24px;
 }
 
 .grid-6 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
   gap: 16px;
 }
 
@@ -512,7 +515,7 @@
   gap: 24px;
   max-width: 1280px;
   margin: 0 auto 24px;
-  padding: 0 32px;
+  padding: 0;
 }
 
 @media (max-width: 1024px) {
@@ -543,6 +546,7 @@
   border-radius: 16px;
   padding: 12px 24px;
   height: 64px;
+  box-sizing: border-box;
 }
 
 .navbar-logo {
@@ -642,6 +646,7 @@
   padding: 60px 20px 40px;
   max-width: 800px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .hero-badge {
@@ -749,11 +754,12 @@
 /* Metrics strip on Landing Page */
 .metrics-strip {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
   gap: 20px;
   max-width: 1280px;
   margin: 0 auto 60px;
   padding: 0 32px;
+  box-sizing: border-box;
 }
 
 .metric-item {
@@ -808,6 +814,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 32px 80px;
+  box-sizing: border-box;
 }
 
 .section-title {
@@ -821,7 +828,7 @@
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 24px;
 }
 
@@ -1288,7 +1295,7 @@
 .map-wrapper {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0;
 }
 
 .map-layout {
@@ -1302,6 +1309,15 @@
   .map-layout {
     grid-template-columns: 1fr;
     height: auto;
+  }
+  .map-container {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .map-container {
+    min-height: 300px;
   }
 }
 
@@ -1419,11 +1435,23 @@
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 40px;
+  box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
   .footer-content {
     grid-template-columns: 1fr;
+    padding: 0 20px;
+    gap: 28px;
   }
 }
 
@@ -1498,10 +1526,13 @@
   padding: 24px 32px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   font-size: 12px;
   color: #64748b;
+  box-sizing: border-box;
 }
 
 .footer-status {
@@ -1625,17 +1656,286 @@
   color: #ffffff;
 }
 
-/* Responsive Padding Fixes */
-@media (max-width: 640px) {
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPREHENSIVE RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Ultra-wide: ensure content doesn't stretch infinitely */
+@media (min-width: 1920px) {
   .page-content {
-    padding: 80px 16px 40px !important;
+    max-width: 1440px;
+  }
+}
+
+/* Large Desktop: 1280px and below */
+@media (max-width: 1280px) {
+  .page-content {
+    padding: 100px 28px 50px;
+  }
+  .navbar {
+    padding: 10px 20px;
+  }
+}
+
+/* Laptop: 1024px and below */
+@media (max-width: 1024px) {
+  .page-content {
+    padding: 96px 24px 48px;
+  }
+  .page-header h1 {
+    font-size: 26px;
+  }
+  .navbar {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    padding: 10px 16px;
+    height: 58px;
+  }
+  .navbar-logo-text h1 {
+    font-size: 13px;
+  }
+}
+
+/* Tablet: 768px and below */
+@media (max-width: 768px) {
+  .page-content {
+    padding: 88px 20px 40px;
+  }
+  .page-header h1 {
+    font-size: 22px;
+  }
+  .page-header p {
+    font-size: 13px;
   }
   .hero h1 {
-    font-size: 32px !important;
+    font-size: 36px;
+    letter-spacing: -1px;
   }
   .hero p {
-    font-size: 14px !important;
+    font-size: 15px;
   }
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .section-title {
+    font-size: 20px;
+  }
+  .chart-card {
+    padding: 16px;
+  }
+  .stat-card .stat-value {
+    font-size: 22px;
+  }
+  .metric-value {
+    font-size: 26px;
+  }
+  .footer {
+    padding: 40px 0 24px;
+    margin-top: 48px;
+  }
+  .footer-bottom {
+    padding: 16px 20px 0;
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  .navbar {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    border-radius: 14px;
+    height: 56px;
+  }
+  .grid-6 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
+    gap: 12px;
+  }
+}
+
+/* Mobile: 640px and below */
+@media (max-width: 640px) {
+  .page-content {
+    padding: 80px 16px 36px;
+  }
+  .page-header h1 {
+    font-size: 20px;
+  }
+  .hero h1 {
+    font-size: 30px;
+    letter-spacing: -0.5px;
+  }
+  .hero p {
+    font-size: 14px;
+  }
+  .hero {
+    padding: 40px 16px 30px;
+  }
+  .hero-buttons {
+    gap: 12px;
+  }
+  .metrics-strip {
+    padding: 0 16px;
+    gap: 12px;
+  }
+  .features-section {
+    padding: 0 16px 40px;
+  }
+  .map-wrapper {
+    padding: 0;
+  }
+  .grid-2 {
+    gap: 16px;
+  }
+  .grid-3 {
+    gap: 16px;
+  }
+  .grid-6 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+/* Small Mobile: 480px and below */
+@media (max-width: 480px) {
+  .page-content {
+    padding: 76px 12px 30px;
+  }
+  .page-header {
+    margin-bottom: 20px;
+  }
+  .page-header h1 {
+    font-size: 18px;
+  }
+  .page-header p {
+    font-size: 12px;
+  }
+  .hero h1 {
+    font-size: 26px;
+  }
+  .navbar {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    padding: 8px 12px;
+    height: 52px;
+    border-radius: 12px;
+  }
+  .navbar-logo-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+  }
+  .navbar-logo-text h1 {
+    font-size: 12px;
+  }
+  .navbar-logo-text span {
+    font-size: 8px;
+  }
+  .stat-card .stat-value {
+    font-size: 20px;
+  }
+  .metric-value {
+    font-size: 22px;
+  }
+  .chart-card {
+    padding: 14px;
+  }
+  .saas-card {
+    border-radius: 12px;
+  }
+  .alert-card {
+    padding: 12px 14px;
+  }
+  .footer {
+    padding: 32px 0 20px;
+    margin-top: 32px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOBAL OVERFLOW PROTECTION & UTILITY HELPERS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Prevent any element from causing horizontal scroll */
+.page-content *:not(svg):not(path):not(circle):not(.recharts-legend-item-text):not(.recharts-legend-item),
+.map-wrapper *,
+.footer-content * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Chart containers must not overflow their grid/flex parents */
+.saas-card,
+.chart-card,
+.stat-card,
+.species-card,
+.detection-card,
+.alert-card,
+.prediction-card,
+.legend-card {
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Text overflow protection */
+.saas-card h3,
+.chart-card h3,
+.alert-card-title h3,
+.detection-info h4,
+.prediction-header h3,
+.species-card h3,
+.page-header h1 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RECHARTS LEGEND & TOOLTIP PERMANENT FIXES
+   ═══════════════════════════════════════════════════════════════════════════ */
+.recharts-responsive-container {
+  min-width: 0 !important;
+}
+
+.recharts-default-legend {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 0 !important;
+  margin: 12px 0 0 0 !important;
+  width: 100% !important;
+}
+
+.recharts-legend-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+.recharts-legend-item-text {
+  white-space: nowrap !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  display: inline-block !important;
+  color: #94a3b8 !important;
+  font-size: 11px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+.recharts-legend-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  bottom: auto !important;
+  left: auto !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

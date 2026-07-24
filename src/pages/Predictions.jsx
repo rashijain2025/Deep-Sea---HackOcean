@@ -6,6 +6,7 @@ import {
   Tooltip, ResponsiveContainer,
 } from 'recharts';
 
+import { LazyChart } from '../components/LazyChart';
 import mockPredictionsData from '../mock-data/predictions.json';
 
 const { predictions, riskProjection } = mockPredictionsData;
@@ -89,22 +90,24 @@ const Predictions = React.memo(function Predictions() {
         <motion.div className="saas-card p-5" variants={fadeUp}>
           <h3 className="text-base font-bold text-white font-display mb-1">12-Month Aggregate Risk Projection</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Predictive global ocean pollution risk index trajectory</div>
-          <ResponsiveContainer width="100%" height={300}>
-            <AreaChart data={riskProjection}>
-              <defs>
-                <linearGradient id="riskGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#FF5252" stopOpacity={0.3} />
-                  <stop offset="50%" stopColor="#FFD600" stopOpacity={0.1} />
-                  <stop offset="95%" stopColor="#00E676" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
-              <YAxis domain={[0, 100]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Area type="monotone" dataKey="risk" stroke="#FF9800" fill="url(#riskGrad)" strokeWidth={2.5} dot={{ fill: '#FF9800', r: 4 }} />
-            </AreaChart>
-          </ResponsiveContainer>
+          <LazyChart height={280}>
+            <ResponsiveContainer width="100%" height={280}>
+              <AreaChart data={riskProjection}>
+                <defs>
+                  <linearGradient id="riskGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#FF5252" stopOpacity={0.3} />
+                    <stop offset="50%" stopColor="#FFD600" stopOpacity={0.1} />
+                    <stop offset="95%" stopColor="#00E676" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <XAxis dataKey="month" stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <YAxis domain={[0, 100]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Area type="monotone" dataKey="risk" stroke="#FF9800" fill="url(#riskGrad)" strokeWidth={2.5} dot={{ fill: '#FF9800', r: 4 }} />
+              </AreaChart>
+            </ResponsiveContainer>
+          </LazyChart>
         </motion.div>
       </motion.div>
     </div>

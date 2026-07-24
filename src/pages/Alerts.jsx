@@ -150,7 +150,7 @@ const Alerts = React.memo(function Alerts() {
                 <div className="text-slate-200">{a.action}</div>
               </div>
 
-              <div className="flex justify-between items-center text-xs text-slate-400 pt-2 border-t border-slate-800/60">
+              <div className="flex flex-wrap justify-between items-center gap-2 text-xs text-slate-400 pt-2 border-t border-slate-800/60">
                 <span className="font-mono flex items-center gap-1">
                   <Clock size={12} className="text-slate-500" /> Detected: {a.detected}
                 </span>

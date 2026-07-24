@@ -88,7 +88,7 @@ export default function JourneyToHealthyOcean() {
   };
 
   return (
-    <section className="relative my-12 py-10 px-6 rounded-2xl border border-cyan-500/20 bg-ocean-abyss/60 backdrop-blur-md overflow-hidden">
+    <section className="relative my-8 sm:my-12 py-6 sm:py-10 px-3 sm:px-6 rounded-2xl border border-cyan-500/20 bg-ocean-abyss/60 backdrop-blur-md overflow-hidden">
       {/* ─── Flowing Light Streaks Animation overlay on selection ─── */}
       <AnimatePresence>
         {isFlowing && (
@@ -123,12 +123,12 @@ export default function JourneyToHealthyOcean() {
       </AnimatePresence>
 
       {/* Header Title */}
-      <div className="text-center mb-8 relative z-10">
+      <div className="text-center mb-6 sm:mb-8 relative z-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono mb-3">
           <Compass size={14} className="animate-spin" style={{ animationDuration: '10s' }} />
           INTERACTIVE EXPLORER MODULE
         </div>
-        <h2 className="text-3xl font-extrabold text-white font-display tracking-wide">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display tracking-wide">
           JOURNEY TO A <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-amber-300">HEALTHY OCEAN</span>
         </h2>
         <p className="text-xs text-slate-400 max-w-xl mx-auto mt-2">

@@ -44,11 +44,11 @@ export function DepthZoneBar({ currentZone, setCurrentZone }) {
   };
 
   return (
-    <div className="fixed top-20 left-6 z-40">
+    <div className="fixed top-20 sm:top-24 left-3 sm:left-6 z-40">
       {/* Collapsible Trigger Pill */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 hover:border-cyan-400 transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.4)] text-xs font-mono font-semibold"
+        className="flex items-center gap-2.5 px-3 py-1.5 sm:px-3.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 hover:border-cyan-400 transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.4)] text-xs font-mono font-semibold"
       >
         <Layers className="w-3.5 h-3.5 text-cyan-400" />
         <span className="hidden sm:inline text-slate-400">DEPTH:</span>
@@ -63,7 +63,7 @@ export function DepthZoneBar({ currentZone, setCurrentZone }) {
           {/* Backdrop click dismiss */}
           <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
           
-          <div className="absolute left-0 top-full mt-2 z-20 flex flex-col gap-3 glass-panel p-4 w-64 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="absolute left-0 top-full mt-2 z-20 flex flex-col gap-3 glass-panel p-4 w-64 max-w-[calc(100vw-24px)] shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
             <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2">
               <span className="text-xs font-mono font-semibold tracking-wider text-cyan-400 uppercase flex items-center gap-1.5">
                 <ArrowDown className="w-3.5 h-3.5" /> Select Depth Column

@@ -94,7 +94,7 @@ export default function Navbar({ onOpenAiModal, isAudioOn, onToggleAudio }) {
 
       {/* Mobile Drawer Menu */}
       {isMobileOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 p-4 bg-slate-950/95 backdrop-blur-2xl border border-cyan-500/20 rounded-2xl shadow-2xl flex flex-col gap-2 xl:hidden z-50">
+        <div className="absolute top-full left-0 right-0 mt-2 p-3 sm:p-4 bg-slate-950/95 backdrop-blur-2xl border border-cyan-500/20 rounded-2xl shadow-2xl flex flex-col gap-1.5 sm:gap-2 xl:hidden z-50 max-h-[calc(100vh-90px)] overflow-y-auto">
           {navItems.map(item => (
             <NavLink
               key={item.path}

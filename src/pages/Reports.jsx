@@ -69,14 +69,14 @@ const Reports = React.memo(function Reports() {
             ))}
           </div>
 
-          <div className="relative flex items-center">
+          <div className="relative flex items-center w-full sm:w-auto">
             <Search size={14} className="absolute left-3 text-slate-400" />
             <input
               type="text"
               placeholder="Search reports..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="bg-slate-950/60 border border-cyan-500/20 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-60"
+              className="bg-slate-950/60 border border-cyan-500/20 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full sm:w-60"
             />
           </div>
         </div>
@@ -105,7 +105,7 @@ const Reports = React.memo(function Reports() {
               <p className="text-xs text-slate-400 leading-relaxed mb-4">{rep.description}</p>
             </div>
 
-            <div className="flex justify-between items-center pt-3 border-t border-slate-800/80">
+            <div className="flex flex-wrap justify-between items-center gap-2 pt-3 border-t border-slate-800/80">
               <div className="text-[11px] font-mono text-slate-400 space-x-2">
                 <span>FORMAT: <strong className="text-cyan-300">{rep.format}</strong></span>
                 <span>•</span>

@@ -52,7 +52,7 @@ export default function Home() {
       <div className="absolute top-0 h-[100vh] left-0 right-0 pointer-events-none z-[-1] bg-gradient-to-b from-transparent to-[#020617]" />
 
       {/* ─── 1. HERO SECTION ─── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
+      <section className="relative min-h-[calc(100vh-100px)] flex flex-col items-center justify-between pt-16 pb-12 overflow-hidden">
         {/* Subtle Underwater Background Elements */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a]/20 via-[#0f172a]/60 to-[#020617]" />
@@ -79,7 +79,7 @@ export default function Home() {
         </div>
 
         <motion.div 
-          className="relative z-10 text-center max-w-5xl px-6"
+          className="relative z-10 text-center max-w-5xl px-4 sm:px-6 my-auto pt-8"
           initial="hidden"
           animate="visible"
           variants={STAGGER_CONTAINER}
@@ -91,7 +91,7 @@ export default function Home() {
           
           <motion.h1 
             variants={FADE_UP}
-            className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 leading-[1.05]"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 sm:mb-8 leading-[1.08]"
           >
             Protecting Our Oceans<br/>
             with <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300">Artificial Intelligence</span>
@@ -99,7 +99,7 @@ export default function Home() {
 
           <motion.p 
             variants={FADE_UP}
-            className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-12 font-light leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-12 font-light leading-relaxed"
           >
             Monitor pollution, marine biodiversity, and environmental risks in real time through one intelligent, government-grade ocean platform.
           </motion.p>
@@ -122,14 +122,14 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        {/* ─── 2. LIVE STATUS PANEL (Floating Command Center Style) ─── */}
+        {/* ─── 2. LIVE STATUS PANEL (Command Center Telemetry Bar) ─── */}
         <motion.div 
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-6xl px-6 z-20 hidden md:block"
-          initial={{ opacity: 0, y: 50 }}
+          className="relative z-20 w-full max-w-6xl px-4 sm:px-6 mt-12"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="premium-glass p-6 rounded-2xl grid grid-cols-5 gap-6 divide-x divide-slate-800/50">
+          <div className="premium-glass p-4 sm:p-6 rounded-2xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 divide-y sm:divide-y-0 lg:divide-x divide-slate-800/50">
             <StatusMetric label="Ocean Health" value="92%" color="text-emerald-400" />
             <StatusMetric label="Active Regions" value="58" color="text-white" />
             <StatusMetric label="Plastic Alerts" value="4" color="text-amber-400" />

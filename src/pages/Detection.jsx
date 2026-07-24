@@ -124,8 +124,8 @@ const Detection = React.memo(function Detection() {
               </div>
 
               {/* Confidence Gauge Bar & Verification Action */}
-              <div className="border-t border-slate-800/80 pt-3 flex items-center justify-between gap-4">
-                <div className="flex-1">
+              <div className="border-t border-slate-800/80 pt-3 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex-1 min-w-[140px]">
                   <div className="flex justify-between text-[10px] font-mono text-slate-400 mb-1">
                     <span>NEURAL CONFIDENCE</span>
                     <span className="text-cyan-400 font-bold">{d.confidence}%</span>

@@ -43,7 +43,7 @@ export default function App() {
   };
 
   return (
-    <main className="relative w-screen h-screen bg-ocean-abyss overflow-hidden font-sans select-none flex flex-col">
+    <main className="relative w-full h-screen bg-ocean-abyss overflow-hidden font-sans select-none flex flex-col">
       {/* ─── Persistent Background: Route-Aware Underwater Ecosystem ─── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <UnderwaterScene currentPath={location.pathname} />
@@ -70,7 +70,7 @@ export default function App() {
       />
 
       {/* ─── Page Content Route Router Container with Transitions ─── */}
-      <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden scroll-smooth pt-[104px] px-4 pb-24 lg:pb-8" style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}>
+      <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden scroll-smooth pt-[76px] sm:pt-[84px] md:pt-[92px] lg:pt-[104px] px-2 sm:px-3 md:px-4 pb-24 lg:pb-8" style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}>
         <PageTransition>
           <Suspense fallback={<PageLoader />}>
             <Routes location={location}>
