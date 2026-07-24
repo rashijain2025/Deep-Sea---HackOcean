@@ -87,7 +87,7 @@ const Detection = React.memo(function Detection() {
           return (
             <motion.div key={d.id} className="saas-card p-5" variants={fadeUp} custom={i}>
               {/* Report Header */}
-              <div className="flex justify-between items-start border-b border-slate-800 pb-3 mb-4">
+              <div className="flex flex-wrap justify-between items-start border-b border-slate-800 pb-3 mb-4 gap-3">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <Camera size={13} className="text-cyan-400" />
@@ -124,7 +124,7 @@ const Detection = React.memo(function Detection() {
               </div>
 
               {/* Confidence Gauge Bar & Verification Action */}
-              <div className="border-t border-slate-800/80 pt-3 flex items-center justify-between gap-4">
+              <div className="border-t border-slate-800/80 pt-3 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex justify-between text-[10px] font-mono text-slate-400 mb-1">
                     <span>NEURAL CONFIDENCE</span>

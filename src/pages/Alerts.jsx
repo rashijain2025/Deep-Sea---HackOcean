@@ -123,7 +123,7 @@ const Alerts = React.memo(function Alerts() {
               variants={fadeUp} 
               custom={i}
             >
-              <div className="flex justify-between items-start mb-3">
+              <div className="flex flex-wrap justify-between items-start mb-3 gap-2">
                 <div className="flex items-center gap-3">
                   <div className={`p-2 rounded-lg ${a.severity === 'critical' ? 'bg-red-500/10 text-red-400' : 'bg-amber-500/10 text-amber-400'}`}>
                     <AlertTriangle size={18} />
@@ -150,7 +150,7 @@ const Alerts = React.memo(function Alerts() {
                 <div className="text-slate-200">{a.action}</div>
               </div>
 
-              <div className="flex justify-between items-center text-xs text-slate-400 pt-2 border-t border-slate-800/60">
+              <div className="flex flex-wrap justify-between items-center text-xs text-slate-400 pt-2 border-t border-slate-800/60 gap-3">
                 <span className="font-mono flex items-center gap-1">
                   <Clock size={12} className="text-slate-500" /> Detected: {a.detected}
                 </span>

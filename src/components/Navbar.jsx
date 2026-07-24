@@ -25,12 +25,12 @@ export default function Navbar({ onOpenAiModal, isAudioOn, onToggleAudio }) {
         </div>
         <div className="navbar-logo-text">
           <div className="flex items-center gap-1.5">
-            <h1>DeepSea Guardian</h1>
+            <h1 className="truncate max-w-[140px] sm:max-w-none">DeepSea Guardian</h1>
             <span className="hidden sm:inline-flex px-1.5 py-0.2 text-[9px] font-mono font-bold bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 rounded">
               ENTERPRISE
             </span>
           </div>
-          <span>AI · OCEAN INTELLIGENCE PLATFORM</span>
+          <span className="hidden sm:block">AI · OCEAN INTELLIGENCE PLATFORM</span>
         </div>
       </Link>
 
@@ -94,7 +94,7 @@ export default function Navbar({ onOpenAiModal, isAudioOn, onToggleAudio }) {
 
       {/* Mobile Drawer Menu */}
       {isMobileOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 p-4 bg-slate-950/95 backdrop-blur-2xl border border-cyan-500/20 rounded-2xl shadow-2xl flex flex-col gap-2 xl:hidden z-50">
+        <div className="absolute top-full left-0 right-0 mt-2 p-4 bg-slate-950/95 backdrop-blur-2xl border border-cyan-500/20 rounded-2xl shadow-2xl flex flex-col gap-2 xl:hidden z-50 max-h-[80vh] overflow-y-auto">
           {navItems.map(item => (
             <NavLink
               key={item.path}

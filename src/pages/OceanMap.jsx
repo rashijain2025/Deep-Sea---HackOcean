@@ -78,14 +78,14 @@ const OceanMap = React.memo(function OceanMap() {
             ))}
           </div>
 
-          <div className="relative flex items-center">
+          <div className="relative flex items-center w-full sm:w-auto">
             <Search size={14} className="absolute left-3 text-slate-400" />
             <input
               type="text"
               placeholder="Search station or sea..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="bg-slate-950/60 border border-cyan-500/20 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-60"
+              className="bg-slate-950/60 border border-cyan-500/20 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 w-full sm:w-60"
             />
           </div>
         </div>

@@ -44,7 +44,7 @@ export function DepthZoneBar({ currentZone, setCurrentZone }) {
   };
 
   return (
-    <div className="fixed top-20 left-6 z-40">
+    <div className="fixed top-24 sm:top-24 left-4 sm:left-6 z-40">
       {/* Collapsible Trigger Pill */}
       <button
         onClick={() => setIsOpen(!isOpen)}

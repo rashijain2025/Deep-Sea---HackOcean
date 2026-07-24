@@ -490,19 +490,19 @@
 /* Grids */
 .grid-2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
   gap: 24px;
 }
 
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 24px;
 }
 
 .grid-6 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
   gap: 16px;
 }
 
@@ -749,7 +749,7 @@
 /* Metrics strip on Landing Page */
 .metrics-strip {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: 20px;
   max-width: 1280px;
   margin: 0 auto 60px;
@@ -821,7 +821,7 @@
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
   gap: 24px;
 }
 
@@ -1295,7 +1295,7 @@
   display: grid;
   grid-template-columns: 2.5fr 1fr;
   gap: 24px;
-  height: 520px;
+  height: 600px;
 }
 
 @media (max-width: 1024px) {
@@ -1311,6 +1311,7 @@
   border: 1px solid rgba(0, 243, 255, 0.15);
   border-radius: 16px;
   height: 100%;
+  min-height: 400px;
   overflow: hidden;
 }
 
@@ -1498,6 +1499,8 @@
   padding: 24px 32px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
