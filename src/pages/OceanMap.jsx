@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { motion } from 'framer-motion';
 import { MapPin, ShieldAlert, Activity, Navigation, Radio, Filter, Search, CheckCircle, Crosshair } from 'lucide-react';

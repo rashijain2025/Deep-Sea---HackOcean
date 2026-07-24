@@ -115,12 +115,16 @@ export const OceanEnvironment3D = React.memo(function OceanEnvironment3D({ curre
                   fill="url(#whaleGrad)"
                 />
                 {/* Whale Fluke Tail */}
-                <motion.path 
-                  d="M275,52 C285,38 298,30 300,34 C295,45 285,53 275,54 C285,58 296,65 298,72 C292,72 282,62 275,52 Z"
-                  fill="url(#whaleGrad)"
+                <motion.g 
                   animate={{ rotate: [-4, 6, -4] }}
                   transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-                />
+                  style={{ transformOrigin: '275px 52px' }}
+                >
+                  <path 
+                    d="M275,52 C285,38 298,30 300,34 C295,45 285,53 275,54 C285,58 296,65 298,72 C292,72 282,62 275,52 Z"
+                    fill="url(#whaleGrad)"
+                  />
+                </motion.g>
                 <defs>
                   <linearGradient id="whaleGrad" x1="0" y1="0" x2="300" y2="0">
                     <stop offset="0%" stopColor="#005580" stopOpacity="0.8" />
@@ -210,12 +214,16 @@ export const OceanEnvironment3D = React.memo(function OceanEnvironment3D({ curre
               {/* Head */}
               <ellipse cx="82" cy="35" rx="9" ry="6" fill="#147355" />
               {/* Front Flipper */}
-              <motion.path 
-                d="M62,22 C75,5 82,2 78,14 C72,22 62,24 62,22 Z" 
-                fill="#147355"
+              <motion.g
                 animate={{ rotate: [0, -25, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-              />
+                style={{ transformOrigin: '62px 22px' }}
+              >
+                <path 
+                  d="M62,22 C75,5 82,2 78,14 C72,22 62,24 62,22 Z" 
+                  fill="#147355"
+                />
+              </motion.g>
               {/* Rear Flipper */}
               <path d="M28,26 C20,16 15,16 20,24 Z" fill="#147355" />
             </svg>
