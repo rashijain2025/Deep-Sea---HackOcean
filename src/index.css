@@ -1563,6 +1563,7 @@
 }
 
 .saas-card {
+  min-width: 0;
   background: rgba(9, 18, 38, 0.94);
   border: 1px solid rgba(0, 243, 255, 0.12);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);

@@ -320,9 +320,9 @@ export default function Home() {
             <MapNode top="50%" left="75%" color="bg-emerald-400" glow="shadow-[0_0_20px_#34d399]" />
             
             {/* Connecting SVG lines */}
-            <svg className="absolute inset-0 w-full h-full opacity-20">
-               <path d="M 30% 40% Q 45% 30% 60% 35% T 75% 50%" stroke="#00f3ff" fill="none" strokeWidth="1" strokeDasharray="4 4" />
-               <path d="M 30% 40% Q 35% 55% 45% 65%" stroke="#00f3ff" fill="none" strokeWidth="1" strokeDasharray="4 4" />
+            <svg className="absolute inset-0 w-full h-full opacity-20" preserveAspectRatio="none" viewBox="0 0 100 100">
+               <path d="M 30 40 Q 45 30 60 35 T 75 50" stroke="#00f3ff" fill="none" strokeWidth="1" strokeDasharray="4 4" />
+               <path d="M 30 40 Q 35 55 45 65" stroke="#00f3ff" fill="none" strokeWidth="1" strokeDasharray="4 4" />
             </svg>
           </div>
         </motion.div>

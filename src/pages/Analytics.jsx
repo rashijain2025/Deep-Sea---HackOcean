@@ -119,8 +119,8 @@ const Analytics = React.memo(function Analytics() {
           <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trends</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">12-month rolling window (Tons of Debris Detected)</div>
           <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
-              <AreaChart data={pollutionData}>
+            <div style={{ width: '100%', height: 280, overflow: 'hidden' }}>
+              <AreaChart width={600} height={280} data={pollutionData}>
                 <defs>
                   <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#00E5FF" stopOpacity={0.3} />
@@ -136,7 +136,7 @@ const Analytics = React.memo(function Analytics() {
                 <Area type="monotone" dataKey="Oil" stroke="#FF5252" fill="transparent" strokeWidth={2} />
                 <Area type="monotone" dataKey="Chemical" stroke="#00E676" fill="transparent" strokeWidth={2} />
               </AreaChart>
-            </ResponsiveContainer>
+            </div>
           </LazyChart>
         </motion.div>
 

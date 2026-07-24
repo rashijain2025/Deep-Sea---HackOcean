@@ -79,9 +79,8 @@ const Dashboard = React.memo(function Dashboard() {
         <motion.div className="saas-card p-5" variants={fadeUp} custom={0}>
           <h3 className="text-base font-bold text-white font-display mb-1">Pollution Trend Spectrum</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">12-month rolling telemetry window (tons detected)</div>
-          <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
-              <AreaChart data={pollutionData}>
+          <div style={{ width: '100%', height: 280, position: 'relative', minWidth: 0, overflowX: 'auto' }}>
+              <AreaChart data={pollutionData} width={800} height={280}>
                 <defs>
                   <linearGradient id="plasticGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#00E5FF" stopOpacity={0.3} />
@@ -101,28 +100,25 @@ const Dashboard = React.memo(function Dashboard() {
                 <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} />
                 <Tooltip contentStyle={chartTooltipStyle} />
                 <Legend wrapperStyle={{ fontSize: '11px', color: '#fff' }} />
-                <Area type="monotone" dataKey="Plastic" stroke="#00E5FF" fill="url(#plasticGrad)" strokeWidth={2} />
-                <Area type="monotone" dataKey="Oil" stroke="#FF5252" fill="url(#oilGrad)" strokeWidth={2} />
-                <Area type="monotone" dataKey="Chemical" stroke="#00E676" fill="url(#chemGrad)" strokeWidth={2} />
+                <Area type="monotone" dataKey="Plastic" stroke="#00E5FF" fill="url(#plasticGrad)" strokeWidth={2} isAnimationActive={false} />
+                <Area type="monotone" dataKey="Oil" stroke="#FF5252" fill="url(#oilGrad)" strokeWidth={2} isAnimationActive={false} />
+                <Area type="monotone" dataKey="Chemical" stroke="#00E676" fill="url(#chemGrad)" strokeWidth={2} isAnimationActive={false} />
               </AreaChart>
-            </ResponsiveContainer>
-          </LazyChart>
+          </div>
         </motion.div>
 
         <motion.div className="saas-card p-5" variants={fadeUp} custom={1}>
           <h3 className="text-base font-bold text-white font-display mb-1">Ocean Health Score</h3>
           <div className="text-xs text-slate-400 mb-4 font-mono">Global health index · past 7 days</div>
-          <LazyChart height={280}>
-            <ResponsiveContainer width="99%" height={280}>
-              <LineChart data={healthData}>
+          <div style={{ width: '100%', height: 280, position: 'relative', minWidth: 0, overflowX: 'auto' }}>
+              <LineChart data={healthData} width={400} height={280}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                 <XAxis dataKey="day" stroke="rgba(255,255,255,0.3)" fontSize={11} />
                 <YAxis domain={[80, 100]} stroke="rgba(255,255,255,0.3)" fontSize={11} />
                 <Tooltip contentStyle={chartTooltipStyle} />
-                <Line type="monotone" dataKey="score" stroke="#00E5FF" strokeWidth={2.5} dot={{ fill: '#00E5FF', r: 4 }} activeDot={{ r: 6 }} />
+                <Line type="monotone" dataKey="score" stroke="#00E5FF" strokeWidth={2.5} dot={{ fill: '#00E5FF', r: 4 }} activeDot={{ r: 6 }} isAnimationActive={false} />
               </LineChart>
-            </ResponsiveContainer>
-          </LazyChart>
+          </div>
         </motion.div>
       </motion.div>
 
