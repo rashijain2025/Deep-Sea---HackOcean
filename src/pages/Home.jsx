@@ -29,16 +29,18 @@ const STAGGER_CONTAINER = {
 };
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(false);
+  const [showIntro, setShowIntro] = useState(() => {
+    return !sessionStorage.getItem('deepsea_intro_seen');
+  });
   const navigate = useNavigate();
-
-  const handleEnterDashboard = useCallback((e) => {
-    e.preventDefault();
-    setShowIntro(true);
-  }, []);
 
   const handleIntroComplete = useCallback(() => {
     setShowIntro(false);
+    sessionStorage.setItem('deepsea_intro_seen', 'true');
+  }, []);
+
+  const handleEnterDashboard = useCallback((e) => {
+    e.preventDefault();
     navigate('/dashboard');
   }, [navigate]);
 
