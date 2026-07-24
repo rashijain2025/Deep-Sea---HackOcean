@@ -192,7 +192,8 @@
 .god-rays-css {
   position: absolute;
   top: 0;
-  inset-x: 0;
+  left: 0;
+  right: 0;
   height: 80%;
   display: flex;
   justify-content: space-around;
@@ -508,6 +509,7 @@
 .hero h1 .highlight {
   background: linear-gradient(135deg, #00f3ff, #00ff9d);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.25));
 }
